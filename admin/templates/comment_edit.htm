@@ -1,0 +1,40 @@
+<!-- $Id: comment_info.htm 16854 2009-12-07 06:20:09Z sxc_shop $ -->
+{include file="pageheader.htm"}
+<div class="list_div">
+<form method="post" action="comment_manage.php?act=update" name="theForm" onsubmit="return validate()">
+<table border="0" align="center">
+  <tr>
+    <td>Sửa lại nội dung:</td>
+    <td><textarea name="content" cols="80" rows="4">{$content}</textarea></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <input name="submit" type="submit" value="{$lang.button_submit}" class="button">
+      <input type="hidden" name="comment_id" value="{$comment_id}">
+      <input type="hidden" name="pid" value="{$pid}">
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['content'].focus();
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("content",  no_content);
+    return validator.passed();
+}
+
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

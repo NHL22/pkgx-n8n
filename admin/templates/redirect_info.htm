@@ -1,0 +1,54 @@
+<!-- $Id: redirect_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="redirect.php" name="theForm" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">Source URL</td>
+    <td>
+      <input type="text" size="120" name="redirect_url" value="{$redirect.redirect_url}" />{$lang.require_field}
+      <p class="notice-span">URL cũ. Ví dụ: loa-karaoke</p>
+    </td>
+  </tr>
+   <tr>
+    <td class="label">Destnation URL</td>
+    <td>
+      <input type="text" size="120" name="redirect_dest" value="{$redirect.redirect_dest}" />{$lang.require_field}
+      <p class="notice-span">URL mới. Ví dụ: loa-karaoke-gia-re</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">Type Redirect</td>
+    <td>
+        <label><input type="radio" value="301" checked> Redirect 301</label>
+    </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$redirect.id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+    function validate()
+    {
+      validator = new Validator("theForm");
+      validator.required("redirect_url", 'redirect_url không thể để trống');
+      validator.required("redirect_dest", 'redirect_dest không thể để trống');
+
+      return validator.passed();
+    }
+
+    
+</script>
+{/literal}
+{include file="pagefooter.htm"}

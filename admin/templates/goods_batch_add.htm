@@ -1,0 +1,115 @@
+<!-- $Id: goods_batch_add.htm 16544 2009-08-13 07:55:57Z liuhui $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form action="goods_batch.php?act=upload" method="post" enctype="multipart/form-data" name="theForm" onsubmit="return formValidate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label"><strong>Tính năng Import Sản phẩm mới</strong></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.goods_cat}</td>
+    <td><select name="cat" id="cat">
+      <option value="0">{$lang.select_please}</option>
+      {$cat_list}
+    </select>
+    <p class="notice-span">Up vào danh mục nào thì chọn</p>
+</td>
+  </tr>
+
+  <tr>
+    <td class="label">
+      <a href="javascript:showNotice('noticeFile');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>
+      {$lang.csv_file}</td>
+    <td><input name="file" type="file" size="40">
+    <br />
+      <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeFile">{$lang.notice_file}</span></td>
+  </tr>
+
+  <tr align="center">
+    <td colspan="2">
+         <input type="hidden" name="data_cat" value="ecshop">
+        <input type="hidden" name="charset" value="UTF8">
+        <input name="submit" type="submit" id="submit" value="{$lang.button_submit}" class="button" />
+    </td>
+  </tr>
+</table>
+</form>
+<table width="100%">
+  <tr>
+    <td>&nbsp;</td>
+    <td width="80%">
+        <ul>
+            <li>Quy tắc làm file: Tải file mẫu <a target="_blank" href="templates/goods_list.xlsx" style="color: blue">tại đây</a><br/></li>
+           <li><strong>goods_sn:</strong> Mã SP. Nếu ko điền nó sẻ tạo tự động</li>
+           <li><strong>brand_id:</strong> Mã ID của Thương hiệu sản phẩm, lấy ở trong phần thương hiệu <a style="color: blue" target="_blank" href="brand.php?act=list">ở đây</a></li>
+           <li><strong>goods_name:</strong> Tên sản phẩm</li>
+           <li><strong>market_price | shop_price:</strong> Giá thị trường | Giá Niêm Yết - Muốn thay đổi thì nhập còn không để trống</li>
+           <li> <strong>Để setup Khuyến mãi:</strong> is_promote = 1, is_promote = 0 là không khuyến mãi</li>
+           <li>Cột <strong>ngày</strong> định dạng yyyy-mm-dd, giử phím Ctrl rồi kéo góc phải ô để sao chép giá trị ngày.</li>
+           <li>Các Cột giá formart theo định dạng <strong>General</strong> tức là không phân cách hàng nghìn, trăm....</li>
+            <li>Hình ảnh: <strong>original_img</strong> - Size vuông: 400x400px hoặc 600x600px. Tạo thư mục lưu hình này ở <strong>cdn/images/yyyydd/source_img/</strong>. Ví dụ : cdn/images/202002/source_img/ten-san-pham.jpg, và điền vào file excel: images/202002/source_img/ten-san-pham.jpg</li>
+            <li>Hình Gallery: <strong>gallery_img</strong> - Size = với hình trên. Tạo thư mục lưu hình này ở <strong>cdn/images/yyyydd/source_img/</strong>. Ví dụ : cdn/images/202002/source_img/ten-san-pham-gallery.jpg, và điền vào file excel: images/202002/source_img/ten-san-pham-gallery.jpg</li>
+            <li><strong>keywords</strong> Meta keywords</li>
+           <li><strong>description</strong> Meta description</li>
+        </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+   <tr>
+     <td class="label">Update</td>
+     <td>
+      <p>Tải file mẫu <a target="_blank" href="templates/goods_update.xlsx" style="color: blue">tại đây</a></p>
+        <form method="post" action="goods_batch.php?act=update_exel" enctype="multipart/form-data">
+        <input type="file" name="file2" />
+        <input type="submit" value="Submit" class="button" name="submit_excel">
+    </form>
+     </td>
+   </tr>
+
+</table>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+    var elements;
+    onload = function()
+    {
+        // 文档元素对象
+        elements = document.forms['theForm'].elements;
+
+        // 开始检查订单
+        startCheckOrder();
+    }
+
+    /**
+     * 检查是否底级分类
+     */
+    function checkIsLeaf(selObj)
+    {
+        if (selObj.options[selObj.options.selectedIndex].className != 'leafCat')
+        {
+            alert(goods_cat_not_leaf);
+            selObj.options.selectedIndex = 0;
+        }
+    }
+
+    /**
+     * 检查输入是否完整
+     */
+    function formValidate()
+    {
+        if (elements['cat'].value <= 0)
+        {
+            alert(please_select_cat);
+            return false;
+        }
+        if (elements['file'].value == '')
+        {
+            alert(please_upload_file);
+            return false;
+        }
+        return true;
+    }
+</script>
+{/literal}
+{include file="pagefooter.htm"}

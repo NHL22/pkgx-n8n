@@ -1,0 +1,86 @@
+<!-- $Id: slug_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<ul id="lilist" style="padding:0; margin: 0; list-style-type:none; color: #CC0000;">
+      <li class="Start315">SEO URL Rewrite is very important, it affects the performance of the landing page, the ability to index on search engines and its rankings.</li>
+  </ul>
+<div class="form-div">
+  <form action="javascript:searchSlug()" name="searchForm" >
+    Keywords Slug <input type="text" name="keyword" id="keyword" />
+    <button class="btn" type="submit">{$lang.button_search}</button>
+  </form>
+</div>
+<form method="post" action="" name="listForm" onsubmit="return confirm(batch_drop_confirm);">
+<div class="list-div" id="listDiv">
+{/if}
+
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th> <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" />
+          <a href="javascript:listTable.sort('slug_id'); ">{$lang.record_id}</a>{$sort_slug_id} </th>
+       <th>Link ID</th>
+      <th>Slug</th>
+      <th>Module</th>
+      <th>{$lang.handler}</th>
+    </tr>
+    {foreach from=$slug_list item=slug}
+    <tr>
+      <td><input type="checkbox" name="checkboxes[]" value="{$slug.slug_id}" />
+        {$slug.slug_id}</td>
+        <td>{$slug.id}</td>
+      <td>{$slug.slug|escape:html}</td>
+      <td>{$slug.module}</td>
+      <td align="center">
+        <a href="slug.php?act=edit&id={$slug.slug_id}" title="{$lang.edit}">{$lang.edit}</a> |
+        <a href="javascript:;" onclick="listTable.remove({$slug.slug_id}, '{$lang.drop_confirm}')" title="{$lang.remove}">{$lang.remove}</a>      </td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="5">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td>
+      <input name="remove" type="submit" id="btnSubmit" value="{$lang.drop}" class="button" disabled="true" />
+      <input name="act" type="hidden" value="batch" />
+    </td>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+</form>
+
+<script type="text/javascript" language="javascript">
+  <!--
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+    //
+    onload = function()
+    {
+          startCheckOrder();
+    }
+   function searchSlug()
+     {
+        listTable.filter.keyword = Utils.trim(document.forms['searchForm'].elements['keyword'].value);
+        listTable.filter.page = 1;
+        listTable.loadList();
+     }
+
+  {/literal}
+
+  //-->
+</script>
+{include file="pagefooter.htm"}
+{/if}

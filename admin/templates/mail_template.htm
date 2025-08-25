@@ -1,0 +1,45 @@
+<!-- $Id: mail_template.htm 17002 2010-01-20 07:32:50Z wangleisvn $ -->
+{if $full_page}
+{include file="pageheader_ckeditor.htm"}
+<div class="form-div" id="conent_area">
+ {/if}
+<form method="post" name="theForm" action="mail_template.php?act=save_template">
+
+  <table id="general-table" width="100%">
+    {if $form_action eq 'update'}
+    <input type="hidden" name="template_code" value="{$template.template_code}"/>
+   {else}
+    <tr>
+    <td style="font-weight: bold; " width="15%">{$lang.mail_code}:</td>
+    <td><input type="text" name="template_code" value="{$template.template_code}"/>
+       <p class="notice-span">Ví dụ: <strong>happy_birth_day</strong> . Để định danh tránh trùng lặp</p></td>
+  </tr>
+   {/if}
+  <tr>
+    <td style="font-weight: bold; " width="15%">{$lang.mail_subject}:</td>
+    <td><input type="text" name="subject" id="subject" style="width: 300px" value="{$template.template_subject}"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-weight: bold; ">Mail content:</td>
+  </tr>
+  <tr>
+    <td colspan="2">
+        {$CKeditor_content}
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+        <input type="hidden" name="id" value="{$template.template_id}"/>
+        <input type="submit" class="button" value="{$lang.button_submit}" />
+        <input type="reset" class="button" value="{$lang.button_reset}" />
+        <input type="hidden" name="act" value="{$form_action}" />
+    </td>
+  </tr>
+  </table>
+</form>
+{if $full_page}
+</div>
+<script language="JavaScript">
+</script>
+{include file="pagefooter.htm"}
+{/if}

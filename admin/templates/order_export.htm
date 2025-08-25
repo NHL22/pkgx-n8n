@@ -1,0 +1,111 @@
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,../js/jquery.min.js"}
+<script type="text/javascript" src="../js/calendar.php"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div class="form-div" style="color:#192E32;">
+    <form action="" method="post" name="searchForm" target="_blank">
+      <table cellspacing="0" cellpadding="6" border="0" style="padding:10px 20px;">
+          <tr>
+              <td colspan="2">
+                  <h2 style="color: #222;">订单导出选项</h2>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>时间类型：</strong>
+              </td>
+              <td>
+                  <select name="time_type">
+                      <option value="shipping_time">发货时间</option>
+                      <option value="pay_time">付款时间</option>
+                      <option value="confirm_time">下单时间</option>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>起始时间：</strong>
+              </td>
+              <td>
+                  <input type="text" name="time_since" id="time_since" onclick="return showCalendar('time_since', '%Y-%m-%d %H:%M', '24', false, 'time_since');"/>
+                  &nbsp;&nbsp;--&nbsp;&nbsp;
+                  <input type="text" name="time_to" id="time_to" onclick="return showCalendar('time_to', '%Y-%m-%d %H:%M', '24', false, 'time_to');"/>
+                  <div style="margin: 3px auto;color:#F21;">注意：截止到当日24：00，需设为下一日的00：00。 例：截止2013-11-31 24：00,应填为 2013-12-01 00:00.</div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>订单状态：</strong>
+              </td>
+              <td>
+                  <input type="radio" name="order_status" value="shipped" id="os_shipped" checked="checked"/><label for="os_shipped">已发货</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="radio" name="order_status" value="paid" id="os_paid"/><label for="os_paid">已付款</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="radio" name="order_status" value="refunded" id="os_refund"/><label for="os_refund">已退款</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="radio" name="order_status" value="unconfirmed" id="os_unconfirmed"/><label for="os_unconfirmed">未确认</label>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>列名称：</strong>
+              </td>
+              <td>
+                  <input type="checkbox" name="col[order_sn]" id="col_sn" checked="checked"/><label for="col_sn">单号</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="col[goods_amount]" id="col_amount" checked="checked"/><label for="col_amount">订单总额</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="col[money_paid]" id="col_paid_amount" checked="checked"/><label for="col_paid_amount">实付金额</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="col[is_refund]" id="col_refund" checked="checked"/><label for="col_refund">是否退款</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="col[goods_name]" id="col_goods"/><label for="col_goods">订单商品</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <br/>
+                  <input type="checkbox" name="col[user_name]" id="col_user_name"/><label for="col_user_name">客户帐号</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="col[email]" id="col_user_account"/><label for="col_user_account">客户邮箱</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <br/>
+                  <input type="checkbox" name="col[pay_name]" id="col_payment"/><label for="col_payment">支付方式</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="col[payer_account]" id="col_payer_account"/><label for="col_payer_account">支付帐号</label>&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>排列方式：</strong>
+              </td>
+              <td>
+                  <select name="sort_type">
+                      <option value="list_goods">按订单物品(列出详细订单物品)</option>
+                      <option value="list_sn">按订单号(单号唯一)</option>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>排序：</strong>
+              </td>
+              <td>
+                  <select name="order_by">
+                      <option value="desc">时间倒序</option>
+                      <option value="asc">时间顺序</option>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>文件格式：</strong>
+              </td>
+              <td>
+                  <select name="file_ext">
+                      <option value="csv">.csv</option>
+                      <option value="xls">.xls</option>
+                      <option value="xlsx">.xlsx</option>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <button type="submit">下载表格</button>
+              </td>
+          </tr>
+      </table>
+  </form>
+</div>
+
+
+{include file="pagefooter.htm"}
+{/if}

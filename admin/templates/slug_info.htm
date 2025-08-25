@@ -1,0 +1,57 @@
+<!-- $Id: slug_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="slug.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.label_slug_name}</td>
+    <td><input size="80" type="text" name="slug" value="{$slug.slug}" />{$lang.require_field}
+        <p class="notice-span">Ex: how-to-wrtie-post-goods-seo</p></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_slug_module}</td>
+    <td><input type="text" name="module"  value="{$slug.module}" />{$lang.require_field}
+        <p class="notice-span">If Match URL, System will load Module have this name</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_slug_linkid}</td>
+    <td><input type="number" min="0" name="linkid" value="{$slug.id}" />{$lang.require_field}
+        <p class="notice-span">Default 0</p>
+    </td>
+  </tr>
+
+</table>
+
+<table align="center">
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$slug.slug_id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("slug",  'Slug name not empty !');
+    validator.required("module",  'Module name not empty !');
+    return validator.passed();
+}
+
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

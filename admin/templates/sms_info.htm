@@ -1,0 +1,70 @@
+<!-- $Id: sms_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="sms.php" name="theForm" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.label_receiver_name}</td>
+    <td><input type="text" name="receiver_name" value="{$sms.receiver_name}" />
+        <p class="notice-span">Điền khi chỉ gửi đến cho 1 người duy nhất, nó không kèm vào nội dung tin nhắn.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_phone_number}</td>
+    <td><input size="60" type="text" name="phone_number"  value="{$sms.phone_number}" />{$lang.require_field} Or select groups bellow
+        <p class="notice-span">Mỗi số cách nhau dấu phẩy. Ví dụ: 0988111000,0977666555</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_content}</td>
+    <td><textarea name="content" rows="3" cols="40">{$sms.content}</textarea>{$lang.require_field}
+        <p class="notice-span">Nội dung 160 kí tự/1 SMS. Không được chứa kí tự đặc biệt. Cho phép gỏ tiếng việt có dấu.</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_campaign_name}</td>
+    <td><input size="60" type="text" name="campaign_name" value="{$sms.campaign_name}" />
+        <p class="notice-span">Đặt tên cho chiến dịch để theo dõi</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_resend}</td>
+    <td><label><input type="radio" name="resend" value="0" {if $sms.resend eq 0} checked{/if} /> Gửi lần đầu</label>
+        <label><input type="radio" name="resend" value="1" {if $sms.resend eq 1} checked{/if} /> Gửi lại</label>
+    </td>
+  </tr>
+
+</table>
+
+<table align="center">
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$sms.sms_id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("phone_number",  'Phone number not empty !');
+    validator.required("content",  'Content not empty !');
+    return validator.passed();
+}
+
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}
