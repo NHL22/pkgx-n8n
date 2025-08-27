@@ -1,0 +1,24 @@
+{if $new_articles}
+<div class="box cat_articles">
+    <h4 class="box_title">{$lang.new_article}</h4>
+    <ul>
+    	{foreach from=$new_articles item=article name=new_articles}
+    	<li>
+            <a href="{$article.url}" title="{$article.title|escape:html}">
+                {if $article.sthumb_webp}
+                <picture>
+                    <source width="100" height="70" srcset="{$cdn_path}/{$article.sthumb_webp}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                </picture>
+                {else}
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                {/if}
+
+                <h3>{$article.title|escape:html}</h3>
+                <span>{$article.add_time}</span>
+            </a>
+        </li>
+    	{/foreach}
+    </ul>
+</div>
+{/if}

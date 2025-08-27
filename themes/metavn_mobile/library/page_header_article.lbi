@@ -1,0 +1,32 @@
+{$render.before_header}
+<style type="text/css">
+    .navigation {
+        max-height: calc(100% - 48px);
+    }
+</style>
+<div class="over"></div>
+<header>
+    <div class="header_bar">
+        <a  title="Về trang chủ {$shop_name}" href="./">
+            <img src="{$cdn_path}/upload/files/profile/logo-mobile.png" alt="{$shop_name}">
+        </a>
+    <form action="{$base_path}/tin-tuc" method="get" class="search" id="search-site">
+        <input name="keywords" id="search-keyword" type="search" placeholder="Tìm kiếm tin tức" value="{$search_value|escape}" autocomplete="off"  />
+        <div class="iconsearch"><i class="iconmobile-search"></i></div>
+        <button type="reset" class="btn-reset" style="display: none;"><i class="iconmobile-reset"></i></button>
+        <button type="submit" class="btn-submit" style="display: none;">Tìm</button>
+        <div id="suggestion"></div>
+    </form>
+                <span class="cart" id="cart">
+            <a href="gio-hang"><i class="iconmobile-cart"></i>{insert name='cart_info'}</a>
+        </span>
+        <div class="menu" id="_menu"><i class="iconmobile-menu"></i></div>
+    </div>
+    <!-- sugguest -->
+    {include file='library/category_tree.lbi'}
+</header>
+
+{$render.after_header}
+
+
+

@@ -1,0 +1,129 @@
+<div class="goods_details box" id="quick_view">
+	<div class="bd">
+		<div class="details">
+			<h1>{if $cfg.show_goodssn}<em>{$lang.goods_sn}{$goods.goods_sn}</em>{/if}{$goods.goods_name}</h1>
+			{if $goods.is_shipping}<p class="slogan">{$lang.goods_free_shipping}</p>{/if}
+			<form action="javascript:buy({$goods.goods_id})" method="post" id="purchase_form_qv">
+				<ul class="basic clearfix">
+					{if $goods.is_promote and $goods.gmt_end_time }
+					<li class="sale_price promo"><strong>{$lang.promote_price}{$lang.colon}</strong><em class="price">{$goods.promote_price}</em><em class="org_price">{$lang.original_price}{$goods.shop_price_formated}</em></li>
+					{else}
+					<li class="sale_price"><strong>{$lang.shop_price}</strong><em class="price">{$goods.shop_price_formated}</em></li>
+					{/if}
+					{if $rank_prices}
+					<li class="rank_price_wrapper">
+						<strong>{$lang.rank_price_label}{$lang.colon}</strong>
+						{foreach from=$rank_prices item=rank_price key=key}
+						<span class="rank_price">{$rank_price.rank_name}<em id="rank_price_{$key}_qv" class="price">{$rank_price.price}</em></span>
+						{/foreach}
+					</li>
+					{/if}
+					{if $volume_price_list}
+					<li class="volume_price_wrapper">
+						<strong>{$lang.volume_price_label}{$lang.colon}</strong>
+						{foreach from=$volume_price_list item=price_list key=price_key}
+						<span class="volume_price">{$lang.number_to}{$price_list.number}<em id="volume_price_{$key}_qv" class="price">{$price_list.format_price}</em></span>
+						{/foreach}
+					</li>
+					{/if}
+					{if $cfg.show_marketprice}
+					<li><strong>{$lang.market_price}</strong><em class="price market_price">{$goods.market_price}</em></li>
+					{/if}
+					{if $goods.goods_brand neq "" and $cfg.show_brand}
+					<li><strong>{$lang.goods_brand}</strong><a href="{$goods.goods_brand_url}">{$goods.goods_brand}</a></li>
+					{/if}
+					{if $goods.is_promote and $goods.gmt_end_time}
+					<li class="end_time_wrapper"><strong class="label">{$lang.end_time}{$lang.colon}</strong><span class="end_time" title="{siy:date_format date=$goods.gmt_end_time format='Y-m-d-G-i-s'}">{siy:date_format date=$goods.gmt_end_time}</span></li>
+					{/if}
+					{if $cfg.show_goodsweight}
+					<li><strong>{$lang.goods_weight}</strong>{$goods.goods_weight}</li>
+					{/if}
+					{if $goods.goods_number neq "" and $cfg.show_goodsnumber0}
+					<li><strong>{$lang.goods_number}</strong>{$goods.goods_number} {$goods.measure_unit}</li>
+					{/if}
+					{if $cfg.show_addtime}
+					<li><strong>{$lang.add_time}</strong>{$goods.add_time}</li>
+					{/if}
+					{if $option.goods_click_count_enabled}<li><strong>{$lang.goods_click_count}</strong>{$goods.click_count}</li>{/if}
+					{if $goods.give_integral > 0}
+					<li><strong>{$lang.goods_give_integral}</strong>{$goods.give_integral} {$points_name}</li>
+					{/if}
+					{if $cfg.use_integral}
+					<li><strong>{$lang.goods_integral}</strong>{$goods.integral} {$points_name}</li>
+					{/if}
+					{if $goods.bonus_money}
+					<li><strong>{$lang.goods_bonus}</strong>{$goods.bonus_money}</li>
+					{/if}
+				</ul>
+				<div class="actions">
+					{if $specification}
+					<div class="properties">
+						{foreach from=$specification item=spec key=spec_key name=specification}
+						<dl class="clearfix{if $smarty.foreach.specification.first} first{/if}"{if $spec.attr_type eq 2} title="{$lang.multi_choice}"{/if}>
+							<dt>{$spec.name}{$lang.colon}</dt>
+							{if $spec.attr_type eq 1}
+							<dd class="radio">
+								{foreach from=$spec.values item=value key=key}
+								<label for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}">
+									<input type="radio" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}_qv"{if $key eq 0} checked="checked"{/if} />
+								{$value.label}</label>
+								{/foreach}
+							</dd>
+							{else}
+							<dd class="checkbox">
+								{foreach from=$spec.values item=value key=key}
+								<label for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}">
+									<input type="checkbox" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}_qv" />
+								{$value.label}</label>
+								{/foreach}
+							</dd>
+							{/if}
+						</dl>
+						<input type="hidden" name="spec_list" value="{$key}" />
+						{/foreach}
+					</div>
+					{/if}
+					<p><strong>{$lang.number}{$lang.colon}</strong><input type="text" name="number" value="1" size="4" class="number" id="number_qv" />{$goods.measure_unit}{if $goods.goods_number neq '' and $cfg.show_goodsnumber}<span class="stock">{$lang.goods_number}{$goods.goods_number}{$goods.measure_unit}</span>{/if}</p>
+					<p><strong>{$lang.amount}{$lang.colon}</strong><span class="price amount">{if $goods.is_promote and $goods.gmt_end_time }{$goods.promote_price}{else}{$goods.shop_price}{/if}</span></p>
+					<p>
+						{if ($goods.goods_number eq '0') and ($option.use_storage eq '1')}
+						<a href="user.php?act=add_booking&id={$goods.goods_id}" class="submit btn_special btn_booking"><span>{$lang.btn_booking}</span></a>
+						{else}
+						<a href="javascript:buy({$goods.goods_id})" class="submit btn_special btn_add_to_cart"><span>{$lang.btn_buy}</span></a>
+						{/if}
+						<a href="javascript:collect({$goods.goods_id})" class="btn_special btn_collect">{$lang.collect}</a>
+						{if $affiliate.on}<a href="user.php?act=affiliate&goodsid={$goods.goods_id}" class="btn_special btn_recommend">{$lang.recommend}</a>{/if}
+					</p>
+				</div>
+				<p class="extra_options">
+				</p>
+			</form>
+		</div>
+		<div class="extra_details">
+			<div class="gallery" id="gallery_qv">
+				{if $pictures.0.img_url}<a href="{$option.static_path}{$pictures.0.img_url}" title="{$goods.goods_name}" class="cover cloud_zoom" id="product_img_large_qv" rel="zoomWidth:'490',zoomHeight:'390'"><img src="{$option.static_path}{$goods.goods_img}" alt="{$goods.goods_name|escape:'html'}"/></a>{else}<span class="cover"><img src="{$option.static_path}{$goods.goods_img}" alt="{$goods.goods_name|escape:'html'}" title="{$goods.goods_name}"/></span>{/if}
+				{if $pictures.1.img_url}
+				<ul class="thumb clearfix">
+					{foreach from=$pictures item=picture name=pictures}
+					<li{if $smarty.foreach.pictures.index%6 eq 0} class="first_child"{/if}><a href="{$option.static_path}{$picture.img_url}" title="{$picture.img_desc}" class="cloud_zoom_gallery" rel="useZoom: 'product_img_large_qv', smallImage: '{$option.static_path}{if $option.gallery_thumbnails_enabled}{$picture.thumb2}{else}{$picture.img_url}{/if}', title: '{$picture.img_desc}'"><img src="{$option.static_path}{if $picture.thumb_url}{$picture.thumb_url}{else}{$picture.img_url}{/if}" alt="{$picture.img_desc}"></a></li>
+					{/foreach}
+				</ul>
+				{/if}
+			</div>
+			{if $promotion.0.url}
+			<dl class="goods_promotion">
+				<dt>{$lang.activity}</dt>
+				{foreach from=$promotion item=item key=key}
+				<dd>{if $item.type eq "snatch"}<a href="snatch.php" class="type type_snatch">{$lang.snatch}</a>
+				{elseif $item.type eq "group_buy"}<a href="group_buy.php" class="type type_group_buy">{$lang.group_buy}</a>
+				{elseif $item.type eq "auction"}<a href="auction.php" class="type type_auction">{$lang.auction}</a>
+				{elseif $item.type eq "favourable"}<a href="activity.php" class="type type_activity">{$lang.favourable}</a>
+				{elseif $item.type eq "package"}<a href="package.php" class="type type_package">{$lang.remark_package}</a>
+				{/if}<a href="{$item.url}">{$item.act_name}</a>
+				</dd>
+				{/foreach}
+			</dl>
+			{/if}
+		</div>
+	</div>
+</div>

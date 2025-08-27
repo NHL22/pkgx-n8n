@@ -1,0 +1,57 @@
+{if $goods_list}
+        {foreach from=$goods_list item=goods name=goods_list}
+        {if $goods.goods_id}
+       <li class="list_item">
+            <!-- <div class="title_id">
+                 <input type="checkbox" name="id[]" value="{$goods.goods_id}">
+            </div> -->
+            {if $goods.thumb_webp}
+            <picture class="title_photo">
+                <source width="80" height="80" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                <img width="80" height="80" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
+            </picture>
+            {else}
+            <picture class="title_photo"><img width="80" height="80" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/> </picture>
+            {/if}
+            <div class="title_name">
+                 <a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}">
+                <h3>{$goods.name|escape:html}</h3> </a>
+                <div class="promotion clr">
+                    <p>Thương hiệu: {$goods.brand_name}</p>
+                    {$goods.seller_note}
+                </div>
+            </div>
+            <div class="title_sku">
+                {$goods.goods_sn}
+            </div>
+            <div class="title_cate">{$goods.cat_name}</div>
+            <div class="title_price">
+                Giá sỉ
+                 {if $goods.promote_price}
+                <strong id="shop_price">{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                 {else}
+                 <strong id="shop_price">{$goods.shop_price}</strong>
+                {/if}
+                <p class="cprice">Giá CK: {$goods.partner_price}</p>
+                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+            </div>
+            <div class="title_quantity">
+                <input type="number" name="quantity[]" min="1" max="100" value="1">
+            </div>
+            <div class="title_detail">detail</div>
+            <div class="title_note">
+                <textarea cols="4" rows="3"></textarea>
+            </div>
+            <div class="title_action">
+                <button class="button">+ Giỏ hàng</button>
+            </div>
+            
+
+       
+    </li>
+        {/if}
+        {/foreach}
+
+{else}
+<li style="width: 100%"><p class="empty">{$lang.goods_empty} cho danh mục {$cat_name}</p></li>
+{/if}

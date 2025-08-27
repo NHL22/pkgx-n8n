@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <meta charset="utf-8">
+<title>{$page_title}</title>
+
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="box thin_box full_box">
+		<div class="hd"><h3></h3><div class="extra"></div></div>
+		<div class="bd">
+			<dl class="message_wrapper message_info">
+				<dt class="title">{$msg}</dt>
+			</dl>
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

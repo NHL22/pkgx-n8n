@@ -1,0 +1,19 @@
+{if $collection_goods}
+<div class="collection_goods goods_list">
+<h2 class="title">Sản phẩm yêu thích</h2>
+	<ul class="cate">
+		{foreach from=$collection_goods item=goods name=collection_goods}
+		<li>
+			<a href="{$goods.url}">
+                <img src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+				<h3>{$goods.short_name}</h3>
+				<strong>{if $goods.promote_price}{$goods.promote_price}<del>{$goods.shop_price}</del>{else}{$goods.shop_price}{/if}</strong>
+			</a>
+            <div class="actions">
+				<a href="javascript:buy({$goods.id})">{$lang.collect_to_flow}</a>
+			</div>
+		</li>
+		{/foreach}
+	</ul>
+</div>
+{/if}

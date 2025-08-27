@@ -1,0 +1,24 @@
+<div class="box_help">
+<div class="helpbar">
+<div class="tab-menu" id="sub_menu_f">
+<!-- sugguest -->
+{include file='library/category_tree2.lbi'}
+</div>
+<div class="tab-menu" id="sub_menu_f2">
+<!-- sugguest -->
+{include file='library/category_tree3.lbi'}
+</div>
+<ul class="menu_footer">
+  <li><a href="/"><img width="25px" height="25px" src="{$cdn_path}/upload/files/social/home.svg" alt="facebook"><span>Trang chủ</span></a></li>
+  <li><a href="https://phukiengiaxuong.com.vn/dat-hang-nhanh"><img width="25px" height="25px" src="{$cdn_path}/upload/files/social/icons8-cart-64.webp" alt="Order"><span>Order</span></a></li>
+  <li><a target="_blank" rel="nofollow noreferrer noopener" href="tel:{$service_phone}"><img width="25px" height="25px" src="{$cdn_path}/upload/files/social/telephone.svg" alt="facebook"><span>Hotline</span></a></li>
+  <!--<li><div id="menu_f2"><img id="img_f2" width="25px" height="25px" src="{$cdn_path}/upload/files/social/messenger.svg" alt="messager"><span>Messenger</span></div></li>-->
+  <li><a target="_blank" rel="nofollow noreferrer noopener" href="{$link_message}"><img width="25px" height="25px" src="{$cdn_path}/upload/files/social/messenger.svg" alt="zalo"><span>Messenger</span></a></li>
+
+  <li><a target="_blank" rel="nofollow noreferrer noopener" href="{$link_zalo}"><img width="25px" height="25px" src="{$cdn_path}/upload/files/social/zalo.svg" alt="zalo"><span>Zalo</span></a></li>
+  <li><div id="menu_f"><img id="img_f" width="25px" height="25px" src="{$cdn_path}/upload/files/social/bullet.svg " alt="zalo"><span>Menu</span></div></li>
+</ul>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="https://phukiengiaxuong.com.vn/cdn/themes/metavn_mobile/js/menuf.js"></script>

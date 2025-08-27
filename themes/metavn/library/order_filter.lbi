@@ -1,0 +1,66 @@
+    {if $catsubs}
+    <div class="filter-item">
+        <div class="filter-item__title" onclick="toggleFilter(this)">
+            <span class="criteria">Hãng</span>
+        </div>
+        <div class="filter_child" style="display: none;">
+            <button type="button" class="closefilter" onclick="clouseFilter(this)">x</button>
+             <div class="filter-list">
+            {foreach from=$catsubs item=sub key=i name=catsub}
+           <a {if $active_url eq $sub.url}class="check"{/if} rel="nofollow" href="javascript:loadGoods('{$sub.url}')">{$sub.name}</a>
+            {/foreach}</div>
+        </div>
+    </div>
+     {/if} 
+    {if $price_grade }
+    <div class="filter-item">
+        <div class="filter-item__title" onclick="toggleFilter(this)">
+            <span class="criteria">Giá</span>
+        </div>
+        <div class="filter_child" style="display: none;">
+            <button type="button" class="closefilter" onclick="clouseFilter(this)">x</button>
+             <div class="filter-list">
+            {foreach from=$price_grade key=i item=grade name=price_grade}
+           <a {if $grade.selected}class="check"{/if} rel="nofollow" href="javascript:loadGoods('{$grade.url}')">{$grade.price_range}</a>
+            {/foreach}</div>
+        </div>
+    </div>
+      {/if} 
+    {if $filter_attr_list}
+    {foreach from=$filter_attr_list key=k item=filter_attr name=filter_attr_list}
+    <div class="filter-item filter_attr{$filter_attr.filter_attr_id}">
+        <div class="filter-item__title" onclick="toggleFilter(this)">
+            <span class="criteria">{$filter_attr.filter_attr_name|escape:html}</span>
+        </div>
+        <div class="filter_child feature" style="display: none;">
+            <button type="button" class="closefilter" onclick="clouseFilter(this)">x</button>
+             <div class="filter-list">
+            {foreach from=$filter_attr.attr_list key=i item=attr name=filter_attr}
+           <a {if $attr.selected}class="check"{/if} rel="nofollow" href="javascript:loadGoods('{$attr.url}')">{$attr.attr_value}</a>
+            {/foreach}</div>
+        </div>
+    </div>
+    {/foreach}
+     {/if}  
+   
+    <div class="filter-item">
+        <div class="filter-item__title" onclick="toggleFilter(this)">
+            <span class="criteria">Sắp xếp</span>
+        </div>
+        <div class="filter_child" style="display: none;">
+            <button type="button" class="closefilter" onclick="clouseFilter(this)">x</button>
+            <div class="filter-list">
+                <a {if $pager.sort eq 'shop_price' and $pager.order eq 'ASC'}class="check"{/if} rel="nofollow" href="javascript:loadGoods('{siy:build_uri app='category' cid=$category bid=$brand_id price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page sort='shop_price' order='ASC'}')">Giá từ thấp đến cao</a>
+
+                <a {if $pager.sort eq 'shop_price' and $pager.order eq 'DESC'}class="check"{/if} rel="nofollow" href="javascript:loadGoods('{siy:build_uri app='category' cid=$category bid=$brand_id price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page sort='shop_price' order='DESC'}')">Giá từ cao đến thấp</a>
+            </div>
+        </div>
+    </div>
+    <div class="filter-item fsearch">
+       
+           
+               <input type="text" name="bykeywords" id="bykeywords" placeholder="Từ khóa">
+                <button type="button" onclick="searchFilter('{$cat_url_ajax}')">Tìm</button>
+           
+        
+    </div>

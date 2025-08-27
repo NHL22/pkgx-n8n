@@ -1,0 +1,37 @@
+{if $new_goods}
+    <h2 class="hometitle new_goods">Sản phẩm {$lang.new_goods}</h2>
+    <div class="overpromo new_goods">
+    <ul class="homeproduct listpromo" id="show_new">
+        {foreach from=$new_goods item=goods name=new_goods}
+        <li data-id="{$goods.id}">
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+                {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
+                {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+                {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+                <h3>{$goods.name|escape:html}</h3>
+                <div class="price">
+                     {if $goods.promote_price}
+                    <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                     {else}
+                    Giá sỉ: <strong>{$goods.shop_price}</strong>
+                    {/if}
+                </div>
+              <!--  <p class="cprice">Giá CTV: {$goods.partner_price}</p> -->
+                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+                <div class="promotion clr">{$goods.seller_note}</div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    </div>
+    <div class="box_extra"><a class="newsother" href="tim-kiem?intro=new" rel="noffolow">Xem tất cả</a></div>
+
+{/if}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link type="image/x-icon" href="{$option.static_path}/img/favicon.ico" rel="shortcut icon" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/" />
+    <meta itemprop="image" content="{$base_path}/cdn/upload/files/profile/favicon.png" />
+    <meta property="og:image" content="{$base_path}/cdn/upload/files/profile/favicon.png" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$base_path}/cdn/upload/files/profile/favicon.png" />
+    {if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}" />{/if}
+    {insert_css files="css/global.css,css/message_box.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section class="clearfix">
+	<div class="message_wrapper clearfix">
+    <p class="notice_box">{$message.content}</p>
+        <div>
+            {if $message.url_info}
+            <p>
+            {foreach from=$message.url_info key=info item=url}
+            <a href="{$url}" class="button"><span>{$info}</span></a>
+            {/foreach}
+            </p>
+            {/if}
+        </div>
+    </div>
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

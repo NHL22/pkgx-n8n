@@ -1,0 +1,23 @@
+{if $goods_article_list}
+<div class="newslist clearfix">
+	<h4>{$lang.article_releate}</h4>
+	<ul>
+		{foreach from=$goods_article_list item=article name=goods_article_list}
+		<li>
+            <a href="{$article.url}">
+            	{if $article.sthumb_webp}
+                <picture>
+                    <source width="100" height="70" srcset="{$cdn_path}/{$article.sthumb_webp}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                </picture>
+                {else}
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                {/if}
+                <h3>{$article.title|escape:html}</h3>
+                <span>{$article.viewed} lượt xem</span>
+            </a>
+        </li>
+		{/foreach}
+	</ul>
+</div>
+{/if}

@@ -1,0 +1,7 @@
+{if $article_categories}
+<ul class="menu clearfix">
+	{foreach from=$article_categories item=cat name=article_categories}
+	<li><h3><a href="{$cat.url}">{$cat.name}</a></h3></li>
+	{/foreach}
+</ul>
+{/if}

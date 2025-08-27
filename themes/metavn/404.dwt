@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <!-- <meta http-equiv="refresh" content="3;url=../"> -->
+    <title>404 - Not Found!</title>
+    <style type="text/css">
+    body {
+        color: #444444;
+        background-color: #EEEEEE;
+        font-family: 'Trebuchet MS', sans-serif;
+        font-size: 80%;
+    }
+    h1 {}
+    h2 { font-size: 1.2em; }
+    #page{
+        background-color: #FFFFFF;
+        width: 60%;
+        margin: 24px auto;
+        padding: 12px;
+    }
+    #header {
+        padding: 6px ;
+        text-align: center;
+    }
+    .status3xx { background-color: #475076; color: #FFFFFF; }
+    .status4xx { background-color: #C55042; color: #FFFFFF; }
+    .status5xx { background-color: #F2E81A; color: #000000; }
+    #content {
+        padding: 4px 0 24px 0;
+    }
+    #footer {
+        color: #666666;
+        background: #f9f9f9;
+        padding: 10px 20px;
+        border-top: 5px #efefef solid;
+        font-size: 0.8em;
+        text-align: center;
+    }
+    #footer a {
+        color: #999999;
+    }
+     @media screen and (max-width:480px) {
+     #page{width: 95%;box-sizing: border-box}
+
+}
+    </style>
+</head>
+<body>
+ <div id="page">
+        <div id="header" class="status4xx">
+            <h1>Lỗi 404 - Không tìm thấy trang!</h1>
+        </div>
+        <div id="content">
+            <h2>Nguyên nhân:</h2>
+            <p>URL đã được thay đổi hoặc xóa khỏi hệ thống</p>
+            <P>Quay lại  <a href="./">Trang chủ</a>, hoặc gọi Hotline: <strong>{$service_phone}</strong> để được hỗ trợ</p>
+        </div>
+
+    </div>
+</body>
+</html>

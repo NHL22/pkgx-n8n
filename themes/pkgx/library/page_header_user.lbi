@@ -1,0 +1,65 @@
+{$render.before_header}
+<header>
+    <div class="header-top">
+        <div class="wrap-main">
+            {siy:nav type='top' form='library/siy_small_nav.lbi'}
+        </div>
+    </div>
+    <div class="header-middle">
+        <div class="wrap-main">
+            <a class="logo" title="{$shop_name}" href="./" aria-label="logo">
+                <img width="235px" height="45px" src="{$cdn_path}/upload/files/profile/logo.webp" alt="{$shop_name}">
+            </a>
+             {if $pname eq 'article' || $pname eq 'article_cat'}
+             <form id="search-site" action="{$base_path}/tin-tuc" method="get" autocomplete="off">
+                <input class="topinput" type="search" id="search-keyword" name="keywords" tabindex="1" value="{$search_value|escape}" placeholder="Tìm kiếm tin tức..." />
+                <button class="btntop" type="submit"><i class="icontgdd-topsearch"></i></button>
+            </form>
+            {else}
+            <form id="search-site" action="{$base_path}/tim-kiem" method="get" autocomplete="off">
+                <input class="topinput" id="search-keyword" name="keywords" type="text" tabindex="1" value="{$search_keywords|escape}" placeholder="Tìm kiếm sản phẩm bạn cần..." autocomplete="off"  maxlength="50">
+                <button class="btntop" type="submit"><i class="icontgdd-topsearch"></i></button>
+                <div class="search-suggest"></div>
+            </form>
+            {/if}
+            <span class="htop-r">
+                <i class="icontgdd-hotline-white"></i>
+                <span><strong>{$service_phone}</strong><p>Hotline bán hàng</p></span>
+            </span>
+            <div class="user_area" id="user_area"><i class="icontgdd-user-white"></i> {insert name='member_info'}</div>
+            <div class="cart" id="cart">
+                <p class="cart_info">
+                    <a href="gio-hang"><i class="icontgdd-cart"></i> Giỏ hàng {insert name='cart_info'}</a>
+                </p>
+                {if $smarty.session.flow_type and $smarty.session.flow_type neq '0'}
+                <div class="list_wrapper">
+                <div class="list">
+                    <em class="list_arrow">&uarr;</em>
+                    <div class="loader">&nbsp;</div>
+                    <p class="cart_empty">{$lang.cart_empty}</p>
+                    <a href="javascript:closeCart();" class="close button"><span>{$lang.close}</span></a>
+                </div>
+                </div>
+                {/if}
+            </div>
+
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="wrap-main">
+            <div class="all_cat_wrapper">
+                <div class="all_cat">
+                    <div class="line"><i></i><i></i><i></i></div>
+                    <span> Danh mục sản phẩm</span>
+                </div>
+                {if $pname neq 'index'}
+                    <div class="all_category">
+                    {include file='library/category_tree.lbi'}
+                    </div>
+                {/if}
+            </div>
+            {siy:nav type='middle'}
+        </div>
+    </div>
+</header>
+{$render.after_header}

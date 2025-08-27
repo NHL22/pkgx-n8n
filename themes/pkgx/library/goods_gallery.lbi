@@ -1,0 +1,53 @@
+<div class="gallery gallery_color_box" id="gallery">
+    {if $pictures.0.img_url}
+    <a href="{$cdn_path}/{$pictures.0.img_url}" title="{$picture.0.img_desc|escape:'html'}" class="cover color_box" rel="gallery_color">
+        {if $pictures.0.img_url_webp}
+        <picture>
+            <source width="400" height="400" srcset="{$cdn_path}/{$pictures.0.img_url_webp}" type="image/webp" />
+            <img width="400" height="400" src="{$cdn_path}/{$pictures.0.img_url}" alt="{$goods.goods_name|escape:'html'}"/>
+        </picture>
+        {else}
+        <img width="400" height="400" src="{$cdn_path}/{$pictures.0.img_url}" alt="{$goods.goods_name|escape:'html'}"/>
+        {/if}
+
+    </a>
+    {else}
+    <div class="cover">
+        {if $goods.goods_img_webp}
+        <picture>
+            <source width="400" height="400" srcset="{$cdn_path}/{$goods.goods_img_webp}" type="image/webp" />
+            <img width="400" height="400" src="{$cdn_path}/{$goods.goods_img}" alt="{$goods.goods_name|escape}">
+        </picture>
+        {else}
+        <img width="400" height="400" src="{$cdn_path}/{$goods.goods_img}" alt="{$goods.goods_name|escape}">
+        {/if}
+    </div>
+    {/if}
+    {if $pictures.1.img_url}
+    <div class="thumb clearfix">
+        <div class="thumb_inner">
+            <ul>
+                {foreach from=$pictures item=picture name=pictures}
+                <li data-glid="{$picture.goods_attr_id}">
+                    <a class="color_box" href="{$cdn_path}/{$picture.img_url}" rel="gallery_color">
+                        {if $picture.thumb_url_webp}
+                        <picture>
+                            <source width="60" height="60" srcset="{$cdn_path}/{$picture.thumb_url_webp}" type="image/webp" />
+                            <img width="60" height="60" src="{$cdn_path}/{$picture.thumb_url}" alt="{$goods.goods_name|escape:'html'}">
+                        </picture>
+                        {else}
+                        <img width="60" height="60" src="{$cdn_path}/{$picture.thumb_url}" alt="{$goods.goods_name|escape:'html'}">
+                        {/if}
+
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+    {/if}
+    {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+
+</div>
+
+<div id="cache_thumb" class="hidden"></div>

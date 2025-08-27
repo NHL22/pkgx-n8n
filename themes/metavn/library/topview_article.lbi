@@ -1,0 +1,11 @@
+<div class="box summarycomment">
+    <div class="box_title">Bạn đọc xem nhiều</div>
+    <div class="bd">
+        {foreach from=$topview_article item=article_views name=view_list}
+        <a href="{$article_views.url}">
+            <span class="summary_number">{$smarty.foreach.view_list.iteration}</span>
+            <h3>{$article_views.title}<span class="morecom">• {$article_views.viewed} lượt xem</span></h3>
+        </a>
+        {/foreach}
+  </div>
+</div>

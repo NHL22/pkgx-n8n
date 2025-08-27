@@ -1,0 +1,6 @@
+{foreach from=$cardtype item=card key=i name=card_list}
+<label for="card{$i}">
+    <input type="radio" id="card{$i}" data-key="{$i}" name="paymentMethod" value="{$card.paymentMethod}" data-code="{$card.paymentMethod}" data-name="Thẻ {$card.paymentMethod}" onclick="SetCardType(this)">
+    <img src="{$base_path}/alepay/Images/{$card.paymentMethod}.png" height="28" alt="{$card.paymentMethod}">
+</label>
+{/foreach}

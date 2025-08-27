@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    {if $keywords}<meta name="keywords" content="{$keywords}">{/if}
+    <meta name="robots" content="{$meta_robots}">
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/{$article.url}">
+    <link rel="alternate" href="{$base_path}/{$article.url}" hreflang="vi-vn" />
+    {include file='library/html_header.lbi'}
+    <meta property="og:url" content="{$base_path}/{$article.url}">
+    <meta property="og:image" content="{$cdn_path}/{$article.thumb_webp}">
+    <meta property="og:image:secure_url" content="{$cdn_path}/{$article.thumb_webp}">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{$base_path}/{$article.url}"
+      },
+      "headline": "{$page_title}",
+      "description": "{$description}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{$cdn_path}/{$article.thumb}",
+        "width": 800,
+        "height": 600
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Phụ Kiện Điện Thoại Giá Sỉ",
+        "url": "https://phukiengiaxuong.com.vn/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Phụ Kiện Giá Xưởng",
+        "url": "https://phukiengiaxuong.com.vn/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.webp",
+          "width": 235,
+          "height": 45
+        }
+      },
+      "datePublished": "2025-08-27T16:27:00+07:00",
+      "dateModified": "2025-08-27T16:27:00+07:00",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Trang chủ",
+            "item": "https://phukiengiaxuong.com.vn/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{$page_title}",
+            "item": "{$cdn_path}/{$article.thumb}"
+          }
+        ]
+      }
+    }
+    </script>
+{insert_css files="css/global.css,css/article.css,css/toc.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+{include file='library/ur_here.lbi'}
+{include file='library/article_category_tree.lbi'}
+
+<article>
+    <h1 class="titledetail">{$article.title|escape:html}</h1>
+    <div class="userdetail">
+        <a>{$article.author}</a>
+        <span>{$article.add_time}</span>
+        <span>{$article.viewed} lượt xem</span>
+    </div>
+    {if $article.content}
+    <p style="font-weight: 700">{$article.description}</p>
+    <div id="toc_container"><ul id="toc"></ul></div><div class="clr"></div>
+    <div class="article_content">{$article.content}</div>
+    {else}
+    <p class="empty">{$lang.content_empty}</p>
+    {/if}
+</article>
+ <div class="bottom">
+    <!-- TemplateBeginEditable name="Bottom" -->
+<!-- #BeginLibraryItem "/library/goods_related.lbi" -->
+{if $related_goods}
+<div class="box goods_related" id="related">
+    {if $pname eq 'goods'}
+    <h4 class="box_title">Sản phẩm liên quan</h4>
+   {/if}
+	<ul class="homeproduct">
+		{foreach from=$related_goods item=releated_goods_data name=related_goods}
+		<li>
+			<a href="{$releated_goods_data.url}">
+                <img src="{$cdn_path}/{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+				<h3>{$releated_goods_data.goods_name}</h3>
+                <div class="price">
+                Giá sỉ <strong>{if $releated_goods_data.promote_price neq 0}{$releated_goods_data.formated_promote_price}<del>{$releated_goods_data.shop_price}</del>{else}{$releated_goods_data.shop_price}{/if}</strong>
+                </div>
+            <!--    <p class="cprice">Giá CTV: {$releated_goods_data.partner_price}</p>-->
+                <p class="cprice">Giá Bán Lẻ: {$releated_goods_data.deal_price}</p>
+                 <div class="ratingresult">
+                    <span class="rank rank_{$goods.comment_rank}"></span>
+                    <span>{$releated_goods_data.comment_count} đánh giá</span>
+                </div>
+            </a>
+
+		</li>
+		{/foreach}
+	</ul>
+</div>
+{/if}
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/article_related.lbi" -->
+<h5 class="titlerelate">Tin Liên Quan</h5>
+<ul class="newsrelate">
+    {foreach from=$new_articles item=article name=article_list}
+    <li>
+        <a href="{$article.url}" class="linkimg">
+            <div class="tempvideo">
+                <img alt="{$article.title|escape:html}" src="{$cdn_path}/{$article.thumb}" width="100">
+            </div>
+            <h3>{$article.title|escape:html}</h3>
+            <span class="timepost">{$article.add_time}</span>
+        </a>
+    </li>
+    {/foreach}
+</ul>
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    {include file='library/comments.lbi'}
+ </div>
+
+     {$render.after_col_main}
+
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+<script src="{$option.static_path}/js/jquery.toc.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+var toc = $("#toc"), url_post = '{$base_path}/{$article.url}';
+
+toc.toc({content: "div.article_content", headings: "h2,h3,h4", url: url_post});
+if(toc.find("li").length > 0){
+    toc.wrap( "<div class='wrap_toc'></div>" );
+    $(".wrap_toc").css('visibility', 'visible').prepend('<p class="titletoc">Nội dung chính</p>');
+}
+
+</script>
+<script type="text/javascript">
+    $('.rank_star').rating({
+        focus: function(value, link){
+            var tip = $('#star_tip');
+            tip[0].data = tip[0].data || tip.html();
+            tip.html(link.title || 'value: '+value).show();
+        },
+        blur: function(value, link){
+            $('#star_tip').html(link.title).show();
+        },
+        callback: function(value, link){
+           $('#star_tip').html(link.title).show();
+           $('div.action-comment').fadeIn('600');
+        }
+    });
+</script>
+
+</body>
+</html>

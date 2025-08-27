@@ -1,0 +1,6 @@
+{foreach from=$installment item=bank key=i name=bank_list}
+<label>
+    <input type="radio" name="bankCode" data-key="{$i}" value="{$bank.bankCode}" data-code="{$bank.bankCode}" data-name="{$bank.bankName}" onclick="ChooseBankSetCardType(this)">
+    <img src="{$base_path}/alepay/Images/{$bank.bankCode}.png" height="28" alt="{$bank.bankCode}">
+</label>
+{/foreach}

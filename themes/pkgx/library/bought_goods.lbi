@@ -1,0 +1,20 @@
+{if $bought_goods}
+<div class="bought_goods box">
+	<div class="hd"><h3>{$lang.shopping_and_other}</h3><div class="extra"></div></div>
+	<div class="bd goods_list">
+		<ul>
+			{foreach from=$bought_goods item=bought_goods_data name=bought_goods}
+			<li{if $smarty.foreach.bought_goods.first} class="first"{/if} data-id="{$bought_goods_data.goods_id}">
+				<span class="photo">
+					<a href="{$bought_goods_data.url}" title="{$bought_goods_data.goods_name|escape:html}" class="image"><img src="{$cdn_path}{$bought_goods_data.goods_thumb}" alt="{$bought_goods_data.goods_name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$bought_goods_data.url}" title="{$bought_goods_data.goods_name|escape:html}" class="name">{$bought_goods_data.short_name}</a>
+					<em class="price">{if $bought_goods_data.promote_price neq 0}{$bought_goods_data.formated_promote_price}{else}{$bought_goods_data.shop_price}{/if}</em>{if $bought_goods_data.promote_price neq 0}<span class="promo" title="{$bought_goods_data.shop_price|escape:html} &gt; {$bought_goods_data.formated_promote_price|escape:html}">{$lang.sale}</span>{/if}
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}

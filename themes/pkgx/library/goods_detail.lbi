@@ -1,0 +1,172 @@
+
+
+<div class="boxtitlesp">
+<h1>{$goods.goods_name}</h1>
+<div class="ratingresult">
+        <ul>
+        <li>{$lang.goods_sn}&nbsp;</li>
+        <li> <h2 class="skuu"> {$goods.goods_sn}</h2></li><li>&nbsp;| &nbsp;</li>
+        <li><span class="rank rank_{$goods.comment_rank}"></span> <a href="{$goods.url}#comment">({$goods.click_count} đánh giá)</a>&nbsp;| &nbsp;</li>
+        <li>{$lang.goods_brand}&nbsp;</li>
+        <li><h2 class="brand"> {$goods.goods_brand}</h2></li><li>&nbsp;| &nbsp;</li>
+        <li>Danh mục:&nbsp;</li>
+        <li><h3><a href="{$cat_info.url}">{$cat_info.cat_name}</a></h3></li>
+        <li>
+      &nbsp;|&nbsp;Share:
+        <!-- Facebook Share Button -->
+        <a class="button_share share facebook" rel="noreferrer noopener nofollow" href="http://www.facebook.com/sharer/sharer.php?u={$base_path}/{$goods.url}" data-network="facebook"><i class="fa fa-facebook"></i> Facebook</a>
+        <!-- Twitter Plus Share Button -->
+        <a class="button_share share twitter" rel="noreferrer noopener nofollow" href="https://twitter.com/intent/tweet?text={$page_title}&url={$base_path}/{$goods.url}&via=phukiengiaxuon1" data-network="twitter"><i class="fa fa-twitter"></i> Twitter</a>
+        <!-- Pinterest Share Button -->
+        <a class="button_share share pinterest" rel="noreferrer noopener nofollow" href="http://pinterest.com/pin/create/button/?url={$base_path}/{$goods.url}&description={$description}&media={$cdn_path}/{$goods.goods_img}" data-network="pinterest"><i class="fa fa-pinterest"></i> Pinterest</a>
+        <!-- LinkedIn Share Button -->
+        <a class="button_share share linkedin" rel="noreferrer noopener nofollow" href="http://www.linkedin.com/shareArticle?mini=true&url={$base_path}/{$goods.url}&title={$page_title}&source={$base_path}/{$goods.url}" data-network="linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+    </li>
+        </ul></div>
+</div>
+<div class="goods_details clearfix">
+    <div class="picture">
+        {include file='library/goods_gallery.lbi'}
+        {if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
+
+    </div>
+
+    <div class="price_sale">
+
+       <ul class="area_price">
+            {if $goods.is_promote and $goods.gmt_end_time }
+            <li>Giá sỉ:<strong> {$goods.promote_price}</strong>
+                        <span class="hisprice">{$goods.shop_price_formated}</span></li>
+            {else}
+            <li>Giá sỉ:<strong> {$goods.shop_price_formated}</strong></li>
+            {/if}
+      <li >Giá CK: {$goods.partner_price}</li> 
+            <li>Giá Lẻ: {$goods.deal_price}</li>
+            <li>Tình trạng: Còn sẵn hàng</li>
+            {if $goods.seller_note neq ""}<li>Ghi chú: {$goods.seller_note}</li>{/if}
+          {if $goods.goods_brief}  <li>{$goods.goods_brief}</li>{/if}
+
+        </ul>
+
+        {if $volume_price_list}
+        <div class="price_list wholesale_price">
+            <p>Mua nhiều giá tốt</p>
+            <p>
+                <p class="title"><span class="quantity">{$lang.quantity}</span><span class="price">{$lang.price}</span></p>
+                {foreach from=$volume_price_list item=price_list key=price_key}
+                <p class="item">{$price_list.number}<em class="price">{$price_list.format_price}</em></p>
+                {/foreach}
+            </p>
+        </div>
+        {/if}
+
+        {if $goods.is_shipping}<p class="slogan">{$lang.goods_free_shipping}</p>{/if}
+
+        <div class="area_order">
+                    <form action="javascript:buy({$goods.goods_id})" method="post" id="purchase_form">
+                    {if $specification}
+                    <ul class="properties">
+                        {foreach from=$specification item=spec key=spec_key name=specification}
+
+                            {if $spec.attr_type eq 1}
+                                {if $spec.display_type eq 'links'}
+                                <li><span class="links">
+                                    {foreach from=$spec.values item=value key=key}
+                                    <a class="label{if $value.price eq 0} checked{/if}" id="spec_value_{$value.id}" href="{if $value.display_value}{$value.display_value}{else}{$goods.url}{/if}">
+                                       <span>{$value.label}</span>
+                                       <strong>{$value.format_price|abs}</strong>
+                                    </a>
+                                    {/foreach}
+                                </span></li>
+                                {elseif $spec.display_type eq 'hidden'}
+                                <!-- {foreach from=$spec.values item=value key=key} -->
+                                <input type="radio" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}"{if $key eq 0} checked="checked"{/if} />
+                                <!-- {/foreach} -->
+                                {elseif $spec.display_type eq 'select'}
+                                 <li><span class="select_box">
+                                    {$spec.name}
+                                   <select name="spec_{$spec_key}">
+                                      <!-- {foreach from=$spec.values item=value key=key} -->
+                                      <option value="{$value.id}" {if $value.price eq 0}selected{/if}>{$value.label}</option>
+                                      <!-- {/foreach} -->
+                                    </select>
+                                </span></li>
+                                {else}
+                                <li><span class="radio">
+                                    <span class="fl" style="margin-right: 5px;">{$spec.name}{$lang.colon}</span>
+                                    {foreach from=$spec.values item=value key=key}
+                                    <label for="spec_value_{$value.id}" data-gattrid="{$value.id}">
+                                        <input type="radio" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}"{if $key eq 0} checked="checked"{/if} />
+                                    {$value.label}</label>
+                                    {/foreach}
+                                </span></li>
+                                {/if}
+                            {elseif $spec.attr_type eq 2}
+                            <li><span class="checkbox">
+                                {foreach from=$spec.values item=value key=key}
+                                <label for="spec_value_{$value.id}" title="{$value.format_price|abs}">
+                                    <input type="checkbox" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" />
+                                {$value.label}</label>
+                                {/foreach}
+                            </span></li>
+                            {/if}
+                            <input type="hidden" name="spec_list" value="{$key}" />
+                        {/foreach}
+                    </ul>
+                    {/if}
+                    {if $goods.goods_gifts}
+                    <div class="area_promotion zero">
+                        <strong>Khuyến mãi</strong>
+                        <div class="infopr">
+                            {$goods.goods_gifts}
+                        </div>
+                    </div>
+                     {/if}
+                     <p class="">
+                     <label>
+                 Số lượng{$lang.colon}
+                 <input type="text" name="number" value="1" size="4" class="number" id="number" />
+                 </label></p>                    <p class="total_amount"><strong>{$lang.amount}{$lang.colon}</strong> <span class="amount">{if $goods.is_promote and $goods.gmt_end_time }{$goods.promote_price}{else}{$goods.shop_price}{/if}</span></p>
+                     </form>
+                    <div class="area_action">
+                        <a rel="nofollow" href="javascript:buy({$goods.goods_id})" class="buy_now">
+                            <b>{$lang.btn_buy}</b>
+                            <span>Giao hàng COD toàn quốc</span>
+                        </a>
+                    </div>
+                    <div class="vnpay-text">
+									<p><b>Thời gian làm việc:</b> Thứ 2 - Thứ 7: <span>8h - 12h &amp; 12h30 - 17h50h</span>, <b>Chủ nhật: <span>9h00 - 16h00</span></b></p>
+							</div>
+              <div class="vnpay-text">
+            <p><b>Mua số lượng call:</b> <a href="tel:0981239686">098.1239.686</a>  để được giá tốt nhất</p>
+        </div>
+        <div class="vnpay-text">
+        <ul>
+      <li>Tham khảo 99+ <a href="https://phukiengiaxuong.com.vn/tin-tuc/mau-cua-hang-trang-tri/47">cách trang trí cửa hàng</a></li>
+      <li>Tham khảo <a href="https://phukiengiaxuong.com.vn/tin-tuc/kinh-nghiem-mo-cua-hang-tu-a-den-z/15">kinh nghiệm mở cửa hàng</a></li>
+      <li>Tham khảo cách <a href="https://phukiengiaxuong.com.vn/tin-tuc/marketing-online/44">marketting online</a></li>
+      <li>Tham khảo <a href="https://phukiengiaxuong.com.vn/tin-tuc/thuong-mai-dien-tu/45">cách bán hàng trên sàn TMĐT</a></li>
+      </li>
+  </div>
+        </div>
+    </div>
+    <div class="rightInfo">
+        {if $pro_extra}
+        <ul class="policy">
+            {foreach from=$pro_extra item=pro key=k}
+            <li class="pro{$pro.id}"><span>{$pro.name}: {$pro.value}</span></li>
+            {/foreach}
+        </ul>
+        {/if}
+        <ul class="box_help">
+            <li><h3>CHÚ Ý: ĐƠN SỈ TỐI THIỂU 1 TRIỆU ĐỒNG</h3>
+<li style="font-weight: bold; color: #e10c00;">» Hàng Hoco, Remax, Baseus, Borofone bảo hành 1 năm</li>
+<li>» Giao hàng toàn quốc 6,2k/kg - Xem thêm <a href="https://phukiengiaxuong.com.vn/tin-tuc/giao-hang-thanh-toan-14.html">Chính sách giao hàng.</a></li>
+<li>» <a href="https://phukiengiaxuong.com.vn/tin-tuc/chinh-sach-doi-tra-1.html">Chính sách bảo hành.</a> </li>
+<li>» Thanh toán COD kiểm tra tại nhà </li>
+<li>» Hỗ trợ cước tối đa 100k cho đơn TRÊN 5TR TRÊN TOÀN QUỐC ( ÁP DỤNG THANH TOÁN TRƯỚC )</li>
+<li>» <a href="https://phukiengiaxuong.com.vn/san-pham-moi.html">HÀNG MỚI VỀ / MẪU MỚI GIÁ CỰC TỐT</a></li>
+
+        </ul>
+    </div>
+</div>

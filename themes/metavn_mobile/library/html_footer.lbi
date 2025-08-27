@@ -1,0 +1,20 @@
+<script type="text/javascript">
+
+$("div.form_add .cart-qty-plus").click(function() {
+    var n = $(this).parent(".button-container").find(".qty");
+    n.val(parseInt(n.val())+1 );
+});
+$("div.form_add .cart-qty-minus").click(function() {
+    var n = $(this).parent(".button-container").find(".qty");
+    var amount = parseInt(n.val());
+    if (amount > 1) {
+        n.val(amount-1);
+    }
+});
+
+function quickBuy(goods_id) {
+    let number = $(`div.form_add input.qty${goods_id}`).val();
+    console.log(goods_id,parseInt(number));
+    buy(goods_id, parseInt(number));
+}
+</script>

@@ -1,0 +1,21 @@
+
+{if ($img_links or $txt_links)}
+<div class="links-box">
+<div  class="box clearfix">
+<div class="hd">
+        <div class="box_title">Liên kết: </div>
+		<ul class="box-cat-all">
+			{if $img_links}
+			{foreach from=$img_links item=link name=img_links}
+			<li> <a href="{$link.url}" rel="external"><img src="{$link.logo}" alt="{$link.name}"/></a></li>
+			{/foreach}
+			{/if}
+			{if $txt_links}
+			{foreach from=$txt_links item=link name=txt_links}
+			<li>	<a href="{$link.url}" rel="external">{$link.name}</a></li>
+			{/foreach}
+			{/if}
+		</ul>
+	</div>
+</div></div></div>
+{/if}

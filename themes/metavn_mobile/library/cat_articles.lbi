@@ -1,0 +1,19 @@
+<div class="newslist clearfix">
+	<h4>{$articles_cat.name|escape:html}</h4>
+	<ul>
+		{foreach from=$articles item=article_item name=articles}
+		<li>
+            <a href="{$article_item.url}">
+             {if $pname eq 'article_cat' and $smarty.foreach.articles.iteration eq 1}
+             <img width="100" height="70" alt="{$article_item.title|escape}"  src="{$cdn_path}/{$article_item.thumb}">
+             {else}
+             <img width="100" height="70" alt="{$article_item.title|escape}"  src="{$cdn_path}/{$article_item.sthumb}">
+             {/if}
+             <h3> {$article_item.title|escape:html}</h3>
+             <span>{$article_item.viewed} lượt xem</span>
+            </a>
+        </li>
+		{/foreach}
+	</ul>
+    <a href="{$articles_cat.url}" class="viewall">Xem thêm</a>
+</div>

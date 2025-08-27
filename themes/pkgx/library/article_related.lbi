@@ -1,0 +1,14 @@
+<h5 class="titlerelate">Tin Liên Quan</h5>
+<ul class="newsrelate">
+    {foreach from=$new_articles item=article name=article_list}
+    <li>
+        <a href="{$article.url}" class="linkimg">
+            <div class="tempvideo">
+                <img alt="{$article.title|escape:html}" src="{$cdn_path}/{$article.thumb}" width="100">
+            </div>
+            <h3>{$article.title|escape:html}</h3>
+            <span class="timepost">{$article.add_time}</span>
+        </a>
+    </li>
+    {/foreach}
+</ul>

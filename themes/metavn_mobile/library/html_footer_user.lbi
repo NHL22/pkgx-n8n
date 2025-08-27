@@ -1,0 +1,4 @@
+{$render.before_html_footer}
+{if $smarty.session.flow_type and $smarty.session.flow_type neq '0'}
+<script type="text/javascript">var ajax_cart_disabled = true;</script>
+{/if}

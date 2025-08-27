@@ -1,0 +1,35 @@
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs">
+		<a href="thanh-vien?act=collection_list" id="tab_collection_list" class="current"><span>{$lang.label_collection}</span></a>
+		<a href="thanh-vien?act=booking_list" id="tab_booking_list"><span>{$lang.label_booking}</span></a>
+	</p>
+	<div class="extra"></div>
+</div>
+<div class="collection_list box">
+	<div class="goods_list display_text">
+		{if $goods_list}
+		<ul>
+			{foreach from=$goods_list item=goods name=goods_list}
+			<li{if $smarty.foreach.goods_list.first} class="first"{/if}>
+				<span class="photo">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="image"><img height="50" src="{$cdn_path}/{siy:goods_info id=$goods.goods_id type='goods_thumb'}" alt="{$goods.goods_name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="name">{$goods.goods_name}</a>
+					<em class="price">{if $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}</em>{if $goods.promote_price}<span class="promo" title="{$goods.shop_price|escape:html} &gt; {$goods.promote_price|escape:html}">{$lang.sale}</span>{/if}
+				</span>
+				<span class="actions">
+					<a href="javascript:buy({$goods.goods_id})" class="button"><span>{$lang.add_to_cart}</span></a>
+					<a href="thanh-vien?act=delete_collection&collection_id={$goods.rec_id}" class="button text_button"><span>{$lang.drop}</span></a>
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+		{else}
+		<p class="empty">{$lang.collection_empty}</p>
+		{/if}
+		{if $goods_list}{include file='library/pages.lbi'}{/if}
+	</div>
+</div>
+</div>

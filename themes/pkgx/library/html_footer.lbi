@@ -1,0 +1,74 @@
+<script type="text/javascript">
+
+// $("div.form_add .cart-qty-plus").click(function(e) {
+//     e.preventDefault();
+//     var n = $(this).parent(".button-container").find(".qty");
+//     n.val(parseInt(n.val())+1 );
+// });
+// $("div.form_add .cart-qty-minus").click(function(e) {
+//     e.preventDefault();
+//     var n = $(this).parent(".button-container").find(".qty");
+//     var amount = parseInt(n.val());
+//     if (amount > 1) {
+//         n.val(amount-1);
+//     }
+// });
+
+function qtyPlus(el){
+    var n = $(el).parent(".button-container").find(".qty");
+    n.val(parseInt(n.val())+1 );
+}
+function qtyMinus(el){
+    var n = $(el).parent(".button-container").find(".qty");
+    var amount = parseInt(n.val());
+    if (amount > 1) {
+        n.val(amount-1);
+    }
+}
+
+
+function quickBuy(goods_id) {
+    let number = $(`div.form_add input.qty${goods_id}`).val();
+    console.log(goods_id,parseInt(number));
+    buy(goods_id, parseInt(number));
+}
+//javascript:window.location.href='?client=desktop'
+$("#switchDevices").click(function(e) {
+    e.preventDefault();
+    let currentUrl = window.location.href;
+    let ommitUrl = removeURLParameter(currentUrl, 'client');
+    console.log(currentUrl,ommitUrl);
+    let client = $(this).data('client');
+    console.log(client);
+    $.get(ommitUrl,
+            'client='+client,
+        function(response){
+            window.location.href = ommitUrl;
+        },
+        'text'
+    );
+
+});
+
+function removeURLParameter(url, parameter) {
+    //prefer to use l.search if you have a location/link object
+    var urlparts = url.split('?');   
+    if (urlparts.length >= 2) {
+
+        var prefix = encodeURIComponent(parameter) + '=';
+        var pars = urlparts[1].split(/[&;]/g);
+
+        //reverse iteration as may be destructive
+        for (var i = pars.length; i-- > 0;) {    
+            //idiom for string.startsWith
+            if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+                pars.splice(i, 1);
+            }
+        }
+
+        return urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
+    }
+    return url;
+}
+
+</script>

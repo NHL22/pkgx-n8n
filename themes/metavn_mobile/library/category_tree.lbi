@@ -1,0 +1,15 @@
+<nav class="subnav" id="_subnav">
+
+    <div class="navigation" id="navigation">
+        {foreach from=get_categories_tree() item='cat' name='categories'}
+<a href="{$cat.url}">
+             {if $cat.icon}<img width="40px" src="{$cat.icon}" alt="{$cat.name|escape}">{/if}
+             {$cat.name}
+             </a>
+         {/foreach}
+
+       
+        {siy:nav type='middle'}
+
+    </div>
+</nav>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<head>
+    {include file='library/html_header.lbi'}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/" />
+    <link rel="alternate" href="{$base_path}/" hreflang="vi-vn" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/" />
+    <meta itemprop="image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image:alt" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <!--#region Organization-->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://phukiengiaxuong.com.vn/#Organization",
+      "name": "Phụ Kiện Điện Thoại Giá Sỉ",
+      "url": "https://phukiengiaxuong.com.vn/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.png"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+84-981-239-686", // Thêm mã quốc gia +84 để rõ ràng hơn
+          "contactType": ["customer support", "sales", "technical support"], // Gộp các loại liên hệ vào một
+          "areaServed": "VN",
+          "availableLanguage": ["Vietnamese", "English"]
+        }
+      ],
+      "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Số 170 Ngọc Lâm", // TODO: Thay bằng địa chỉ thực tế
+          "addressLocality": "Long Biên",
+          "addressRegion": "Hà Nội",
+          "postalCode": "100000", // TODO: Thay bằng mã bưu chính đúng
+          "addressCountry": "VN"
+      },
+      "email": "phukiengiaxuong.com.vn@gmail.com", // TODO: Thay bằng email liên hệ của bạn
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61569946667473", // TODO: Kiểm tra lại liên kết này
+        "https://vn.linkedin.com/company/phukiengiaxuong.com.vn",
+        "https://www.youtube.com/user/phukiengiaxuong.com.vn", // TODO: Kiểm tra lại liên kết này
+        "https://www.instagram.com/phukiengiaxuong.com.vn/",
+        "https://vt.tiktok.com/@phukiengiaxuong.com.vn/"
+      ]
+    }
+    </script>
+    <!--#endregion-->
+    <!--Private Stylesheet -->
+    {insert_css files="owl-carousel/owl.carousel.2.1.css,css/global.css,css/index.css"}
+    
+    <!--Private Stylesheet -->
+    {insert_css files="owl-carousel/owl.carousel.2.1.min.css,css/global.css,css/index.css"}
+    <style type="text/css">
+                
+       
+        .products_cate {
+            display: block;
+            background-color: #f3f3f3;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        .box.fix_cate {
+            background: #f3f3f3;
+        }
+            .service-conv {
+                display: block;
+                overflow: hidden;
+                background: #fff;
+                padding: 10px
+            }
+
+            .service-conv ul {
+                display: flex;
+                flex-flow: row wrap
+            }
+
+            .service-conv ul li {
+                float: left;
+                width: 48.5%;
+                margin: 0 3% 2% 0;
+                border-radius: 8px;
+                background: #dceeff
+            }
+
+            .service-conv ul li:nth-child(2) {
+                background: #fef5cf
+            }
+
+            .service-conv ul li:nth-child(3) {
+                background: #ffefdb
+            }
+
+            .service-conv ul li:nth-child(4) {
+                background: #e1fecf
+            }
+
+            .service-conv ul li:nth-child(2n+2) {
+                float: right;
+                margin-right: 0
+            }
+
+            .service-conv ul li a {
+                overflow: hidden
+            }
+
+            .service-conv li .box-iconv {
+                float: left;
+                width: 22px;
+                margin-right: 4px
+            }
+
+            .service-conv li .text-conv {
+                display: block;
+                overflow: hidden;
+                padding: 10px;
+            }
+
+            .text-conv-title {
+                display: block;
+                overflow: hidden;
+                font-size: 14px;
+                font-weight: 500;
+                color: #333;
+                padding: 3px 0 5px
+            }
+
+            .service-conv li .text-conv small {
+                display: block;
+                overflow: hidden;
+                font-size: 12px;
+                line-height: 16px;
+                color: #333
+            }
+
+            .service-conv li .text-conv strong {
+                color: #ff0b0b
+            }
+
+        .products_cate .products_cate_item{
+            width:  19%;
+            padding: 10px;
+            display:  inline-block;
+            box-sizing: border-box;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            overflow: hidden;
+            background: #fff;
+            margin: 0 8px 0 0;
+            border-radius: 12px;
+        }
+        .products_cate .products_cate_item.actived {
+            background: linear-gradient(64.85deg, #fca600 23.67%, #ffd41d 106.12%);
+        }
+        .products_cate_item img{
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            display: block;
+        }
+        .products_cate_item p{
+            margin-top: 10px;
+            font-size: 12px;
+            max-width: 100%;
+            box-sizing: border-box;
+            white-space:  normal;
+        }
+        .cat_goods {
+            display:  none;
+        }
+        .cat_goods .view_more {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .cat_goods .view_more a {
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid rgb(10, 104, 255);
+            color: rgb(10, 104, 255);
+            font-size: 16px;
+            line-height: 150%;
+            text-align: center;
+        }
+        div#products_today{
+            display: block;
+            overflow: hidden;
+            margin: 0 0 10px;
+            padding: 10px;
+        }
+        div#products_today ul.homeproduct{
+            grid-gap: 8px;
+            order: 0;
+        }
+        .div#products_today ul.homeproduct li {
+            border-radius: 4px;
+            border: 0;
+        }
+    </style>
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+    <div class="slidehome">
+    <!-- TemplateBeginEditable name="BannerHome" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+{insert name=ads id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</div>
+
+<div class="h1_home"><h1>{$des_home}</h1></div>
+<div class="box-cat-list2">
+  <div class="hide-scrollbar">
+    <div class="stardust-horizontal-scroll-view hide-scrollbar">
+      <div class="box-3">
+        <div class="nav-mobilee">
+          {foreach from=get_categories_tree() item='cat' name='categories'}
+            <div class="box-ca">
+              <a href="{$cat.url}">
+                <div class="ima-ca">{if $cat.icon}<img height="40" src="{$cat.icon}" alt="{$cat.name|escape}">{/if}</div>
+                <div class="nam-ca">{$cat.name|escape}</div>
+              </a>
+            </div>
+          {/foreach}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TemplateBeginEditable name="Recommend" -->
+<!-- #BeginLibraryItem "/library/recommend_new.lbi" -->
+{if $new_goods}
+    <h2 class="hometitle new_goods">Sản phẩm {$lang.new_goods}</h2>
+    <div class="overpromo new_goods">
+    <ul class="homeproduct listpromo" id="show_new">
+        {foreach from=$new_goods item=goods name=new_goods}
+        <li data-id="{$goods.id}">
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+                {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
+                {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+                {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+                <h3>{$goods.name|escape:html}</h3>
+                <div class="price">
+                     {if $goods.promote_price}
+                    <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                     {else}
+                    Giá sỉ: <strong>{$goods.shop_price}</strong>
+                    {/if}
+                </div>
+                <p class="cprice">Giá CK: {$goods.partner_price}</p>
+                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+                <div class="promotion clr">{$goods.seller_note}</div>
+            </a>
+             <div class="form_add form_add{$goods.id}">
+                <div class="button-container">
+                    <button onclick="qtyMinus(this)" class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                    <input type="text" min="1" max="10" class="qty qty{$goods.id}" step="1" name="goods_number" value="1">
+                    <button onclick="qtyPlus(this)" class="qty_button cart-qty-plus" type="button" value="+">+</button>
+                </div>
+                <button class="quick_add" type="button" onclick="quickBuy({$goods.id})"><i class="iconmobile-cart"></i></button>
+            </div>
+        </li>
+        {/foreach}
+    </ul>
+    </div>
+    <div class="box_extra"><a class="newsother" href="tim-kiem?intro=new" rel="noffolow">Xem tất cả</a></div>
+
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+<div id="products_today">
+        <div class="box fix_cate">
+            <div class="box_title"><h2>Gợi ý hôm nay</h2></div>
+            <div class="products_cate"></div>
+        </div>
+    <!-- TemplateBeginEditable name="Main" -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+ </div>
+    <!-- TemplateBeginEditable name="Bottom" -->
+<!-- #BeginLibraryItem "/library/new_articles.lbi" -->
+{if $new_articles}
+<div class="new_articles box">
+    <div class="box_hd"><h3 class="hometitle">{$lang.new_article}</h3><div class="box_extra"></div></div>
+    <ul class="news">
+        {foreach from=$new_articles item=article name=new_articles}
+        <li>
+            <a href="{$article.url}" title="{$article.title|escape:html}">
+                {if $article.sthumb_webp}
+                <picture>
+                    <source width="100" height="70" srcset="{$cdn_path}/{$article.sthumb_webp}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                </picture>
+                {else}
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                {/if}
+                <h3>{$article.title|escape:html}</h3>
+                <div><span>{$article.add_time}</span></div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    <a href="tin-tuc" class="newsother">Xem các tin khác</a>
+</div>
+{/if}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='index.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js,owl-carousel/owl.carousel.2.1.min.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+{include file='library/html_footer_menu.lbi'}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var owl = $("#owl-home");
+        if(owl.length > 0){
+            owl.owlCarousel({navigation:!1,slideSpeed:300,paginationSpeed:400,singleItem:!0,lazyLoad:!0,autoPlay:!0,autoHeight:!0});
+        }
+        var nav = $('ul.navhome');
+        var item_nav = nav.find('li');
+        var item_w = item_nav.length*(item_nav.width()+15);
+        nav.css('width', item_w);
+
+        // Tạo danh mục recomend
+        let cate_rec = '';
+        let current_id = 302;
+    let current_url = 'hang-theo-loai-ban.html';
+        $("#products_today .cat_goods").each(function(){
+            let cat_name = $(this).data('name');
+            let url = $(this).data('url');
+            let icon = $(this).data('icon');
+            let cat_id = $(this).data('id');
+            let className = cat_id === current_id ? `products_cate_item citem-${cat_id} actived` : `products_cate_item citem-${cat_id}`;
+            cate_rec += `<div onclick="loadData('${url}',${cat_id})" data-id="${cat_id}" data-url="${url}"  class="${className}">`;
+            cate_rec += `<img src="${icon}" alt="${cat_name}">`;
+            cate_rec += `<p>${cat_name}</p>`;
+            cate_rec += '</div>';
+        });
+        $("#products_today .products_cate").html(cate_rec);
+
+        loadMore(current_url,1,current_id);
+
+        getW('div.new_goods');
+    });
+    /* Mở rộng thu gọn danh mục */
+    $('.boxcat_more').click(function(e){
+        $(this).parent().find('li.hidden').removeClass('hidden');
+        $(this).addClass('hidden');
+        $(this).parent().find('li.boxcat_less').removeClass('hidden');
+        e.preventDefault();
+    });
+    $('.boxcat_less').click(function(e){
+        $(this).parent().find('li.hide_boxcat').addClass('hidden');
+        $(this).addClass('hidden');
+        $(this).parent().find('li.boxcat_more').removeClass('hidden');
+        e.preventDefault();
+    });
+
+    function getW(el){
+        var ul = $(el+" ul.listpromo");
+        ul.each(function() {
+            var li = $(this).find('li');
+            var w = li.length*(li.width()+8);
+            if(li.length > 1){
+                $(this).css('width', w);
+            }
+
+        });
+    }
+     function callw(el, target, min, margin){
+        var i = $(el).length;
+        if(i> 0){
+            var a = $('div'+el+' '+target);
+            var b = a.find('li');
+            if(b.length >= min){
+                var w = b.length*(b.width()+margin);
+                var h = i > 1 ? w/i : w;
+                a.css('width', h);
+            }
+        }
+    }
+   /* Mở rộng thu gọn danh mục 
+    $(window).scroll(function fix_element() {
+        $('#products_today .fix_cate').css(
+        $(window).scrollTop() > 900
+            ? {'max-width' : '640px', 'margin':'0 auto', 'position': 'fixed', 'top': '0', 'left': '0', 'right': '0', 'z-index': '9999' }
+            : { 'position': 'relative', 'top': 'auto' }
+        );
+        return fix_element;
+    }())*/ 
+    ;
+
+
+function loadData(cate_url,cat_id){
+    let page = 1;
+     //Active Tab
+   $("#products_today .products_cate div.actived").removeClass('actived');
+   $(`#products_today .products_cate div.citem-${cat_id}`).addClass('actived');
+   if(page == 1){
+    $("#products_today div.cat_goods.show .homeproduct").html('');
+   }
+
+  $("#products_today div.cat_goods.show").removeClass('show');
+
+ /*  $("body,html").animate({scrollTop: $("#products_today").position().top}, 600)*/ ;
+  
+    loadMore(cate_url,page,cat_id);
+}
+
+function loadMore(cate_url,number,cat_id){
+  let page = number != undefined ? number : 2;
+ 
+
+  
+  let target = $(`#catalog-${cat_id} .homeproduct`);
+ 
+   $.get(cate_url,
+      {sync: 1, page: page},
+      function(response){
+          if(response.error == 0){
+              $(`#catalog-${cat_id}`).addClass('show');
+              target.append(response.goods_list);
+              $(`#catalog-${cat_id} div.view_more`).html(response.pagination);
+              
+          }else{
+              console.log(response.message);
+          }
+      },
+      'json'
+    )
+   
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+{if $related_goods}
+<div class="box goods_related" id="related">
+    <h3 class="box_title">Sản phẩm liên quan</h3>
+    <div class="overpromo">
+	<ul class="homeproduct listpromo">
+		{foreach from=$related_goods item=releated_goods_data name=related_goods}
+		<li data-id="{$releated_goods_data.goods_id}">
+			<a href="{$releated_goods_data.url}">
+
+
+                {if $releated_goods_data.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$releated_goods_data.thumb_webp}" type="image/webp" />
+                    <img width="150px" height="150px" src="{$cdn_path}/{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+                </picture>
+                {else}
+                <img  width="150px" height="150px"  src="{$cdn_path}/{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+                {/if}
+                {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+				<h3>{$releated_goods_data.goods_name}</h3>
+				<div class="price">
+                    Giá sỉ <strong>{if $releated_goods_data.promote_price neq 0}{$releated_goods_data.formated_promote_price}<del>{$releated_goods_data.shop_price}</del>{else}{$releated_goods_data.shop_price}{/if}</strong>
+                </div>
+             <p class="cprice">Giá CK: {$goods.partner_price}</p>
+                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+                               <div class="labelw">
+            {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+            {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+            {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+            </div>
+            </a>
+		</li>
+		{/foreach}
+	</ul>
+   </div>
+</div>
+{/if}

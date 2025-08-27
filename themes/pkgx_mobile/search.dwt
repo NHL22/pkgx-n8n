@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="INDEX,FOLLOW" name="robots" />
+    <title>{$page_title} </title>
+    <link  rel="canonical" href="{$base_path}/tim-kiem" />
+
+            <link rel="alternate" href="{$base_path}/tim-kiem" hreflang="vi-vn" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/" />
+    <meta itemprop="image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image:alt" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    {include file='library/html_header.lbi'}
+        {* --- Bắt đầu Schema ItemList cho trang danh mục --- *}
+    <script type="application/ld+json">
+        {
+      "@type": "ItemList",
+      "name": "Danh Sách Sản Phẩm Tìm Kiếm",
+      "description": "{$description|escape:'json'}",
+      "numberOfItems": "{$total_results}",
+      "itemListElement": [
+        {* Vòng lặp `foreach` cho từng sản phẩm *}
+        {foreach from=$goods_list item=goods name=goods_list}
+        {
+          "@type": "ListItem",
+          "position": {$smarty.foreach.goods_list.iteration},
+          "item": {
+            "@type": "Product",
+            "name": "{$goods.name|escape:'json'}",
+            "url": "{$base_path}/{$goods.url}",
+            "image": "{$cdn_path}/{$goods.goods_thumb}",
+            "brand": {
+                "@type": "Brand",
+                "name": "{$goods.brand_name|default:$shop_name|escape:'json'}"
+            },
+            "sku": "{$goods.goods_sn|escape:'json'}",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "VND",
+              "price": "{if $goods.promote_price}{$goods.promote_price|replace:','|replace:'.''}{else}{$goods.shop_price|replace:','|replace:'.''}{/if}",
+              "itemCondition": "https://schema.org/NewCondition",
+              "availability": "https://schema.org/InStock"
+            },
+            "description": "{$goods.goods_brief|escape:'json'}"
+          }
+        }
+        {if !$smarty.foreach.goods_list.last},{/if}
+        {/foreach}
+      ]
+    }
+
+    </script>
+    <!--Private Stylesheet -->
+    {insert_css files="css/global.css,css/search.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+    {$render.before_col_main}
+                {include file='library/search_goods_list.lbi'}
+                {$render.after_col_main}
+	
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {include file='library/html_header.lbi'}
+     {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/{$cat_url}"/>
+    <link rel="alternate" href="{$base_path}/{$cat_url}" hreflang="vi-vn" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/{$cat_url}" />
+    <meta property="og:title" content="{$page_title}" />
+    <meta itemprop="image" content="{$cat_thumb}" />
+    <meta property="og:image" content="{$cat_thumb}" />
+    <meta property="og:image:alt" content="{$page_title}" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$cat_thumb}" />
+    <!--#region Thông tin sản phẩm theo Cate, hãng, filter-->
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "{$cat_name}",
+        "image": ["{$cat_thumb}"],
+        "sku": "{$cat_name}",
+        "mpn": "{$cat_name}",
+        "description":"{$description}",
+        "brand": {
+        "@type": "Thing",
+        "name": ["Hoco","Remax","Baseus","Borofone","Airpods","Apple","Samsung","Oppo","Xiaomi","Realme","Vivo","Huawei"]
+        },
+      "review": {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Phụ Kiện Điện Thoại Giá Sỉ"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "1939"
+      },
+        "offers": {
+          "@type": "AggregateOffer",
+          "url": "{$base_path}/{$cat_url}",
+          "priceCurrency": "VND",
+          "lowPrice": "1000",
+          "highPrice": "100000",
+          "price": "1000",
+          "offerCount": "17563",
+          "priceValidUntil": "2059-11-20",
+          "itemCondition": "http://schema.org/NewCondition",
+          "availability": "https://schema.org/InStock"
+        }
+        }
+    </script>
+    <!--#endregion-->
+    {insert_css debug=true files="css/global.css,owl-carousel/owl.carousel.2.1.css,css/category.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+    {include file='library/ur_here.lbi'}
+     {$render.before_col_main}
+    <div class="banner-catalog">
+        {insert name=ads id=$ads_id num=5}
+    </div>
+
+    {include file='library/cat_filter.lbi'}
+
+        <!-- TemplateBeginEditable name="Top-Right" -->
+<!-- TemplateEndEditable -->
+         <div class="box-catalog">
+
+
+                <!-- TemplateBeginEditable name="Main" -->
+<!-- #BeginLibraryItem "/library/goods_list.lbi" -->
+{if $goods_list}
+<ul class="homeproduct clearfix">
+	{foreach from=$goods_list item=goods name=goods_list}
+	{if $goods.goods_id}
+	<li>
+         {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+        <a href="{$goods.url}" title="{$goods.name|escape:html}">
+            <img class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
+            <h3>{$goods.name|escape:html}</h3>
+            <div class="price">
+                Giá sỉ
+                 {if $goods.promote_price}
+                <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                 {else}
+                 <strong>{$goods.shop_price}</strong>
+                {/if}
+            </div>
+            <p class="cprice">Giá CTV: {$goods.partner_price}</p>
+                    <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+          <!--   <div class="ratingresult">
+                <span class="rank rank_{$goods.comment_rank}"></span>
+                <span>{$goods.comment_count} đánh giá</span>
+            </div>-->
+            <div class="promotion clr">{$goods.seller_note}</div>
+
+        </a>
+    </li>
+	{/if}
+	{/foreach}
+</ul>
+{include file='library/pages.lbi'}
+{else}
+<p class="empty">{$lang.goods_empty}</p>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+
+        </div><!-- end box-catalog -->
+
+
+    <div class="clr"></div>
+     <!-- TemplateBeginEditable name="Bottom" -->
+<!-- #BeginLibraryItem "/library/history.lbi" -->
+{siy:history}
+ <!-- #EndLibraryItem -->
+
+
+    {if $cat_desc}
+    <div class="clr"></div>
+    <article style="margin-bottom: 10px">
+            <div class="article_content">
+            {$cat_desc}
+            </div>
+    </article>
+    <div class="clr"></div>
+    {/if}
+    {if $long_desc}
+    <div class="clr"></div>
+    <article id="description">
+            <div class="article_content">
+                <h2>{$cat_name}</h2>
+            {$long_desc}
+            </div>
+            <div class="view-more hidden">
+                <p id="btn-viewmore"><span id="view1">Đọc thêm </span><span id="view2" class="hidden">Thu gọn </span> </p>
+            </div>
+    </article>
+    {/if}
+    {$render.after_col_main}
+</section>
+{include file='library/page_footer.lbi'}
+<script type="text/javascript">
+    var cat_id = {$category}, base_path = '{$base_path}/', current_url = '{$cat_url_ajax}';
+</script>
+{insert_js name='category.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js,owl-carousel/owl.carousel.2.1.min.js' minify='js/global.js,js/init.js'}
+<script type="text/javascript">
+
+
+    $(".filter>li.frange .criteria").click(function(e) {
+        e.preventDefault();
+        $(this).parents('.filter').find('.fsub.show').removeClass('show');
+        $(this).parent('li.frange').find('.fsub').addClass('show');
+    });
+     $(".fsub i.closefilter").click(function(e) {
+        e.preventDefault();
+        $(this).parent('.fsub').removeClass('show');
+    });
+
+
+
+
+    if($("#owl-cate").length > 0){
+       $("#owl-cate").owlCarousel({
+            navigation: !0,
+            pagination: !0,
+            lazyLoad:!0,
+            loop:!1,
+            items: 1,
+            scrollPerPage: !0,
+            responsiveRefreshRate : 200,navText: ['‹','›'],
+            afterMove: function() {
+               /* lazyload */
+            }
+        });
+    }
+
+
+
+    /** view more */
+    var el = $('#description .article_content');
+    var h = el.height();
+
+    if(h>300){
+        el.addClass('short_view');
+        $('#description .view-more').removeClass('hidden');
+    }
+    $('#btn-viewmore').click(function(e){
+        el.toggleClass('short_view');
+        $('#view1').toggleClass('hidden');
+        $('#view2').toggleClass('hidden');
+        e.preventDefault();
+    });
+    /** end view more */
+
+    function loadMore(cate_url,page){
+      var page = page != undefined ? page : 2;
+      $.post(cate_url,
+          {sync: 1, page: page},
+          function(response){
+              if(response.error == 0){
+                  $('#_loadList').append(response.goods_list);
+                  $('#page_ajax').html(response.pagination);
+              }else{
+                  console.log(response.message);
+              }
+          },
+          'json'
+      );
+  }
+
+</script>
+{include file='library/html_footer.lbi'}
+</body>
+</html>

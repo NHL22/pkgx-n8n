@@ -1,0 +1,86 @@
+<form action="contact-us" method="post" name="formMsg" onSubmit="return submitMsgBoard(this)" class="message-form">
+        <input placeholder="Full name *" type="text" name="user_name" tabindex="1" required  id="cf_username"/>
+        <input placeholder="Mobile *" type="text" name="user_tel" required tabindex="2"  id="cf_tel"/>
+		<input placeholder="{$lang.email} *" type="text" name="user_email" required tabindex="3"  id="cf_email"/>
+        <div class="radio_wrap">
+			<label for="cf_rank5"><input type="radio" name="msg_type" value="0" checked="checked" tabindex="2" class="radio" id="cf_rank5"/>{$lang.message_type[0]}</label>
+			<label for="cf_rank4"><input type="radio" name="msg_type" value="1" tabindex="3" class="radio" id="cf_rank4"/>{$lang.message_type[1]}</label>
+			<label for="cf_rank3"><input type="radio" name="msg_type" value="2" tabindex="4" class="radio" id="cf_rank3"/>{$lang.message_type[2]}</label>
+			<label for="cf_rank2"><input type="radio" name="msg_type" value="3" tabindex="5" class="radio" id="cf_rank2"/>{$lang.message_type[3]}</label>
+			<label for="cf_rank1"><input type="radio" name="msg_type" value="4" tabindex="6" class="radio" id="cf_rank1"/>{$lang.message_type[4]}</label>
+		</div>
+		<input type="text" placeholder="{$lang.message_title} *" name="msg_title" required size="50" tabindex="7" id="cf_title"/>
+		<textarea placeholder="{$lang.message_content} *" name="msg_content" required rows="6" cols="20" tabindex="7" id="cf_content"></textarea>
+		{if $enabled_mes_captcha}
+		<input placeholder="{$lang.comment_captcha} *" type="text" minlength="4" maxlength="4" name="captcha" size="6" tabindex="8" class="incaptcha" id="cf_captcha"/><img src="ajax?act=captcha&{$rand}" alt="{$lang.comment_captcha}" class="captcha tip" title="{$lang.captcha_tip}" onClick="this.src='ajax?act=captcha&'+Math.random()">
+		{/if}
+		<div class="submit_wrap">
+			<input type="submit" value="{$lang.post_message}" tabindex="9" class="button"/>
+            <input type="hidden" name="act" value="act_add_message" />
+            <input type="hidden" name="id" value="{$id}" />
+		</div>
+
+</form>
+<script type="text/javascript">
+{foreach from=$lang.message_board_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+{literal}
+//
+function submitMsgBoard(frm)
+{
+	var msg = new Object;
+    msg.user_name   = frm.elements['user_name'].value;
+	msg.user_email  = frm.elements['user_email'].value;
+	msg.msg_title   = frm.elements['msg_title'].value;
+    msg.msg_tel     = frm.elements['user_tel'].value;
+	msg.msg_content = frm.elements['msg_content'].value;
+	msg.captcha     = frm.elements['captcha'] ? frm.elements['captcha'].value : '';
+	var msg_err = '';
+	if (msg.user_email.length > 0)
+	{
+		if (!isValidEmail(msg.user_email))
+		{
+			msg_err += msg_error_email + '\n';
+		}
+	}
+	else
+	{
+		msg_err += msg_empty_email + '\n';
+	}
+	if (msg.msg_title.length == 0)
+	{
+		msg_err += msg_title_empty + '\n';
+	}
+	if (frm.elements['captcha'] && msg.captcha.length==0)
+	{
+		msg_err += msg_captcha_empty + '\n'
+	}
+	if (msg.msg_content.length == 0)
+	{
+		msg_err += msg_content_empty + '\n'
+	}
+    if (msg.msg_tel.length == 0)
+    {
+        msg_err += 'Your Phone are require' + '\n'
+    }
+    if (msg.user_name.length == 0)
+    {
+        msg_err += 'Your Name are require' + '\n'
+    }
+	if (msg.msg_title.length > 200)
+	{
+		msg_err += msg_title_limit + '\n';
+	}
+	if (msg_err.length > 0)
+	{
+		alert(msg_err);
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+{/literal}
+</script>

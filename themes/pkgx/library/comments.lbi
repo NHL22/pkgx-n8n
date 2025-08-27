@@ -1,0 +1,4 @@
+<div class="comment_box" id="comment">
+	<div class="hd"><div>Có <em>{siy:comment_count id=$id type=$type}</em> Đánh giá</div></div>
+	<div id="comment_wrapper">{insert name='comments' type=$type id=$id}</div>
+</div>

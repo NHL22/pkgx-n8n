@@ -1,0 +1,15 @@
+<nav class="subnav2" id="_subnav2">
+
+    <div class="navigation2 navigation" id="navigation">
+        {foreach from=get_categories_tree() item='cat' name='categories'}
+<a href="{$cat.url}">
+             {if $cat.icon}<img width="20px" src="{$cat.icon}" alt="{$cat.name|escape}">{/if}
+             {$cat.name}
+             </a>
+         {/foreach}
+
+
+
+
+    </div>
+</nav>

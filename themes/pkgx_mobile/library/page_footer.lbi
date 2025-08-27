@@ -1,0 +1,90 @@
+{$render.before_footer}
+<div class="sec">
+
+<div class="box clearfix ">
+   <div class="hd">
+       <div class="box_title">Link cộng đồng Signal sỉ</div>
+   </div>
+<div class="bottom-search__container">
+            <ul>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/fttkyf350"> Nhóm 1</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/jtmwao929"> Nhóm 2</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/qjxgby262"> Nhóm 3</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/wjoqdi500"> Nhóm 4</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/dtesjd320"> Nhóm 5</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/zcfzjg117"> Nhóm 6</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/syvoiv670"> Nhóm 7</a> </li>
+    </ul>
+   </div>
+ </div>
+ </div>
+{include file='library/links.lbi'}
+<footer>
+
+
+<div class="buycall company_info">
+
+<p class="buycall_title">Phụ Kiện Điện Thoại Giá Sỉ</p>
+<div class="red" style="color:#3740ff">» FREESHIP ĐƠN HÀNG TRÊN 5TR TRÊN TOÀN QUỐC (  ÁP DỤNG THANH TOÁN TRƯỚC - Hỗ trợ tối đa 100k )</div>
+
+<!-- <p>Địa chỉ 1 : Quận 2 Hồ Chí Minh </p> -->
+<!-- <p>Địa chỉ 2 : Hà Đông Hà Nội</p> -->
+<p class="buycall_title">HOTLINE BÁN HÀNG</p>
+<p>- Hotline 1: <a href="tel:{ $service_phone}"><i class="iconmobile-call"></i> { $service_phone}</a>  - <a class="red" href="https://zalo.me/{$service_phone}">Zalo</a><span>(7:30 - 22:00)</span></p>
+
+<p class="buycall_title">QUY ĐỊNH MUA SỈ</p>
+<p>- Đơn hàng tối thiểu 1 triệu  / đơn hàng</p>
+<p>- Hàng phụ kiện tối thiểu 5c / loại</p>
+<p>- Hàng ốp lưng tối thiểu 5c / mã máy</p>
+<p>- Sản phẩm trên 100k tối thiểu 3c</p>
+<p>- Gửi đơn hàng sỉ khách chịu phí ship</p>
+<p>- Thời gian nhận hàng có thể từ 3-5 ngày tuỳ địa điểm của khách</p>
+<p>- Giao hàng toàn quốc COD ( Lần đầu tiên giao dịch yêu cầu khách chuyển cọc 500k Áp dụng cho đơn trên 5 triệu )</p>
+
+    </div>
+    <div class="buycall">
+        <p class="buycall_title">Kết nối với chúng tôi</li>
+        <p class="social_links_footer">
+           <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_fanpage}"><img src="{$cdn_path}/upload/files/social/facebook.svg" alt="facebook"></a>
+               <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_message}"><img src="{$cdn_path}/upload/files/social/messenger.svg" alt="messager"></a>
+               <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_zalo}"><img src="{$cdn_path}/upload/files/social/zalo.svg" alt="zalo"></a>
+               <a target="_blank" rel="nofollow noreferrer noopener" href="{$skype}"><img src="{$cdn_path}/upload/files/social/signal-icon.svg" alt="Signal"></a>
+
+        </li>
+    </div>
+    <div class="infoother" id="_infoother">Các thông tin khác <span></span></div>
+    <div class="subother" id="_subother">
+        {foreach from=$helps item=help_cat name=helps}
+        <ul class="colfoot">
+             {foreach from=$help_cat.article item=item name=help_list}
+            {if $smarty.foreach.help_list.index < 6}
+            <li><a href="{$item.url}">{$item.title}</a></li>
+            {/if}
+            {/foreach}
+            <li><a id="switchDevices" data-client='desktop'  href="javascript:window.location.href='?client=desktop'" rel="nofollow">Phiên bản Desktop</a></li>
+        </ul>
+        {/foreach}
+        <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+    <div class="copyright">©2025 phukiengiaxuong.com.vn Copyright, All Rights Reserved. </div>
+    <a href="#top" rel="nofollow" title="Về Đầu Trang" id="back-top">↑</a>
+
+</footer>
+
+
+{$render.after_footer}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K4CG8GK');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4CG8GK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- <script type="text/javascript" src="https://phukiengiaxuong.com.vn/cdn/scripts/tet.js"></script> -->

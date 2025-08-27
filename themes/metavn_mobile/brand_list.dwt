@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+<title>{$page_title}</title>
+{include file='library/html_header.lbi'}
+{insert_css files="css/global.css,css/brand_list.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{include file='library/ur_here.lbi'}
+	<div class="box">
+            <h3 class="box_title">{$lang.all_brand}</h3>
+            <ul class="bd brands_list">
+                {foreach from=$brand_list item=brand_data name=brand_list_foreach}
+                <li>
+                    <a href="{$brand_data.url}">
+                    {if $brand_data.brand_logo}
+                    <img src="{$brand_data.brand_logo}" alt="{$brand_data.brand_name}({$brand_data.goods_num})"/>
+                    {else}
+                    {$brand_data.brand_name}
+                    {/if}
+                 </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+
+    </section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

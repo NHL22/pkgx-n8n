@@ -1,0 +1,23 @@
+{if $goods_list}
+{foreach from=$goods_list item=goods name=goods_lists}
+<li>
+    <div class="slected_name">
+        {$goods.goods_name}
+    </div>
+    <div class="slected_note">
+        <textarea cols="4" rows="2" class="cnote" data-id='{$goods.goods_id}' onmouseout="updateNote(this)" placeholder="Ghi chú">{$goods.note}</textarea>
+    </div>
+    <div class="slected_bottom">
+        <div class="slected_price">{$goods.price|number_format}₫</div>
+        <div class="button-container">
+            <button class="cart-qty-minus" type="button" value="-" onclick="minusQuantity(this,{$goods.goods_id})">-</button>
+            <input type="number" name="quantity" class="cquantity" min="1" max="100" value="{$goods.quantity}">
+            <button class="cart-qty-plus" type="button" value="+" onclick="plusQuantity(this,{$goods.goods_id})">+</button>
+        </div>
+        <button class="button remove_item" type="button" title="Xóa" onclick="removeItem({$goods.goods_id})">X</button>
+    </div>
+</li>
+{/foreach}
+{else}
+<li class="empty">No record !</li>
+{/if}

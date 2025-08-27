@@ -1,0 +1,139 @@
+{$render.before_footer}
+
+<footer>
+<div class="links-box">
+<div class="box clearfix">
+<div class="hd">
+        <div class="box_title">Link cộng đồng ZALO sỉ: </div>
+		<ul class="box-cat-all">
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/fttkyf350"> Nhóm 1</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/jtmwao929"> Nhóm 2</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/qjxgby262"> Nhóm 3</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/wjoqdi500"> Nhóm 4</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/dtesjd320"> Nhóm 5</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/zcfzjg117"> Nhóm 6</a> </li>
+    <li>   <a target="_blank" rel="nofollow noreferrer noopener" href="https://zalo.me/g/syvoiv670"> Nhóm 7</a> </li>
+								</ul>
+	</div>
+</div>
+</div>
+
+{include file='library/links.lbi'}
+
+<div class="clr"></div>
+<div class="slogan-footer">
+    <div class="container">
+        <ul>
+            <li class="slogan-item">
+                <div class="icon-slogan">
+                        <img src="{$cdn_path}/upload/files/feature/feature_search_image_1.svg" alt="Hỗ trợ cước vận chuyển ">
+                </div>
+                <div class="service-name"><a href="https://phukiengiaxuong.com.vn/tin-tuc/giao-hang-thanh-toan-14.html">Hỗ trợ cước vận chuyển </a>
+                        <span>Hỗ trợ tối đa 100k cho đơn trên 5tr, áp dụng đơn thanh toán trước</span>
+                </div>
+            </li>
+            <li class="slogan-item">
+                <div class="icon-slogan">
+                        <img src="{$cdn_path}/upload/files/feature/feature_search_image_2.svg" alt="Đổi trả bảo hành">
+                </div>
+                <div class="service-name"><a href="https://phukiengiaxuong.com.vn/tin-tuc/chinh-sach-doi-tra-1.html">Đổi trả bảo hành 1 năm</a>
+                        <span>Lỗi là đổi mới trong 1 năm .</span>
+                </div>
+            </li>
+            <li class="slogan-item">
+                <div class="icon-slogan">
+                        <img src="{$cdn_path}/upload/files/feature/feature_search_image_3.svg" alt="Bảo hành chính hãng">
+                </div>
+                <div class="service-name"><a href="https://phukiengiaxuong.com.vn/thuong-hieu">Bảo hành chính hãng</a>
+                        <span>Sản phẩm chính hãng thương hiệu Hoco, Borofone, Remax, Baseus</span>
+                </div>
+            </li>
+            <li class="slogan-item">
+                <div class="icon-slogan">
+                        <img src="{$cdn_path}/upload/files/feature/feature_search_image_4.svg" alt="Phương thức thanh toán">
+                </div>
+                <div class="service-name"><a href="https://phukiengiaxuong.com.vn/tin-tuc/giao-hang-thanh-toan-14.html">Phương thức thanh toán</a>
+                        <span>Hỗ trợ thanh toán qua thẻ: Vietcombank, Techcombank, BIDV,...</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+         <ul class="colfoot" style="width: 25%">
+            <li class="cot_title">Phụ Kiện Điện Thoại Giá Sỉ</li>
+            <li class="company_info">
+                 <p>Thời gian mở cửa: {$open_time}</p>
+                {if $service_phone}<p class="tel">Hotline / Zalo : <strong>{ $service_phone}</strong></p>{/if}
+                {if $service_email}<p>{$lang.email}: {$service_email}</p>{/if}
+                {if $shop_address}<!-- <p>Địa chỉ 1: {$shop_address}</p> -->{/if}
+                {if $shop_address}<!-- <p>Địa chỉ 2: Hà Đông, Hà Nội</p> -->{/if}
+
+               <p><a href="lien-he">Chỉ đường đến shop</a> </p>
+                         <p>  <a id="switchDevices" data-client='mobile'  href="javascript:window.location.href='?client=mobile'" rel="nofollow">Phiên bản Mobile</a></p>
+
+            </li>
+        </ul>
+        {foreach from=$helps item=help_cat name=helps}
+        {if $smarty.foreach.helps.index < 3}
+		<ul class="colfoot" style="width: 25%">
+            <li class="cot_title">{$help_cat.cat_name}</li>
+             {foreach from=$help_cat.article item=item name=help_list}
+            {if $smarty.foreach.help_list.index < 6}
+            <li><a href="{$item.url}">{$item.title}</a></li>
+            {/if}
+            {/foreach}
+        </ul>
+        {/if}
+        {/foreach}
+
+        <ul class="colfoot" style="width: 25%;padding-left: 0">
+            <li class="cot_title">Kết nối với chúng tôi</li>
+            <li class="social_links_footer">
+               <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_fanpage}"><img src="{$cdn_path}/upload/files/social/facebook.png" alt="facebook"></a>
+               <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_message}"><img src="{$cdn_path}/upload/files/social/messager.png" alt="messager"></a>
+               <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_zalo}"><img src="{$cdn_path}/upload/files/social/zalo.png" alt="zalo"></a>
+            </li>
+
+
+        </ul>
+        <ul class="colfoot" style="width: 25%;">
+            <li class="cot_title">Quy định mua sỉ</li>
+<li>» Đơn hàng tối thiểu 1 triệu / đơn hàng</li>
+<li>» Hàng phụ kiện tối thiểu 5c / loại</li>
+<li>» Hàng ốp lưng tối thiểu 5c / mã máy</li>
+<li>» Sản phẩm trên 100k tối thiểu 3c</li>
+<li>» Gửi đơn hàng sỉ khách chịu phí ship</li>
+<li>» Thời gian nhận hàng có thể từ 3-5 ngày tuỳ địa điểm của khách</li>
+<li>» Giao hàng toàn quốc COD ( Lần đầu tiên giao dịch yêu cầu khách chuyển cọc 500k )</li>
+        </ul>
+
+	</div>
+  <div class="container">
+          <div class="">Đối tác vận chuyển: </div>
+        <ul class="box-cat-all">
+      <li>   <img alt="Giao hàng tiết kiệm" src="https://phukiengiaxuong.com.vn/cdn/upload/files/logistics/ghtk.svg"> </li>
+      <li>     <img alt="Giao hàng nhanh" src="https://phukiengiaxuong.com.vn/cdn/upload/files/logistics/ghn.svg"> </li>
+      <li>     <img alt="J&T" src="https://phukiengiaxuong.com.vn/cdn/upload/files/logistics/jt.svg">  </li>
+      <li>    <img alt="Ahamove" src="https://phukiengiaxuong.com.vn/cdn/upload/files/logistics/ahamove.svg">  </li>
+
+                                </ul>
+    </div>
+
+</footer>
+{include file='library/hotline.lbi'}
+<div class="copyright">©2025 phukiengiaxuong.com.vn Copyright, All Rights Reserved. </div>
+<a href="#top" rel="nofollow" title="Về Đầu Trang" id="back-top">↑</a>
+{$render.after_footer}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K4CG8GK');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4CG8GK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->

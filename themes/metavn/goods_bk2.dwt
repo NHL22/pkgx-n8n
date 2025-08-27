@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {include file='library/html_header.lbi'}
+    {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/{$goods.url}" />
+    <link rel="alternate" hreflang="vi"  href="{$base_path}/{$goods.url}"/>
+<link rel="alternate" hreflang="x-default"  href="{$base_path}/{$goods.url}"/>
+    {insert_css files="css/global.css,owl-carousel/owl.carousel.2.3.4.min.css,css/goods.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+{include file='library/ur_here.lbi'}
+<div class="rowtop">
+    <h1>{$goods.goods_name}</h1>
+    <div class="ratingresult">
+        <span class="rank rank_{$goods.comment_rank}"></span> <a href="{$goods.url}#comment">{siy:comment_count id=$id type=$type} đánh giá</a>
+    </div>
+    <div class="likeshare"></div>
+</div>
+{include file='library/goods_detail.lbi'}
+<div class="clr"></div>
+<div class="col_main">
+{$render.before_col_main}
+ <div id="goods_info">
+    {$render.before_goods_info}
+    {if $feature_pictures}
+    <div class="characteristics">
+        <h2>Đặc điểm nổi bật của {$goods.goods_name}</h2>
+        <ul class="owl-carousel owl-theme" id="gallery_feature">
+            {foreach from=$feature_pictures item=picture name=pictures}
+            <li class="item">
+                <img src="{$cdn_path}/{$picture.img_url}" alt="{$picture.img_desc|escape}"></a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    {/if}
+    {if $goods.goods_desc}
+     <article id="description">
+        <div class="article_content">{$goods.goods_desc}</div>
+        <div class="view-more hidden">
+        <p id="btn-viewmore"><span id="view1">Đọc thêm </span><!-- <span id="view2" class="hidden">Thu gọn </span> --></p>
+        </div>
+    </article>
+    {/if}
+    {if $package_goods_list}
+        <div class="package_goods box" id="package">
+            <div class="hd"><h3>{$lang.remark_package}</h3><div class="extra"></div></div>
+            <div class="bd">
+                {foreach from=$package_goods_list item=package_goods name=package_goods_list}
+                <dl{if $smarty.foreach.package_goods_list.first} class="first"{/if}>
+                    <dt>{$package_goods.act_name}</dt>
+                    <dd class="item_wrapper">
+                        {foreach from=$package_goods.goods_list item=goods_list name=goods_list}
+                        <span class="item{if $smarty.foreach.goods_list.last} last{/if}">
+                            <a href="{siy:build_uri app='goods' gid=$goods_list.goods_id append=$goods_list.goods_name}" class="photo"><img src="{$option.static_path}{$goods_list.goods_thumb}" alt="{$goods_list.goods_name|escape:html}"/></a>
+                            <a href="{siy:build_uri app='goods' gid=$goods_list.goods_id append=$goods_list.goods_name}" class="name">{$goods_list.goods_name}{$goods_list.goods_attr_str}</a>
+                            <em>{$lang.quantity}{$lang.colon}{$goods_list.goods_number}</em>
+                        </span>
+                        {/foreach}
+                    </dd>
+                    <dd class="price_wrapper">
+                        <span>{$lang.package_price}<em class="price shop">{$package_goods.package_price}</em></span>
+                        <span>{$lang.old_price}<em class="price market_price">{$package_goods.subtotal}</em></span>
+                        <span>{$lang.then_old_price}<em class="price">{$package_goods.saving}</em></span>
+                    </dd>
+                    <dd class="action"><a href="javascript:addPackageToCart({$package_goods.act_id})" class="button brighter_button"><span>{$lang.add_to_cart}</span></a></dd>
+                </dl>
+                {/foreach}
+            </div>
+        </div>
+        {/if}
+        <!-- TemplateBeginEditable name="BottomLeft" -->
+<!-- #BeginLibraryItem "/library/goods_related.lbi" -->
+{if $related_goods}
+<div class="goods_related" id="related">
+	<div class="related_header">
+        <h4>So sánh với các sản phẩm tương tự</h4>
+        <div class="extra">
+            <form action="javascript:void(0)">
+                <input type="text" placeholder="Nhập tên sản phẩm bạn muốn so sánh" onkeyup="SuggestCompare(this,event)">
+                <button type="submit"><i class="icontgdd-topsearch"></i></button>
+            </form>
+        </div>
+    </div>
+	<ul class="cate">
+		{foreach from=$related_goods item=releated_goods_data name=related_goods}
+		<li data-id="{$releated_goods_data.goods_id}">
+			<a href="{$releated_goods_data.url}">
+                <img src="{$cdn_path}/{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+				<h3>{$releated_goods_data.goods_name}</h3>
+				<strong>{if $releated_goods_data.promote_price neq 0}{$releated_goods_data.formated_promote_price}{else}{$releated_goods_data.shop_price}{/if}</strong>
+            </a>
+            <a href="" class="compdetail">So sánh chi tiết</a>
+		</li>
+		{/foreach}
+	</ul>
+</div>
+{/if}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        <!-- TemplateBeginEditable name="Comment" -->
+<!-- #BeginLibraryItem "/library/comments.lbi" -->
+<div class="comment_box" id="comment">
+	<div class="hd"><h2>Có <em>{siy:comment_count id=$id type=$type}</em> Đánh giá</h2></div>
+	<div id="comment_wrapper">{insert name='comments' type=$type id=$id}</div>
+</div>
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        {$render.after_goods_info}
+ </div>
+{$render.after_col_main}
+</div>
+<!-- #end Col_main -->
+<div class="col_sub">
+    {$render.before_col_sub}
+    {if $properties}
+    <div class="tableparameter" id="tableparameter">
+        <h2>Thông số kỹ thuật</h2>
+        <ul class="parameter">
+            {foreach from=$properties item=property_group key=key}
+             {foreach from=$property_group item=property name=property_list}
+            {if $smarty.foreach.property_list.index < 10}
+            <li class="pro{$property.id|escape:html}"><span>{$property.name|escape:html}:</span> {$property.value|escape:html}</li>
+            {/if}
+             {/foreach}
+            {/foreach}
+        </ul>
+        <div class="viewparameterfull">Xem chi tiết thông số kỹ thuật</div>
+    </div>
+    {/if}
+        <!-- TemplateBeginEditable name="TopRight" -->
+<!-- TemplateEndEditable -->
+    <!-- TemplateBeginEditable name="Right" -->
+<!-- #BeginLibraryItem "/library/goods_article.lbi" -->
+{if $goods_article_list}
+<div class="box clearfix">
+	<h4>{$lang.article_releate} {$goods.goods_name}</h4>
+	<ul class="cat_articles">
+		{foreach from=$goods_article_list item=article name=goods_article_list}
+		<li>
+            <a href="{$article.url}">
+                <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                <h3>{$article.title|escape:html}</h3>
+                <span>{$article.viewed} lượt xem</span>
+            </a>
+        </li>
+		{/foreach}
+	</ul>
+</div>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    <!-- TemplateBeginEditable name="BottomRight" -->
+<!-- #BeginLibraryItem "/library/goods_fittings.lbi" -->
+{if $fittings}
+<div class="goods_fittings box" id="fittings">
+	<div class="hd"><h3>{$lang.fittings}</h3><div class="extra"><em>{siy:count array=$fittings}</em></div></div>
+	<div class="bd goods_list">
+		<ul>
+			{foreach from=$fittings item=goods name=fittings}
+			<li{if $smarty.foreach.fittings.index %4==0} class="first_child"{/if} data-id="{$goods.goods_id}">
+				<span class="photo">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="image"><img src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.goods_name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="name">{$goods.short_name}</a>
+					<em class="price fittings">{$goods.fittings_price}</em>
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    {$render.after_col_sub}
+</div>
+<!-- #end col_sub -->
+</section>
+{include file='library/page_footer.lbi'}
+<script type="text/javascript">
+    var goodsId = {$goods_id}, goodsIdCurrent = {$goods_id};
+</script>
+{insert_js name='category.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js,owl-carousel/owl.carousel.2.3.4.min.js' minify='js/global.js,js/init.js'}
+
+<script type="text/javascript">
+$(document).ready(function() {
+    /*$('#goods_info').Tabiy();*/
+    var pr = $('.properties');
+    if(pr.length > 0){
+        pr.Formiy();
+        pr.find('dl').tipsy({gravity: 'e',fade: true,html:true});
+        pr.find('label').tipsy({gravity: 's',fade: true,html:true});
+        /* Thay đổi hình khi chọn thuộc tính màu sắc */
+        pr.find('.radio label').click(function() {
+            var gattr_id = $(this).data('gattrid');
+            var gallery = $('#gallery');
+            var fl = 0;
+            var ct = $('#cache_thumb');
+            /* Tạo cache_thumb nếu ko tồn tại*/
+            if(ct.html() == ''){
+                gallery.find('.thumb_inner ul li').each(function(i) {
+                    var glid = $(this).data('glid');
+                    if(gattr_id == glid){
+                        if(fl == 0){
+                            var img = $(this).find('a').attr('href');
+                            gallery.find('a.cover').attr('href', img);
+                            gallery.find('a.cover img').attr('src', img);
+                            fl = fl+1;
+                        }
+                        $(this).show();
+                    }else{
+                        //$(this).hide();
+                        $('<li data-glid="'+glid+'">'+$(this).html()+'</li>').appendTo('#cache_thumb');
+                        $(this).remove();
+                    }
+                });
+            }else{
+
+                var html_ct = ct.html();
+                var first_src = ct.find("li:first a").attr('href');
+                var data_thumb = gallery.find('.thumb_inner ul').html();
+                /* lấy cache ra tạo gallery*/
+                gallery.find('.thumb_inner ul').html(html_ct);
+                gallery.find('a.cover').attr('href', first_src);
+                gallery.find('a.cover img').attr('src', first_src);
+                /* lấy data ghi xuống cache */
+                ct.html(data_thumb);
+            }
+        });
+    }
+
+    $('#gallery .thumb_inner').mSlidiy({num:6,step:3});
+    $('#purchase_form').ChangePriceSiy();
+    /* Thay đổi hình khi hover lên thumb khi dùng gallery Mode color_box */
+    var gallery_color_box = $('div.gallery_color_box');
+    if(gallery_color_box.length > 0){
+        gallery_color_box.find('.thumb_inner a').hover(function() {
+            var src = $(this).attr('href');
+            $('#gallery a.cover').attr('href', src);
+            $('#gallery a.cover img').attr('src', src);
+            console.log('hover');
+        });
+    }
+
+
+    $('#gallery a').colorbox({current: "Hình thứ {current}/{total} hình", next:'›',previous: '‹',close:'x',onOpen:openGallery,onClosed: closeGallery, fixed:true,scrolling: false,width:'100%',height:'100%',maxHeight: '100%',transition: 'none'});
+    function openGallery() {
+       $('#cboxContent').addClass('full_gallery');
+       $('body').addClass('fixbody');
+    }
+    function closeGallery() {
+       $('#cboxContent').removeClass('full_gallery');
+       $('body').removeClass('fixbody');
+    }
+});
+</script>
+{include file='library/html_footer.lbi'}
+<script type="text/javascript">
+    if($("#gallery_feature").length > 0){
+        $("#gallery_feature").owlCarousel({items: 1,slideBy: 1,margin:0,lazyLoad:!0,slideSpeed : 2000,nav:!0,dots:!0,loop:!0,responsiveRefreshRate : 200,navText: ['‹','›'],});
+    }
+    $('.rank_star').rating({
+        focus: function(value, link){
+            var tip = $('#star_tip');
+            tip[0].data = tip[0].data || tip.html();
+            tip.html(link.title || 'value: '+value).show();
+        },
+        blur: function(value, link){
+            $('#star_tip').html(link.title).show();
+        },
+        callback: function(value, link){
+           $('#star_tip').html(link.title).show();
+           $('div.action-comment').fadeIn('600');
+        }
+    });
+     /* Search Compare */
+    $('#search_compare').delayKeyup(function(el){
+        var keywords = el.val();
+        var show = $('#result_compare');
+        var cat_id = $('#_parent_catid').val();
+        if(keywords.length >2){
+            $.post(
+                'tim-kiem?act=search_suggest&category='+cat_id+'&gid='+goodsId,
+                {keywords: keywords},
+                function(response){
+                    var res = $.evalJSON(response);
+                    show.show();
+                    show.html(res.content);
+                },
+                'text'
+            );
+        }else{
+            show.hide();
+        }
+    },1000);
+</script>
+</body>
+</html>

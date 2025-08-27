@@ -1,0 +1,14 @@
+<div class="consignee_list">
+	<h3>Thông tin người nhận hàng</h3>
+	{foreach from=$consignee_list item=consignee key=sn name=consignee_list}
+
+	<form action="gio-hang" method="post" name="theForm" onsubmit="return checkConsignee(this)"{if $smarty.foreach.consignee_list.first} class="first"{/if}>
+		{include file='library/consignee.lbi'}
+	</form>
+	{/foreach}
+</div>
+<script type="text/javascript">
+{foreach from=$lang.flow_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,FOLLOW" name="robots" />
+    <title>Mua Trả góp {$goods_list.0.goods_name} thủ tục đơn giản, xét duyệt nhanh</title>
+    <meta name="description" content="Mua Trả góp {$goods_list.0.goods_name} thủ tục đơn giản, xét duyệt nhanh tại {$shop_name}"/>
+    <meta name="keywords" content="Trả góp {$goods_list.0.goods_name}, tra gop khong lai suat, mua tra gop"/>
+    {include file='library/html_header.lbi'}
+    <link rel="canonical" href="{$base_path}/tra-gop" />
+    {insert_css files="css/global.css,css/installment.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+<form action="{$base_path}/thanh-toan" method="post">
+    {foreach from=$goods_list item=goods name=goods_list}
+    <div class="boxsp">
+        <div class="infoproduct">
+            <a href="gio-hang?step=drop_goods&amp;id={$goods.rec_id}&amp;links=tra-gop" class="icon_delete tip" title="{$lang.drop}">x</a>
+            <a class="linksp"><img src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.goods_name|escape:html}"> </a>
+            <div> Mua trả góp <a href="{siy:goods_info id=$goods.goods_id type='url'}" target="_blank">{$goods.goods_name|escape:html}</a></div>
+            <div> Giá trả góp: <strong>{$goods.goods_price}</strong></div>
+            {if $goods.goods_attr}<div class="goods_attr">{$goods.goods_attr}</div>{/if}
+        </div>
+        <div class="tim">
+            <div class="boxshowkm">
+                {siy:goods_info id=$goods.goods_id type='goods_gifts'}
+            </div>
+        </div>
+    </div>
+     {/foreach}
+     <!-- tab link -->
+    <div class="clr"></div>
+    <div class="subtotal">
+            Tổng cộng <strong style="color:#f60">{$total.goods_price}</strong>
+    </div>
+     <!-- tab link -->
+    <div class="tabslink">
+            <a href="{$base_path}/tra-gop/{$goods_url}" {if $method eq 'credit'}class="current" {/if}>
+                <div>
+                    Qua thẻ tín dụng <span>Không cần xét duyệt</span>
+                </div>
+            </a>
+            <a {if $method eq 'finance'}class="current" {/if} href="{$base_path}/tra-gop/{$goods_url}?m=finance">
+                <div>
+                    Công Ty Tài Chính <span>Xét duyệt trong 4 giờ</span>
+                </div>
+            </a>
+    </div>
+    <div class="datatable">
+        {if $method eq 'finance'}
+       <div class="data_box box_finance">
+          Vui lòng liên hệ Hotline để được tư vấn.
+       </div>
+       {else}
+       <div class="data_box box_credit">
+           <div class="step">Bước 1: Chọn ngân hàng trả góp</div>
+           <div class="listbank clearfix" id="listbank">
+                <img src="{$option.static_path}/img/loader.gif"  alt="loading"> Đang xử lí, vui lòng đợi ...
+           </div>
+           <div class="step">Bước 2: Chọn loại thẻ</div>
+           <div class="listbank listcard clearfix" id="cardtype">
+                <label for="VISA">
+                    <input type="radio" id="VISA" name="cardtype" data-code="VISA" data-name="Thẻ Visa">
+                    <img src="{$base_path}/alepay/Images/VISA.png" height="28" alt="VISA">
+                </label>
+                <label for="MASTERCARD">
+                    <input type="radio" id="MASTERCARD" name="cardtype" data-code="MASTERCARD" data-name="Thẻ MasterCard">
+                    <img src="{$base_path}/alepay/Images/MASTERCARD.png" height="28" alt="MASTERCARD">
+                </label>
+                <label for="JCB">
+                    <input type="radio" id="JCB" name="cardtype" data-code="JCB" data-name="Thẻ JCB">
+                    <img src="{$base_path}/alepay/Images/JCB.png" height="28" alt="JCB">
+                </label>
+
+           </div>
+       </div>
+        <div class="clr"></div>
+       <div id="boxresult">
+            <div class="barcard">Bạn chọn trả góp qua thẻ <strong id="bcard"></strong>, của ngân hàng <strong id="bbank"></strong></div>
+            <div id="div-result"></div>
+       </div>
+       <input type="hidden" name="bank_key" id="bank_key">
+       <input type="hidden" name="card_key" id="card_key">
+       {/if}
+        <!-- Form thong tin khach hang -->
+        <div id="toggle_customer" class="hidden">
+             <p class="step">Bước 3: Thông tin người mua</p>
+            <div class="customer_info clearfix">
+                <div class="input_radio">
+                    <label><input type="radio" name="sex" value="1" checked>Anh</label>
+                    <label><input type="radio" name="sex" value="0">Chị</label>
+                </div>
+                <div class="group_input clearfix">
+                    <input  type="text" name="buyerName" placeholder="Họ và Tên *" required>
+                    <input type="tel" name="buyerPhone" placeholder="Số điện thoại *" required>
+                </div>
+                <div class="group_input clearfix">
+                    <input type="email" name="buyerEmail" placeholder="Email *" required>
+                    <select name="buyerCity" required>
+                          <option value="0">Chọn Tỉnh/ thành phố</option>
+                          {foreach from=$region_list item=city name=regionlist}
+                          <option value="{$city.region_name}">{$city.region_name}</option>
+                          {/foreach}
+                    </select>
+                </div>
+                <input type="text" name="buyerAddress" placeholder="Địa chỉ" required>
+                <p class="input_notice">Số nhà + Tên Đường + Phường/Xã + Quận Huyện</p>
+                <input type="text" name="shop_notice" placeholder="Yêu cầu khác">
+            </div> <!-- customer_info -->
+             <div class="actions clearfix">
+                    <input type="hidden" name="goodsName"  value="{$goods_list.0.goods_name|escape:html}">
+                    <input type="hidden" name="amount" id="amount" value="{$total.goods_amount}">
+                    <input type="hidden" name="goods_gift" value="{$goods_gifts}">
+                    <input type="hidden" name="month" id="month" value="12">
+                    <input type="hidden" name="action" value="checkout_alepay">
+                    <input type="hidden" name="csrf_token" value="{$csrf_token}">
+                    <button type="submit" class="checkout_now" value="2" name="checkoutType"><span>Thanh toán ngay</span></button>
+            </div>
+            <p style="color: red;margin-top: 10px">Lưu ý: Để chắc chắn vui lòng liên hệ kiểm tra tình trạng CÒN HÀNG trước khi thực hiện thanh toán trả góp.<br>
+                    Khách hàng chịu phí sử dụng thẻ thanh toán quốc tế.</p>
+        </div>
+    </div><!-- datatable -->
+</form>
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='installment.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+<script type="text/javascript">
+var price = {$total.goods_amount};
+$(document).ready(function() {
+    LoadBankList();
+});
+
+function choise_month(month,el) {
+    $('#month').val(month);
+    $(el).parents('ul.infocard').find('div.selected').removeClass('selected');
+    $(el).addClass('selected');
+    $('#toggle_customer').removeClass('hidden');
+
+}
+
+
+function LoadBankList() {
+    $('#boxresult, #cardtype').hide();
+    $.post(
+        'thanh-toan',
+        {action: 'banklist', price: price},
+        function(response){
+            var res = $.evalJSON(response);
+           if(res.error == 0){
+                $('#listbank').html(res.content);
+                $('#cardtype').show();
+                callw('.infocard', 2, 0);
+           }
+
+        },
+        'text'
+    );
+}
+function ChooseBankSetCardType(n) {
+    var key = $(n).data("key");
+    $('#bank_key').val(key);
+    $('#bbank').html($(n).data("code"));
+    $('#boxresult').hide();
+    $('#listbank label.acti').removeClass("acti");
+    $(n).parent().addClass("acti");
+    $('#cardtype').html('<div class="loader"></div>');
+    $('#cardtype .loader').css({visibility:'visible'}).fadeTo(0, 1000);
+    $.post(
+        'thanh-toan',
+        {action: 'cardlist', price: price, bankcode: key},
+        function(response){
+            var res = $.evalJSON(response);
+            if(res.error == 0){
+                $('#cardtype').html(res.content);
+                if(res.total  == 1){
+                    SetCardType('#card0');
+                }
+            }
+        },
+        'text'
+    );
+}
+function SetCardType(n){
+    $('#div-result').html('<div class="loader"></div>');
+    $('#div-result .loader').css({visibility:'visible'}).fadeTo(0, 1000);
+    var key = $(n).data("key");
+    var bankcode = $('#bank_key').val();
+    $('#card_key').val(key);
+    $('#bcard').html($(n).data("code"));
+    $('#cardtype label.acti').removeClass("acti");
+    $(n).parent().addClass("acti");
+    $.post(
+        'thanh-toan',
+        {action: 'periods', price: price, bankcode: bankcode, cardtype: key},
+        function(response){
+            var res = $.evalJSON(response);
+            if(res.error == 0){
+                $('#boxresult').show();
+                $('#div-result').html(res.content);
+                $("body,html").animate({scrollTop: $("#boxresult").position().top}, 600);
+                callw('.infocard', 2, 0);
+            }
+        },
+        'text'
+    );
+}
+
+
+ function callw(el, min, margin){
+    var i = $(el).length;
+    if(i> 0){
+        var a = $('ul'+el);
+        var b = a.find('li');
+        if(b.length >= min){
+            var w = b.length*(b.width()+margin);
+            var h = i > 1 ? w/i : w;
+            a.css('width', h);
+        }
+    }
+}
+
+</script>
+
+{include file='library/html_footer.lbi'}
+</body>
+</html>

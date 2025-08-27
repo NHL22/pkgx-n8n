@@ -1,0 +1,103 @@
+{$render.before_html_header}
+<base href="{$base_path}/">
+<meta name="viewport" content="width=device-width" />
+<meta name="copyright" content="phukiengiaxuong.com.vn" />
+<meta name="RATING" content="GENERAL" />
+<meta name="author" content="Nguyễn Hải Lăng" />
+<meta http-equiv="audience" content="General" />
+<meta name="resource-type" content="Document" />
+<meta name="distribution" content="Global" />
+<meta name="revisit-after" content="1 days" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-language" content="vi" />
+<meta name="theme-color" content="#fff"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@https://twitter.com/phukiengiaxuon1" />
+
+<link rel="apple-touch-icon" href="https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo-300x300.png">
+<link rel="shortcut icon" href="https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo-300x300.png">
+
+<link type="image/x-icon" href="{$cdn_path}/upload/files/profile/favicon.png" rel="shortcut icon" />
+{if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}" />{/if}
+{$render.after_html_header}
+<link rel="manifest" href="https://phukiengiaxuong.com.vn/manifest.json">
+
+<meta property="og:site_name" content="{$shop_name}" />
+<meta property="og:title" content="{$page_title}" />
+<meta property="og:description" content="{$description}" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="vi_VN" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+<script src="https://phukiengiaxuong.com.vn/script.js" defer></script>
+<script src="https://phukiengiaxuong.com.vn/service-worker.js" defer></script>
+<!--#region Thông tin trang-->
+
+    <script type="application/ld+json">
+        {
+        "@context":"http://schema.org",
+        "@id":"https://phukiengiaxuong.com.vn/#Organization",
+        "@type": [
+                "ElectronicsStore",
+                "Organization"
+        ],
+        "image": [
+          "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.png"
+         ],
+        "priceRange": "1-10000",
+        "telephone": "0981239686",
+        "name":"Phụ kiện điện thoại giá sỉ",
+        "url":"https://phukiengiaxuong.com.vn",
+        "email": "phukiengiaxuong.com.vn@gmail.com",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Số 15 Ngõ 62",
+                "addressLocality": "Thị Trấn Trâu Quỳ, Gia Lâm",
+                "addressRegion": "Hà Nội",
+                "postalCode": "100000",
+                "addressCountry": "Việt Nam"
+            },
+        "openingHours": [
+                "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday 09:00-17:00"
+            ],
+        "logo":{"@type":"ImageObject","url":"https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.png"},
+
+        "sameAs":[
+        "https://www.facebook.com/tongkhosiop/",
+        "https://vn.linkedin.com/company/phukiengiaxuong.com.vn",
+        "https://www.youtube.com/user/phukiengiaxuong.com.vn",
+        "https://www.instagram.com/phukiengiaxuong.com.vn/",
+        "https://www.tiktok.com/@phukiengiaxuong.com.vn",
+        "https://vi.wikipedia.org/wiki/phukiengiaxuong.com.vn"]
+        }
+    </script>
+<!--#endregion-->
+<!--#region Thông tin trang-->
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@id": "https://phukiengiaxuong.com.vn/#website",
+    "@type": "WebSite",
+    "name": "Phukiengiaxuong.com.vn - Phụ kiện điện thoại giá sỉ rẻ nhất Việt Nam",
+    "alternateName":  "Phukiengiaxuong.com.vn - Phụ kiện điện thoại giá sỉ rẻ nhất Việt Nam",
+    "url": "https://phukiengiaxuong.com.vn",
+    "publisher": {
+        "@id": "https://phukiengiaxuong.com.vn/#organization"
+    },
+    "inLanguage": "vi",
+    "potentialAction": [{
+    "@type": "SearchAction",
+    "target": "https://phukiengiaxuong.com.vn/tim-kiem?keywords={search_term_string}",
+    "query-input": "required name=search_term_string"
+    }]
+    }
+</script>
+<!--#endregion-->
+<style type="text/css">
+    .homeproduct .button-container{
+    width: calc(100% - 68px);
+}
+</style>

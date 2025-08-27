@@ -1,0 +1,23 @@
+{if $option.links_enabled and ($img_links or $txt_links)}
+<div class="sec">
+<div class="box clearfix">
+	<div class="hd">
+		 <div class="box_title">{$lang.links}</div>
+	</div>
+		<div class="overpromo box-cat-list">
+			<div>
+			{if $img_links}
+			{foreach from=$img_links item=link name=img_links}
+			<a href="{$link.url}" rel="external"><img src="{$link.logo}" alt="{$link.name}"/></a>
+			{/foreach}
+			{/if}
+			{if $txt_links}
+			{foreach from=$txt_links item=link name=txt_links}
+			<a href="{$link.url}" rel="external">{$link.name}</a>
+			{/foreach}
+			{/if}
+			</div>
+		</div>
+</div>
+</div>
+{/if}

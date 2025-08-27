@@ -1,0 +1,8 @@
+{if $viewmore_number > 0}
+<p class="pagination page_ajax">
+    <a rel="nofflow" class="current next caret_down" href="javascript:loadMore('{$cat_url_ajax}',{$nextpage},{$category})">Xem thêm {$viewmore_number} {$cat_name}</a>
+</p>
+{/if}
+
+
+

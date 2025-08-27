@@ -1,0 +1,6 @@
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>

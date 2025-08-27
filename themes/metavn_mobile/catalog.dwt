@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+  <meta content="{$meta_robots}" name="robots" />
+    <meta charset="utf-8">
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title}</title>
+
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="all_cat_list box full_box">
+		<div class="hd"><h3>{$lang.catalog}</h3><div class="extra"></div></div>
+		<div class="bd">
+			<ul class="level_1 clearfix">
+				{foreach from=get_categories_tree() item=cat name=categories}
+				<li class="level_1{if $smarty.foreach.categories.first} first{/if}">
+					<p class="level_1"><a href="{$cat.url}" class="level_1"><span>{$cat.name}</span></a></p>
+					{if $cat.cat_id}
+					<ul class="level_2 clearfix">
+						{foreach from=$cat.cat_id item=child name=child_cat}
+						<li class="level_2 clearfix{if $smarty.foreach.child_cat.first} level_2_first{/if}">
+							<p class="level_2"><a href="{$child.url}" class="level_2"><span>{$child.name}</span></a></p>
+							{if $child.cat_id}
+							<ul class="level_3 clearfix">
+								{foreach from=$child.cat_id item=childer name=childer_cat}
+								<li class="level_3"><a href="{$childer.url}" class="level_3"><span>{$childer.name}</span></a></li>
+								{/foreach}
+							</ul>
+							{/if}
+						</li>
+						{/foreach}
+					</ul>
+					{/if}
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<div class="brand_list all_brand_list box full_box">
+		<div class="hd"><h3>{$lang.all_brand}</h3><div class="extra"></div></div>
+		<div class="bd">
+			<ul>
+				{foreach from=$brand_list item=brand}
+				<li>{if $brand.brand_logo}<a href="{$brand.url}" class="logo"><img src="{$option.static_path}data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name}({$brand.goods_num})"/></a><a href="{$brand.url}" class="name">{$brand.brand_name}</a>{else}<a href="{$brand.url}" class="logo">{$brand.brand_name}</a>{/if}</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer_menu.lbi'}
+{include file='library/html_footer.lbi'}
+
+</body>
+</html>

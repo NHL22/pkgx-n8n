@@ -1,0 +1,20 @@
+{if $brand_list}
+<div class="box-catalog box-brands">
+    <div class="box-cat-title">
+        <h2 class="h3">Thương hiệu nổi bật</h2>
+    </div>
+    <ul class="brands_list clearfix">
+        {foreach from=$brand_list item=brand name=brand}
+        <li>
+            <a href="{$brand.url}">
+            {if $brand.brand_logo}
+            <img src="{$cdn_path}/data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name|escape:html}"/>
+            {else}
+            {$brand.brand_name}
+            {/if}
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+{/if}

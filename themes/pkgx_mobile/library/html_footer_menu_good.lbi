@@ -1,0 +1,153 @@
+    <div class="full-page-wrapper"></div>
+
+    <div id="category-menu-source" style="display: none;">
+            {* GIỮ NGUYÊN VÒNG LẶP FOREACH CỦA BẠN Ở ĐÂY *}
+    {foreach from=get_categories_tree() item='cat' name='categories'}
+        <a href="{$cat.url}" {if $cat.icon}data-icon="{$cat.icon}"{/if}>
+            {$cat.name}
+        </a>
+        {if $cat.cat_id}
+            <ul>
+                {foreach from=$cat.cat_id item='sub_cat'}
+                    <li><a href="{$sub_cat.url}">{$sub_cat.name}</a></li>
+                {/foreach}
+            </ul>
+        {/if}
+    {/foreach}
+    {* KẾT THÚC VÒNG LẶP CỦA BẠN *}
+
+</div>
+
+    <ul class="menu_footer">
+        <li><a href="https://phukiengiaxuong.com.vn/"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/home.svg" alt="Trang chủ"><span>Trang chủ</span></a></li>
+        <li><a href="https://phukiengiaxuong.com.vn/gio-hang"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/icons8-cart-64.webp" alt="Order"><span>Giỏ Hàng</span></a></li>
+        <li><a href="tel:{ $service_phone}"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/telephone.svg" alt="Hotline"><span>Hotline</span></a></li>
+        <li><a href="{$link_message}" rel="nofollow noreferrer noopener"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/messenger.svg" alt="Messenger"><span>Messenger</span></a></li>
+        <li><a href="{$link_zalo}" rel="nofollow noreferrer noopener"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/zalo.svg" alt="Zalo"><span>Zalo</span></a></li>
+        <li><div id="menu_f"><img id="img_f" width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/bullet.svg" alt="Menu"><span>Menu</span></div></li>
+    </ul>
+
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- KHAI BÁO CÁC PHẦN TỬ CHÍNH ---
+    const sourceContainer = document.getElementById('category-menu-source');
+    const pageWrapper = document.querySelector('.full-page-wrapper');
+    const menuToggleButton = document.getElementById('menu_f');
+
+    if (!sourceContainer || !pageWrapper || !menuToggleButton) {
+        console.error("Thiếu các phần tử HTML cần thiết cho menu.");
+        return;
+    }
+
+    // --- XÂY DỰNG CẤU TRÚC MENU ---
+    const menuHeader = document.createElement('div');
+    menuHeader.className = 'menu-header';
+    menuHeader.innerHTML = `<span class="menu-title">Danh Mục Sản Phẩm</span><button class="menu-close-btn" aria-label="Đóng menu">&times;</button>`;
+
+    const menuContainer = document.createElement('div');
+    menuContainer.className = 'mobile-menu-container';
+
+    const mainCategoriesCol = document.createElement('div');
+    mainCategoriesCol.className = 'main-categories';
+
+    const subCategoriesCol = document.createElement('div');
+    subCategoriesCol.className = 'sub-categories';
+
+    const allElements = Array.from(sourceContainer.children);
+    const mainLinks = [];
+
+    // --- LOGIC XỬ LÝ MENU ---
+    for (let i = 0; i < allElements.length; i++) {
+        const element = allElements[i];
+        if (element.tagName === 'A') {
+            const linkIndex = mainLinks.length;
+            
+            const originalHref = element.href;
+            const parentCategoryTitle = element.textContent.trim();
+
+            element.href = '#';
+            element.dataset.target = 'sub-cat-' + linkIndex;
+            mainCategoriesCol.appendChild(element);
+            mainLinks.push(element);
+
+            let childUl;
+            const nextElement = allElements[i + 1];
+
+            if (nextElement && nextElement.tagName === 'UL') {
+                childUl = nextElement;
+                i++;
+            } else {
+                childUl = document.createElement('ul');
+            }
+
+            const viewAllListItem = document.createElement('li');
+            viewAllListItem.className = 'view-all-item';
+            const viewAllLink = document.createElement('a');
+            
+            viewAllLink.href = originalHref;
+            viewAllLink.textContent = 'Xem Toàn Bộ';
+            
+            viewAllListItem.appendChild(viewAllLink);
+
+            // **THAY ĐỔI DUY NHẤT Ở ĐÂY**
+            // Thay vì chèn vào đầu (insertBefore), chúng ta sẽ thêm vào cuối (appendChild)
+            childUl.appendChild(viewAllListItem);
+            
+            childUl.id = 'sub-cat-' + linkIndex;
+            childUl.dataset.title = parentCategoryTitle;
+            subCategoriesCol.appendChild(childUl);
+        }
+    }
+    
+    pageWrapper.appendChild(menuHeader);
+    pageWrapper.appendChild(menuContainer);
+    menuContainer.appendChild(mainCategoriesCol);
+    menuContainer.appendChild(subCategoriesCol);
+
+    const closeButton = menuHeader.querySelector('.menu-close-btn');
+
+    // --- LOGIC BẬT/TẮT MENU VÀ KHÓA CUỘN ---
+    function openMenu() {
+        pageWrapper.classList.add('is-open');
+        document.body.classList.add('menu-is-open');
+    }
+
+    function closeMenu() {
+        pageWrapper.classList.remove('is-open');
+        document.body.classList.remove('menu-is-open');
+    }
+
+    menuToggleButton.addEventListener('click', function() {
+        const isMenuOpen = pageWrapper.classList.contains('is-open');
+        if (isMenuOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    closeButton.addEventListener('click', function() {
+        closeMenu();
+    });
+
+    // --- GÁN SỰ KIỆN CHO CÁC MỤC TRONG MENU ---
+    mainLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            mainLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            const targetId = this.dataset.target;
+            subCategoriesCol.querySelectorAll('ul').forEach(ul => ul.classList.remove('active'));
+            const targetList = document.getElementById(targetId);
+            if (targetList) {
+                targetList.classList.add('active');
+            }
+        });
+    });
+
+    if (mainLinks.length > 0) {
+        mainLinks[0].click();
+    }
+});
+</script>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <meta charset="utf-8">
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title}</title>
+
+{include file='library/html_header_nosale.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+    {include file='library/ur_here.lbi'}
+    <!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+    <div class="activity_list box full_box">
+        <div class="hd"><h3>{$lang.favourable}</h3><div class="extra"></div></div>
+        <div class="bd">
+            {foreach from=$list item=val name=list}
+            <div class="item{if $smarty.foreach.list.first} first{/if}" id="{$val.act_id}">
+                <h2 class="name">{$val.act_name}</h2>
+                <dl class="table">
+                    <dt>{$lang.label_start_time}</dt><dd>{$val.start_time}</dd>
+                    <dt>{$lang.label_end_time}</dt><dd class="even">{$val.end_time}</dd>
+                    <dt>{$lang.label_max_amount}</dt><dd class="price">{if $val.max_amount > 0}{$val.max_amount}{else}{$lang.unlimited}{/if}</dd>
+                    <dt>{$lang.label_min_amount}</dt><dd class="price even">{$val.min_amount}</dd>
+                    <dt>{$lang.label_user_rank}</dt><dd class="user_rank">{foreach from=$val.user_rank item=user}<em>{$user}</em>{/foreach}</dd>
+                    <dt>{$lang.label_act_range}</dt>
+                    <dd class="even">
+                        {$val.act_range}{if $val.act_range ne $lang.far_all}
+                        {foreach from=$val.act_range_ext item=ext}
+                        <a href="{$val.program}{$ext.id}" taget="_blank">{$ext.name}</a>
+                        {/foreach}
+                        {/if}
+                    </dd>
+                    <dt>{$lang.label_act_type}</dt><dd>{$val.act_type}{if $val.act_type ne $lang.fat_goods}{$val.act_type_ext}{/if}</dd>
+                    {if $val.gift}
+                    <dt>{$lang.goods_list}{$lang.colon}</dt>
+                    <dd class="even">
+                        <div class="goods_list display_text">
+                        <ul class="clearfix">
+                            {foreach from=$val.gift item=goods name=val_gift}
+                            <li{if $smarty.foreach.val_gift.first} class="first"{/if}>
+                                <span class="photo">
+                                    <a href="{siy:build_uri app='goods' gid=$goods.id append=$goods.name}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a>
+                                </span>
+                                <span class="info">
+                                    <a href="{siy:build_uri app='goods' gid=$goods.id append=$goods.name}" title="{$goods.name|escape:html}" class="name">{$goods.name}</a>
+                                    <em class="price">{if $goods.price > 0}{$goods.price}{$lang.unit_yuan}{else}{$lang.for_free}{/if}</em>
+                                </span>
+                                <span class="action">
+                                    <a href="{siy:build_uri app='goods' gid=$goods.id append=$goods.name}" class="button"><span>{$lang.btn_detail}</span></a>
+                                </span>
+                            </li>
+                            {/foreach}
+                        </ul>
+                        </div>
+                    </dd>
+                    {/if}
+                </dl>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+    <!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+<script type="text/javascript">
+$(document).ready(function() {
+    var link_item = $(location.hash);
+    if (link_item.length == 1 && link_item.siblings().length > 0) {
+        link_item.addClass('current').siblings().hide();
+        link_item.parent().append('<a href="javascript:void(0);" class="show_all button bright_button"><span>'+lang.show_all+'</span></a>');
+        link_item.parent().find('.show_all').click(function(){
+            link_item.addClass('bright_current').siblings().show();
+            $(this).hide();
+        });
+    };
+});
+</script>
+</body>
+</html>

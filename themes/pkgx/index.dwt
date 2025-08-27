@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<head>
+    {include file='library/html_header.lbi'}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/" />
+    <link rel="alternate" href="{$base_path}/" hreflang="vi-vn" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/" />
+    <meta itemprop="image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image:alt" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <!--#region Organization-->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://phukiengiaxuong.com.vn/#Organization",
+      "name": "Phụ Kiện Điện Thoại Giá Sỉ",
+      "url": "https://phukiengiaxuong.com.vn/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.png"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+84-981-239-686", // Thêm mã quốc gia +84 để rõ ràng hơn
+          "contactType": ["customer support", "sales", "technical support"], // Gộp các loại liên hệ vào một
+          "areaServed": "VN",
+          "availableLanguage": ["Vietnamese", "English"]
+        }
+      ],
+      "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Số 170 Ngọc Lâm", // TODO: Thay bằng địa chỉ thực tế
+          "addressLocality": "Long Biên",
+          "addressRegion": "Hà Nội",
+          "postalCode": "100000", // TODO: Thay bằng mã bưu chính đúng
+          "addressCountry": "VN"
+      },
+      "email": "phukiengiaxuong.com.vn@gmail.com", // TODO: Thay bằng email liên hệ của bạn
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61569946667473", // TODO: Kiểm tra lại liên kết này
+        "https://vn.linkedin.com/company/phukiengiaxuong.com.vn",
+        "https://www.youtube.com/user/phukiengiaxuong.com.vn", // TODO: Kiểm tra lại liên kết này
+        "https://www.instagram.com/phukiengiaxuong.com.vn/",
+        "https://vt.tiktok.com/@phukiengiaxuong.com.vn/"
+      ]
+    }
+    </script>
+    <!--#endregion-->
+    <!--Private Stylesheet -->
+    {insert_css files="owl-carousel/owl.carousel.2.1.css,css/global.css,css/index.css"}
+    <style>
+#products_today .box{
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+}
+.products_cate {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex: 1 100%;
+    background-color: #fff;
+}
+.products_cate._nextpre .owl-prev,
+.products_cate._nextpre .owl-next{
+    height: 30px;
+    width: 20px;
+    font-size: 26px;
+    padding: 10px 0 0;
+}
+.products_cate .products_cate_item{
+    flex: 1 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    /*border-bottom: 1px solid #ddd;*/
+    cursor: pointer;
+}
+.products_cate .products_cate_item.actived {
+    /*border-bottom: 1px solid #0a68ff;*/
+    color: #0a68ff;
+    background-color: rgba(0, 96, 255, .05);
+}
+.products_cate_item img{
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    display: block;
+}
+.products_cate_item p{
+    margin-top: 10px;
+    font-size: 12px;
+    max-height: 36px;
+    overflow: hidden;
+    min-height: 36px;
+}
+.cat_goods {
+    display:  none;
+}
+.cat_goods .view_more {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.cat_goods .view_more a {
+    cursor: pointer;
+    display: inline-block;
+    width: 240px;
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid rgb(10, 104, 255);
+    color: rgb(10, 104, 255);
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+}
+    </style>
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+  <div class="clr clearfix" style="margin-top: 10px;"></div>
+
+      <!--   <div class="categories_all">
+            {include file='library/category_tree.lbi'}
+        </div>-->
+        <div class="homebanner">
+            <!-- TemplateBeginEditable name="BannerHome670x300" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+{insert name=ads id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </div>
+        <div class="Right-BannerHome">
+          {insert name=ads id=16 num=$ads_num}
+        </div>
+        <div class="clr clearfix" ></div>
+        <div class="hd">
+        <div class="box clearfix">
+        <div class="h1_home"><h1>{$des_home}</h1></div>
+        <div class="img_filter"  id="filter_sub">
+            {foreach from=get_categories_tree() item='cat' name='categories'}
+            <a {if $active_url eq $cat.url}class="selected"{/if} href="{$cat.url}">
+                {if $cat.icon}<img width="55px" height="55px" src="{$cat.icon}" alt="{$cat.name|escape}">{/if}
+                <h2>{$cat.name}</h2>
+            </a>
+            {/foreach}
+         </div>
+         </div>
+         <div class="box clearfix">
+             <ul class="botom-bannerhome">
+               <li>{insert name=ads id=23 num=$ads_num}</li>
+               <li>{insert name=ads id=24 num=$ads_num}</li>
+               <li>{insert name=ads id=25 num=$ads_num}</li>
+               <li>{insert name=ads id=26 num=$ads_num}</li>
+             </ul>
+           </div>
+                 <div class="clr clearfix" style="margin-top: 10px;"></div>
+     <!-- TemplateBeginEditable name="newProduct" -->
+<!-- #BeginLibraryItem "/library/recommend_new.lbi" -->
+{if $new_goods}
+ <div class="box recommend_new">
+    <div class="hd">
+        <h2 class="box_title">Sản phẩm {$lang.new_goods}</h2>
+        <div class="extra"><a href="tim-kiem?intro=new">Xem tất cả</a></div>
+    </div>
+    <ul class="homeproduct {if $pname eq 'index'}_nextpre owl-carousel owl-theme{/if}" id="new_goods">
+        {foreach from=$new_goods item=goods name=new_goods}
+        <li data-id="{$goods.id}">
+            {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+                {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.is_hot} <span class="icon_hot"></span> {/if}
+                {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+
+                <h3>{$goods.name|escape:html}</h3>
+                <div class="price">
+                    Giá Sỉ
+                     {if $goods.promote_price}
+                    <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                     {else}
+                     <strong>{$goods.shop_price}</strong>
+                    {/if}
+                </div>
+     <p class="cprice">Giá CK: {$goods.partner_price}</p> 
+                    <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p>
+
+                <div class="promotion">{$goods.seller_note}</div>
+            </a>
+            <div class="form_add form_add{$goods.id}">
+                    <div class="button-container">
+                        <button onclick="qtyMinus(this)" class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                        <input type="text" min="1" max="10" class="qty qty{$goods.id}" step="1" name="goods_number" value="1">
+                        <button onclick="qtyPlus(this)" class="qty_button cart-qty-plus" type="button" value="+">+</button>
+                    </div>
+                    <button class="quick_add" type="button" onclick="quickBuy({$goods.id})"><i class="icontgdd-cart"></i></button>
+                </div>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    <div id="products_today">
+        <div class="box fix_cate">
+            <div class="box_title"><h2>Gợi ý hôm nay</h2></div>
+            <div class="products_cate _nextpre"></div>
+        </div>
+        
+             <!-- TemplateBeginEditable name="Catalog-Main" -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+    <ul class="homeproduct"></ul>
+    <div class="view_more">
+        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+    </div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+    </div>
+
+
+
+     <!-- TemplateBeginEditable name="BestBrands" -->
+<!-- TemplateEndEditable -->
+    <!-- TemplateBeginEditable name="Footer" -->
+<!-- TemplateEndEditable -->
+<div class="box clearfix">
+    <div class="hd">
+        <div class="box_title">Chia sẻ kiến thức</div>
+    </div>
+<ul class="botom-bannerhome">
+  <li>{insert name=ads id=27 num=$ads_num}</li>
+  <li>{insert name=ads id=28 num=$ads_num}</li>
+  <li>{insert name=ads id=29 num=$ads_num}</li>
+  <li>{insert name=ads id=30 num=$ads_num}</li>
+  <li>{insert name=ads id=31 num=$ads_num}</li>
+  <li>{insert name=ads id=32 num=$ads_num}</li>
+  <li>{insert name=ads id=33 num=$ads_num}</li>
+  <li>{insert name=ads id=34 num=$ads_num}</li>
+</ul>
+</div>
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='index.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js,owl-carousel/owl.carousel.2.1.min.js' minify='js/global.js,js/init.js'}
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var sync1 = $("#sync1");
+    if(sync1.length > 0){
+        $("#sync1").owlCarousel({autoPlay: 5e3, singleItem: !0, slideSpeed: 500, navigation: !0, pagination: !0, responsiveRefreshRate: 200, stopOnHover: !0, lazyLoad: !0 });
+    }
+
+    var homepromo = $(".homepromo");
+    if(homepromo.length > 0){
+        homepromo.owlCarousel({
+            navigation: !0,
+            pagination: !1,
+            items: 5,
+            itemsDesktop: [1199, 5],
+            itemsDesktopSmall: [979, 5],
+            scrollPerPage: !0,
+            afterMove: function() {
+                $(".homepromo .lazy").each(function() {
+                    $(this).attr("src", $(this).data("original"));
+                    this.style.opacity = 1
+                })
+            }
+        });
+    }
+
+    $("ul._nextpre ").owlCarousel({
+            navigation: !0,
+            pagination: !1,
+            items: 6,
+            scrollPerPage: !0,
+            afterMove: function() {
+                $(".homepromo .lazy").each(function() {
+                    $(this).attr("src", $(this).data("original"));
+                    this.style.opacity = 1
+                })
+            }
+    });
+
+    // Tạo danh mục recomend
+    let cate_rec = '';
+    let current_id = 302;
+    let current_url = 'hang-theo-loai-ban.html';
+    $("#products_today .cat_goods").each(function(){
+        let cat_name = $(this).data('name');
+        let url = $(this).data('url');
+        let icon = $(this).data('icon');
+        let cat_id = $(this).data('id');
+        let className = cat_id === current_id ? `products_cate_item citem-${cat_id} actived` : `products_cate_item citem-${cat_id}`;
+        cate_rec += `<div onclick="loadData('${url}',${cat_id})" data-id="${cat_id}" data-url="${url}"  class="${className}">`;
+        cate_rec += `<img src="${icon}" alt="${cat_name}">`;
+        cate_rec += `<p>${cat_name}</p>`;
+        cate_rec += '</div>';
+    });
+    let owl_products_cate = $("#products_today .products_cate");
+    owl_products_cate.html(cate_rec);
+    owl_products_cate.owlCarousel({
+            navigation: !0,
+            pagination: !1,
+            items: 12,
+            scrollPerPage: !0
+    });
+    owl_products_cate.trigger("refresh.owl.carousel");
+    // End Tạo danh mục recomend
+    loadMore(current_url,1,current_id);
+
+});
+
+$(window).scroll(function fix_element() {
+    $('#products_today .fix_cate').css(
+    $(window).scrollTop() > 1060
+        ? {'max-width' : '1200px', 'margin':'0 auto', 'position': 'fixed', 'top': '0', 'left': '0', 'right': '0', 'z-index': '9999' }
+        : { 'position': 'relative', 'top': 'auto' }
+    );
+    return fix_element;
+}());
+
+$("p.page_ajax a.caret_down").click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    let cat_url = $(this).data('url');
+    let next_page = $(this).data('next');
+    let cat_id = $(this).data('id');
+    console.log('he',cat_url,next_page,cat_id);
+    //loadMore(cat_url,next_page,cat_id)
+
+});
+function loadData(cate_url,cat_id){
+    let page = 1;
+     //Active Tab
+   $("#products_today .products_cate div.actived").removeClass('actived');
+   $(`#products_today .products_cate div.citem-${cat_id}`).addClass('actived');
+   if(page == 1){
+    $("#products_today div.cat_goods.show .homeproduct").html('');
+   }
+
+  $("#products_today div.cat_goods.show").removeClass('show');
+
+  $("body,html").animate({scrollTop: $("#products_today").position().top}, 600);
+  
+    loadMore(cate_url,page,cat_id);
+}
+function loadMore(cate_url,number,cat_id){
+  let page = number != undefined ? number : 2;
+ 
+
+  
+  let target = $(`#catalog-${cat_id} .homeproduct`);
+ 
+   $.get(cate_url,
+      {sync: 1, page: page},
+      function(response){
+          if(response.error == 0){
+              $(`#catalog-${cat_id}`).addClass('show');
+              target.append(response.goods_list);
+              $(`#catalog-${cat_id} div.view_more`).html(response.pagination);
+              
+          }else{
+              console.log(response.message);
+          }
+      },
+      'json'
+    )
+   
+}
+
+</script>
+{include file='library/html_footer.lbi'}
+
+</body>
+</html>

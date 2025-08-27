@@ -1,0 +1,16 @@
+{$render.before_html_header}
+<base href="{$base_path}/">
+<meta name="viewport" content="width=device-width" />
+<meta name="copyright" content="{$shop_name}" />
+<meta name="author" content="{$shop_name}" />
+<meta http-equiv="audience" content="General" />
+<meta name="resource-type" content="Document" />
+<meta name="distribution" content="Global" />
+<meta name="revisit-after" content="1 days" />
+<meta name="GENERATOR" content="{$shop_name}" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link type="image/x-icon" href="{$option.static_path}/img/favicon.ico" rel="shortcut icon" />
+<link type="text/css" href="{$option.static_path}/css/global.css" rel="stylesheet" />
+
+{if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}" />{/if}
+{$render.after_html_header}

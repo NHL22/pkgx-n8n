@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+    {insert_css files="css/global.css,owl-carousel/owl.carousel.2.3.4.min.css,css/quick_order.css"}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+      <div class="wrapcat">
+          <p class="filter_label">Danh mục sản phẩm</p>
+          <select class="cat_id" name="cat_id" id='cat_id'>
+          {foreach from=get_categories_tree() item='cat' name='categories'}
+          <option value="{$cat.url}" {if $cat.id eq 382}selected{/if}>{$cat.name}</option>>
+          {/foreach}
+        </select>
+      </div>
+      <div id="searchFilter">
+             <input type="text" value="" name="keywords" id="keywords" placeholder="Tìm sản phẩm...">
+             <span class="icon_search"><i class="iconmobile-search"></i></span>
+             
+      </div>
+      <img style="display: none" class="loading" src="{$option.static_path}/img/loader.gif" alt="loading">
+     
+ 
+  <div class="clr"></div>
+
+  <div class="products clearfix" style="padding-bottom: 20px">
+      <div class="block-scroll-right">
+        <div class="block-scroll-main" id="_filter"></div>
+      </div>
+      <div class="clr"></div>
+      <div class="clearfix" id="_choosedfilter"></div>
+      <div class="clearfix" id="_products">
+          <ul class="cate" id="_loadList">
+           <img src="{$option.static_path}/img/loader.gif" alt="loading">
+          </ul>
+      </div>
+      <div id="_pagination" class="pagination clearfix"></div>
+       <div class="clr"></div>
+  </div>
+   <div class="action_area clearfix">
+      <a class="button" href="javascript:;" onclick="getProducts()">Xem danh sách đã chọn <em class="quick_order_count" id="quick_order_count">0</em></a>
+  </div>
+  <div class="clr"></div>
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='goods.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js,owl-carousel/owl.carousel.2.3.4.min.js' minify='js/global.js,js/init.js'}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var current_url = $( "#cat_id");
+    loadGoods(current_url.val(),false);
+    current_url.change(function() {
+        loadGoods($(this).val(),false);
+    });
+
+    $.get('dat-hang-nhanh?act=getnumber'
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                $('em.quick_order_count').text(res.quick_order);
+               
+              }else{
+                  console.log(res.message);
+              }
+          },'text'
+      );
+
+  });
+
+ 
+    
+</script>
+<script type="text/javascript">
+  /* giảm số lượng */
+  /* giảm số lượng */
+  function minusQuantity(el,goods_id){
+      var item = $(el).parent();
+      var n = item.find(".cquantity");
+      let amount = Number(n.val());
+      amount = amount > 1 ? amount-1 : amount;
+      n.val(amount);
+      if(goods_id) updateQuantity(goods_id, amount);
+  }
+
+  function plusQuantity(el,goods_id){
+      var item = $(el).parent();
+      var n = item.find(".cquantity");
+      let amount = Number(n.val())+1;
+      n.val(amount);
+      if(goods_id) updateQuantity(goods_id, amount);
+  }
+
+  function openDesc(goods_id){
+    $.post('dat-hang-nhanh', {act: 'desc', goods_id: goods_id}
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                var html = '<div class="message_box" id="desc_box"><div class="desc_wrapper">';
+                    html += res.content;
+                    html += '</div></div>';
+                  $.fn.colorbox({width: '97%', fixed:true,scrolling:false,html: html,title: 'Mô tả sản phẩm'});
+              }else{
+                  console.log(res.message);
+              }
+          },'text'
+      );
+  }
+
+  function clearCart(){
+      $.post('dat-hang-nhanh', {act: 'clearCart'}
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                  toastr.success('Xóa thành công !','',{positionClass: "toast-top-center"});
+                  getProducts();
+              }else{
+
+                  console.log(res.message);
+              }
+          },'text'
+      );
+  }
+
+  function updateQuantity(goods_id, amount){
+    /* update lại session */
+      $.post('dat-hang-nhanh', {act: 'getproducts', type: 'update', goods_id: goods_id, quantity:amount}
+          ,function(response){
+                var res = $.evalJSON(response);
+                if(res.error == 0){
+                    $('#total_number').text(res.total_price);
+                }else{
+                   console.log(res.message);
+                }
+            },'text'
+      );
+  }
+
+  /** cập nhật thay đổi note */
+  function updateNote(el){
+        console.log('update note');
+        var note = $(el).val();
+        var goods_id = $(el).data('id');
+        if(note.length >2){
+            $.post(
+                'dat-hang-nhanh', {act: 'getproducts', type: 'update_note', goods_id: goods_id, note:note},
+                function(response){
+                    var res = $.evalJSON(response);
+                    if(res.error == 0){
+                        $('#_selected').html(res.content);
+                        $('#total_number').text(res.total_price);
+                        $('#quick_order_count').text(res.total_cart);
+                      }else{
+                        $('#_selected').html(res.content);
+                        $('#total_number').text(0);
+                        $('#quick_order_count').text(0);
+                        console.log(res.message);
+                      }
+                },
+                'text'
+            );
+        }
+    };
+
+    function loadMore(cate_url,page){
+      var page = page != undefined ? page : 2;
+      $.post(cate_url,
+          {sync: 1, page: page,atc:'search_order'},
+          function(response){
+            
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                  $('#_loadList').append(res.content);
+                  $('#_pagination').html(res.pagination);
+              }else{
+                  console.log(res.message);
+              }
+          },
+          'text'
+      );
+  }
+
+  $('#keywords').delayKeyup(function(el){
+      var keywords = el.val();
+      if(keywords.length >2){
+          $('div.action_area img.loading').show();
+          $.post(
+              'tim-kiem?act=search_order',
+              {keywords: keywords},
+              function(response){
+                  var res = $.evalJSON(response);
+                  $('#_filter').hide();
+                  $('#_choosedfilter').hide();
+                  $('#_pagination').html(res.pagination);
+                  $('#_loadList').html(res.content);
+                   $('div.action_area img.loading').hide();
+              },
+              'text'
+          );
+      }
+
+  },1000);
+
+  $.fn.delayKeyup = function(callback, ms){
+      var timer = 0;
+      var el = $(this);
+      $(this).keyup(function(){
+      clearTimeout (timer);
+      timer = setTimeout(function(){
+          callback(el)
+          }, ms);
+      });
+      return $(this);
+  };
+
+  /**
+   * Lấy danh sách đã chọn
+   */
+  
+  function getProducts(){
+    $.get('dat-hang-nhanh?act=getproducts'
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+               
+                var html = '<div class="message_box" id="selected_box"><div class="selected_wrapper">';
+                    html += res.content;
+                    html += '<div class="total">Tổng cộng: <strong id="total_number">'+res.total_price+'</strong></div>';
+                     html += '<div class="selected_action"><button class="button remove" type="button" onclick="clearCart()">Xóa đơn</button><a class="button btn_view" href="dat-hang-nhanh?act=view">Lên Đơn hàng</a></div>';
+                    html += '</div></div>';
+                  $.fn.colorbox({width: '97%', fixed:true,scrolling:false,html: html});
+              
+              }else{
+                  $('#quick_order_count').text(0);
+                  $.fn.colorbox.close();
+                  console.log(res.message);
+                  return false;
+              }
+          },'text'
+      );
+  }
+
+  /* xóa sản phẩm */
+  function removeItem(goods_id){
+      var result = confirm("Chắc chắn muốn xóa ?");
+
+      if(result){
+          /* update lại session */
+          $.post('dat-hang-nhanh', {act: 'getproducts', type: 'remove', goods_id: goods_id}
+              ,function(response){
+                    var res = $.evalJSON(response);
+                    if(res.error == 0){
+                      var html = '<div class="message_box" id="selected_box"><div class="selected_wrapper">';
+                          html += res.content;
+                          html += '<div class="total">Tổng cộng: <strong id="total_number">'+res.total_price+'</strong></div>';
+                           html += '<div class="selected_action"><button class="button remove" type="button" onclick="clearCart()">Xóa đơn</button><a class="button btn_view" href="dat-hang-nhanh?act=view">Lên Đơn hàng</a></div>';
+                          html += '</div></div>';
+                        $.fn.colorbox({width: '97%', fixed:true,scrolling:false,html: html});
+                    
+                    }else{
+                        $('#quick_order_count').text(0);
+                        $.fn.colorbox.close();
+                        console.log(res.message);
+                        return false;
+                    }
+                },'text'
+          );
+      }
+      return false;
+  }
+
+  function openGallery(goods_id){
+    $.post('dat-hang-nhanh', {act: 'gallery', goods_id: goods_id}
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                var html = '<div class="message_box" id="gallery_box"><div class="gallery_wrapper">';
+                    html += res.content;
+                    html += '</div></div>';
+
+                  $.fn.colorbox({width: '97%', height:'440px',transition: 'none',fixed:true,scrolling:false,html: html,title: 'Hình ảnh sản phẩm'});
+
+                  $('#gallery_feature ').owlCarousel({
+                          navigation: !0,
+                          pagination: !1,
+                          items: 1,
+                          scrollPerPage: !0,
+                          afterMove: function() {
+                              $('#gallery_feature .lazyLoad').each(function() {
+                                  $(this).attr("src", $(this).data("src"));
+                                  this.style.opacity = 1
+                              })
+                          }
+                  });
+                  $('#gallery_feature').trigger("refresh.owl.carousel");
+
+              }else{
+                  console.log(res.message);
+              }
+          },'text'
+    );
+  }
+
+  function quickAddToCard(el,goods_id){
+    var parent = $(el).parents('li.list_item');
+    var quantity = parent.find('.cquantity').val();
+    var note = parent.find('.cnote').val();
+    var price = parent.find('#shop_price').data('price');
+    var name = parent.find('.goods_name').text();
+
+    var payload = {act: 'addtocard',goods_id: goods_id, quantity: quantity, note:note, price:price, goods_name:name};
+   
+    $.post('dat-hang-nhanh', payload
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                  $('em.quick_order_count').text(res.quick_order);
+                  toastr.success('Thêm danh sách đặt hàng thành công !','',{positionClass: "toast-top-center"});
+              }else{
+                  console.log(res.message);
+              }
+          },'text'
+      );
+  }
+
+  function toggleFilter(el) {
+    $("div.filter-item .filter-item__title").not(el).next().hide();
+      $("div.filter-item .filter-item__title").not(el).removeClass('actived');
+      $(el).toggleClass('actived');
+      $(el).next().slideToggle(200);
+
+  }
+  function clouseFilter(el) {
+    $(el).parent().hide();
+      $("div.filter-item .filter-item__title.actived").removeClass('actived')
+  }
+
+  function searchFilter(url, append = false) {
+      var keywords = $("#bykeywords").val();
+      $.post(url, {sync: 2, keywords: keywords}
+          ,function(response){
+                var res = $.evalJSON(response);
+                console.log(res.keywords);
+                if(res.error == 0){
+                    $('div.products').show();
+                    $('#_filter').html(res.filter);
+                    
+                    if(append == true){
+                        $('#_loadList').append(res.data);
+                    }else{
+                        $('#_loadList').html(res.data);
+                    }
+                    
+                    $('#_pagination').html(res.pagination);
+                }else{
+                    console.log(res.message);
+                }
+            },'text'
+        );
+     
+  }
+
+  function loadGoods(url, append = false){
+    $.post(url, {sync: 2}
+        ,function(response){
+           //console.log(response);
+            var res = $.evalJSON(response);
+           
+            if(res.error == 0){
+                $('div.products').show();
+                $('#_filter').html(res.filter);
+                $('#_choosedfilter').html(res.choosedfilter).show();
+                if(append == true){
+                    $('#_loadList').append(res.data);
+                }else{
+                    $('#_loadList').html(res.data);
+                }
+                
+                $('#_pagination').html(res.pagination);
+            }else{
+                console.log(res.message);
+            }
+        },'text'
+    );
+    return false;
+}
+</script>
+{include file='library/html_footer.lbi'}
+</body>
+</html>

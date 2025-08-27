@@ -1,0 +1,109 @@
+{if $smarty.get.ajax eq 1}
+{include file='library/siy_cart.lbi'}
+{else}
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header_nosale.lbi'}
+    <link type="text/css" href="{$option.static_path}/css/flow.css" rel="stylesheet" />
+    {if $step eq 'cart'}
+    <link type="text/css" href="{$option.static_path}/css/flow_cart.css" rel="stylesheet" />
+    {/if}
+    {if $step eq 'consignee'}
+    <link type="text/css" href="{$option.static_path}/css/flow_consignee.css" rel="stylesheet" />
+    {/if}
+    {if $step eq 'checkout'}
+    <link type="text/css" href="{$option.static_path}/css/flow_checkout.css" rel="stylesheet" />
+    {/if}
+    {if $step eq 'done'}
+    <link type="text/css" href="{$option.static_path}/css/flow_done.css" rel="stylesheet" />
+    {/if}
+    {if $step eq 'login'}
+    <link type="text/css" href="{$option.static_path}/css/flow_login.css" rel="stylesheet" />
+    {/if}
+</head>
+<body id="page_{$pname}">
+<section>
+<div id="content" {if $step neq 'login'}class="flow_wrapper"{/if}>
+    <!-- TemplateBeginEditable name="Top" --><!-- TemplateEndEditable -->
+        {if $step eq 'cart'}{include file='library/flow_cart.lbi'}{/if}
+        {if $step eq 'consignee'}{include file='library/flow_consignee.lbi'}{/if}
+        {if $step eq 'checkout'}{include file='library/flow_checkout.lbi'}{/if}
+        {if $step eq 'done'}{include file='library/flow_done.lbi'}{/if}
+        {if $step eq 'login'}{include file='library/flow_login.lbi'}{/if}
+    <!-- TemplateBeginEditable name="Bottom" --><!-- TemplateEndEditable -->
+</div>
+</section>
+<header>
+    <div class="container">
+        <a class="logo" title="Về trang chủ {$shop_name}" href="./" aria-label="logo">
+           <img width="245" height="45" src="{$cdn_path}/upload/files/profile/logo.webp" alt="{$shop_name}">
+        </a>
+        <div class="progress_bar">
+            <ol>
+                {if !$option.one_step_buy}<li{if $step eq 'cart'} class="current"{/if}>Giỏ hàng</li>{/if}
+                {if $step eq 'consignee'}<li class="current">Địa chỉ giao hàng</li>{else}<li{if $step eq 'login'} class="current"{/if}>Địa chỉ giao hàng</li>{/if}
+                <li{if $step eq 'checkout'} class="current"{/if}>Thanh toán</li>
+            </ol>
+        </div>
+    </div>
+</header>
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+<script type="text/javascript" src="{$option.static_path}/js/flow.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('input[name^="goods_number"]').tipsy({trigger:'manual',gravity:'sw',fade: true});
+    $('input[name^="goods_number"]').keypress(function(){
+        $(this).tipsy('show');
+    });
+    $('input[name^="goods_number"]').focusout(function(){
+        $(this).tipsy('hide');}
+    );
+    {if $step eq 'login'}validLogin();{/if}
+    //
+    $('#cart').mouseenter(function(){
+        $('#cart .list_wrapper').show();
+    });
+    $('#cart').mouseleave(function(){
+        $('#cart .list_wrapper').hide();
+    });
+    $('.cart_list li').hover(function(){
+        $(this).addClass('hover');
+    }, function(){
+        $(this).removeClass('hover');
+    });
+});
+{if $step eq 'checkout'}var action = 'checkout';{/if}
+</script>
+
+<script type="text/javascript">
+function updateCartQty(){
+     document.getElementById('updatecart').click();
+}
+$(".cart-qty-plus").click(function() {
+    var n = $(this).parent(".button-container").find(".qty");
+    n.val(Number(n.val())+1 );
+    document.getElementById('updatecart').click();
+});
+$(".cart-qty-minus").click(function() {
+    var n = $(this).parent(".button-container").find(".qty");
+    var amount = Number(n.val());
+    if (amount > 1) {
+        n.val(amount-1);
+    }
+    document.getElementById('updatecart').click();
+});
+</script>
+
+</body>
+</html>
+{/if}

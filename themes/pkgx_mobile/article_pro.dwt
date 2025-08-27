@@ -1,0 +1,51 @@
+{if $smarty.get.ajax neq 1}
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+    <link rel="canonical" href="{$base_path}/{$article.url}" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/{$article.url}" />
+
+<link rel="alternate" href="{$base_path}/{$article.url}" hreflang="vi-vn" />
+    <meta itemprop="image" content="{$cdn_path}/{$article.article_thumb}" />
+    <meta property="og:image" content="{$cdn_path}/{$article.article_thumb}" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$cdn_path}/{$article.article_thumb}" />
+    
+    {insert_css files="css/global.css,css/article.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section class="container">
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="Top" --><!-- TemplateEndEditable -->
+	<div class="article article_pro box thin_box full_box">
+		<div class="hd"><h3></h3><div class="extra"></div></div>
+		<div class="bd{if $smarty.get.ajax eq 1} ap_ajax{/if}">
+{/if}
+			<div class="article_title clearfix">
+				<h1>{$article.title|escape:html}</h1>
+			</div>
+			{if $article.content }
+			<div class="article_content">{$article.content}</div>
+			{else}
+			<p class="empty">{$lang.content_empty}</p>
+			{/if}
+{if $smarty.get.ajax neq 1}
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="Bottom" --><!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='article.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>
+{/if}

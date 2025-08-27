@@ -1,0 +1,17 @@
+<div class="consignee_list">
+	<h3>Thông tin người nhận hàng</h3>
+	{foreach from=$consignee_list item=consignee key=sn name=consignee_list}
+
+	<form action="gio-hang" method="post" name="theForm" onsubmit="return checkConsignee(this)"{if $smarty.foreach.consignee_list.first} class="first"{/if}>
+		{include file='library/consignee.lbi'}
+	</form>
+	{/foreach}
+</div>
+<script type="text/javascript">
+{foreach from=$lang.flow_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>
+<p class="notice">Chú ý đơn hàng tối thiểu 1 triệu, đối với đơn hàng 5 triệu trở lên thanh toán trước 100% đơn hàng shop sẽ hỗ trợ tối đa 100k ship</p>
+<p class="notice">Khách hàng đặt hàng lần đầu tối thiểu 1 triệu, các đơn hàng sau tối thiểu 500k, Các đơn hàng không đạt yêu cầu shop sẽ không liên lạc</p>
+<p class="notice">Nếu bạn muốn chọn mã máy ốp hoặc mã máy cường lực vui lòng nhắn tin Zalo số <a href="https://zalo.me/0981239686">0981239686</a></p>

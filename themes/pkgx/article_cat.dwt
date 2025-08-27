@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    {include file='library/html_header.lbi'}
+    <meta property="og:url" content="{$base_path}/{$cat_url}">
+    <meta property="og:image" content="{if $article.thumb}{$cdn_path}/{$article.thumb}{/if}">
+    <meta property="og:image:secure_url" content="{if $article.thumb}{$cdn_path}/{$article.thumb}{/if}">
+    {if $keywords}<meta name="keywords" content="{$keywords}">{/if}
+    <meta name="robots" content="{$meta_robots}">
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/{$cat_url}">
+    <link rel="alternate" href="{$base_path}/{$cat_url}" hreflang="vi-vn" />
+        <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Trang chủ",
+          "item": "https://phukiengiaxuong.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{$cat_name}", // Tên danh mục hiện tại
+          "item": "{$base_path}/{$cat_url}" // URL của danh mục hiện tại
+        }
+        
+        // Nếu có danh mục cha, bạn có thể chèn thêm vào giữa
+      ]
+    }
+    </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{$page_title}",
+  "url": "{$base_path}/{$cat_url}",
+  "description": "{$description}",
+  "inLanguage": "vi-VN",
+  "datePublished": "2020-11-17T09:42:03+07:00",
+  "dateModified": "2025-08-27T16:09:45+07:00",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Phụ Kiện Giá Xưởng",
+    "url": "https://phukiengiaxuong.com.vn/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.webp"
+    }
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {foreach from=$artciles_list item=article name=artciles_list}
+      {
+        "@type": "ListItem",
+        "position": {$smarty.foreach.artciles_list.iteration},
+        "item": {
+          "@type": "BlogPosting",
+          "headline": "{$article.title|escape:'json'}",
+          "url": "https://phukiengiaxuong.com.vn/{$article.url|escape:'html'}"
+        }
+      }{if !$smarty.foreach.artciles_list.last},{/if}
+      {/foreach}
+    ]
+  }
+}
+</script>
+
+
+    {insert_css files="css/global.css,css/article_cat.css"}
+<script  type="text/javascript" src="https://phukiengiaxuong.com.vn/cdn/themes/pkgx/js/jquery.min.1.8.3.js"></script>
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+{include file='library/ur_here.lbi'}
+{include file='library/article_category_tree.lbi'}
+<div class="clr"></div>
+   <div class="col_main">
+     <div class="titledetail"><h1>{$page_title}</h1></div>
+        {if $artciles_list}
+        <ul class="newslist">
+         {foreach from=$artciles_list item=article name=artciles_list}
+            <li>
+                <a href="{$article.url|escape:html}">
+                    {if $article.thumb_webp}
+                    <picture class="tempvideo">
+                        <source width="150" height="150" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+                        <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                    </picture>
+                    {else}
+                    <div class="tempvideo">
+                        <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                    </div>
+                    {/if}
+                    <h3>{$article.title}</h3>
+                    <figure>
+                        {$article.desc|truncate:225:"...":true}
+                    </figure>
+                    <div class="timepost">
+                        <span>{$article.add_time}</span>
+                        <span class="namecate">{$article.author}</span>
+                        <span>• {$article.viewed} lượt xem</span>
+                    </div>
+                </a>
+            </li>
+         {/foreach}
+        </ul>
+         <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+        {else}
+            <p class="empty">Không tìm thấy dữ liệu cho danh mục {$cat_name}</p>
+        {/if}
+   </div>
+   <div class="col_sub">
+     <!-- TemplateBeginEditable name="RightTop" -->
+<!-- TemplateEndEditable -->
+     <!-- TemplateBeginEditable name="Right" -->
+<!-- #BeginLibraryItem "/library/topview_article.lbi" -->
+<div class="box summarycomment">
+    <div class="box_title">Bạn đọc xem nhiều</div>
+    <div class="bd">
+        {foreach from=$topview_article item=article_views name=view_list}
+        <a href="{$article_views.url}">
+            <span class="summary_number">{$smarty.foreach.view_list.iteration}</span>
+            <h3>{$article_views.title}<span class="morecom">• {$article_views.viewed} lượt xem</span></h3>
+        </a>
+        {/foreach}
+  </div>
+</div>
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_articles.lbi" -->
+{if $new_articles}
+<ul>
+	{foreach from=$new_articles item=article name=new_articles}
+	<li>
+        <a href="{$article.url}" title="{$article.title|escape:html}">
+            <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+            <h3>{$article.title|escape:html}</h3>
+            <span>{$article.add_time}</span>
+        </a>
+    </li>
+	{/foreach}
+</ul>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+     <!-- TemplateBeginEditable name="RightBottom" -->
+<!-- TemplateEndEditable -->
+   </div>
+    <div class="clr"></div>
+</section>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

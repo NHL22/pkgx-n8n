@@ -1,0 +1,58 @@
+{if $intromode eq 'best'}
+    <h3 class="search-title">Sản phẩm {$lang.best_goods}</h3>
+{elseif $intromode eq 'new'}
+    <h3 class="search-title">Sản phẩm  {$lang.new_goods}</h3>
+{elseif $intromode eq 'hot'}
+    <h3 class="search-title">Sản phẩm  {$lang.hot_goods}</h3>
+{elseif $intromode eq 'promotion'}
+    <h3 class="search-title">Sản phẩm  {$lang.promotion_goods}</h3>
+{else}
+<p class="search-results">Tìm thấy <strong>{$total_results}</strong> kết quả khớp với từ khóa "<strong>{$search_keywords|escape}</strong>"</p>
+{/if}
+{if $goods_list}
+<ul class="homeproduct">
+    {foreach from=$goods_list item=goods name=goods_list}
+    <li>
+        <a href="{$goods.url}" title="{$goods.goods_name|escape:html}">
+        {if $goods.thumb_webp}
+            <picture>
+                <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
+            </picture>
+            {else}
+            <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
+            {/if}
+            {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+{if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
+{if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+            <h3>{$goods.goods_name|escape:html}</h3>
+            <div class="price">
+                 Giá sỉ {if $goods.promote_price}
+                <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                 {else}
+                 <strong>{$goods.shop_price}</strong>
+                {/if}
+            </div>
+        <!--   <p class="cprice">Giá CTV: {$goods.partner_price}</p> -->
+                    <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p>
+                    <!--    <div class="ratingresult">
+                            <span class="rank rank_{$goods.comment_rank}"></span>
+                            <span>{$goods.comment_count} đánh giá</span>
+                        </div> -->
+            <div class="promotion clr">{$goods.seller_note}</div>
+        </a>
+         <div class="form_add form_add{$goods.goods_id}">
+            <div class="button-container">
+                <button class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                <input type="text" min="1" max="10" class="qty qty{$goods.goods_id}" step="1" name="goods_number" value="1">
+                <button class="qty_button cart-qty-plus" type="button" value="+">+</button>
+            </div>
+            <button class="quick_add" type="button" onclick="quickBuy({$goods.goods_id})"><i class="iconmobile-cart"></i></button>
+        </div>
+    </li>
+    {/foreach}
+</ul>
+{include file='library/pages.lbi'}
+{else}
+<p class="empty">{$lang.no_search_reult}</p>
+{/if}

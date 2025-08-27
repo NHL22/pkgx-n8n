@@ -1,0 +1,32 @@
+{$render.before_header}
+<div class="over"></div>
+<header>
+{if $shop_notice}
+<div class="alert">
+<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+{$shop_notice}
+
+</div>    {/if}
+    <div class="header_bar">
+
+        <a  title="Về trang chủ {$shop_name}" href="./">
+            <img src="{$cdn_path}/upload/files/profile/logo-mobile.png" alt="{$shop_name}">
+        </a>
+            <form action="tim-kiem" method="get" class="search" id="search-site">
+            <input name="keywords" id="search-keyword" type="search" placeholder="Tìm sản phẩm bạn cần " value="{$search_keywords|escape}" autocomplete="off"  />
+            <div class="iconsearch"><i class="iconmobile-search"></i></div>
+            <button type="reset" class="btn-reset" style="display: none;"><i class="iconmobile-reset"></i></button>
+            <button type="submit" class="btn-submit" style="display: none;">Tìm</button>
+            <div id="suggestion"></div>
+        </form>
+                <div class="hotline-header" ><a href="tel:{ $service_phone}"><i class="fa fa-phone" aria-hidden="true"></i>{ $service_phone}</a>
+</div>
+                <span class="cart" id="cart">
+            <a href="gio-hang"><i class="iconmobile-cart"></i>{insert name='cart_info'}</a>
+        </span>
+
+    </div>
+    <!-- sugguest -->
+</header>
+
+{$render.after_header}

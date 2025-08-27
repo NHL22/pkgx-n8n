@@ -1,0 +1,5 @@
+{if $goods_desc}
+ <article id="description">
+    <div class="article_content">{$goods_desc}</div>
+</article>
+{/if}

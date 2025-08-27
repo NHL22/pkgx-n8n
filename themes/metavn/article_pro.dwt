@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {include file='library/html_header.lbi'}
+     {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    <link rel="canonical" href="{$base_path}/{$article.url}" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/{$article.url}" />
+    <meta property="og:title" content="{$article.title}" />
+
+    <link rel="alternate" href="{$base_path}/{$article.url}" hreflang="vi-vn" />
+    <meta itemprop="image" content="{$cdn_path}/{$article.article_thumb}" />
+    <meta property="og:image" content="{$cdn_path}/{$article.article_thumb}" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$cdn_path}/{$article.article_thumb}" />
+    {insert_css files="css/global.css,css/article.css"}
+    <style type="text/css">
+        .col_main {
+            float: right;
+            overflow: hidden;
+            width: 76%;
+        }
+        .col_sub {
+            float: left;
+            overflow: visible;
+            width: 23%;
+        }
+        section {min-height: 350px}
+        .cat_help li {
+            border-bottom: 1px solid #f2f2f2;
+            display: block;
+            margin-bottom: 0;
+            padding: 10px 0;
+        }
+        .cat_help li a {
+            color: #0a63c7;
+            line-height: 25px;
+            padding-left: 10px;
+        }
+        .cat_help li.cat_help_title{
+            background: #f4f4f4;
+            color: #333;
+            padding: 10px;
+            font-weight: 600
+        }
+
+         .cat_help li.actived a{font-weight: 600}
+
+    </style>
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="Top" --><!-- TemplateEndEditable -->
+    <div class="col_sub">
+       {foreach from=$helps item=help_cat name=helps}
+        <ul class="cat_help">
+            <li class="cat_help_title">{$help_cat.cat_name}</li>
+             {foreach from=$help_cat.article item=item name=help_list}
+            <li {if $active_url eq $item.url}class="actived"{/if}><a href="{$item.url}">{$item.title}</a></li>
+            {/foreach}
+        </ul>
+        {/foreach}
+    </div>
+    <div class="col_main">
+    	<article>
+            <h1 class="titledetail">{$article.title|escape:html}</h1>
+            <div class="userdetail">
+                <a>{$article.author}</a>
+                <span>{$article.add_time}</span>
+                <span>{$article.viewed} lượt xem</span>
+            </div>
+            {if $article.content}
+            <p style="font-weight: 700">{$article.description}</p>
+            <div class="article_content">{$article.content}</div>
+            {else}
+            <p class="empty">{$lang.content_empty}</p>
+            {/if}
+        </article>
+    </div>
+	<!-- TemplateBeginEditable name="Bottom" --><!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

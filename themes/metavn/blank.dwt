@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="INDEX,FOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section class="container">
+{include file='library/ur_here.lbi'}
+    dsdsdsd
+
+
+</section>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,43 @@
+{if $hot_goods}
+ <div class="box recommend_hot">
+    <div class="hd">
+        <div class="box_title">Top sản phẩm {$lang.hot_goods}</div>
+        <div class="extra"><a href="tim-kiem?intro=hot">Xem tất cả</a></div>
+    </div>
+    <ul class="homeproduct {if $pname eq 'index'}_nextpre owl-carousel owl-theme{/if}" id="hot_goods">
+        {foreach from=$hot_goods item=goods name=hot_goods}
+        <li data-id="{$goods.id}">
+            {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+                {if $goods.thumb_webp}
+                <picture>
+                    <source width="180" height="180" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="180" height="180" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="180" height="180" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.is_hot} <span class="icon_hot"></span> {/if}
+                {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+                <h3>{$goods.name|escape:html}</h3>
+                <div class="price">
+                    Giá Sỉ
+                     {if $goods.promote_price}
+                    <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                     {else}
+                     <strong>{$goods.shop_price}</strong>
+                    {/if}
+                </div>
+           <p class="cprice">Giá CK: {$goods.partner_price}</p>
+                    <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p>
+              <!--    <div class="ratingresult">
+                    <span class="rank rank_{$goods.comment_rank}"></span>
+                    <span>{$goods.comment_count} đánh giá</span>
+                </div> -->
+                <div class="promotion clr">{$goods.seller_note}</div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+{/if}

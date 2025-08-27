@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+    {insert_css files="css/global.css,css/quick_order_cart.css"}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style type="text/css" media="print">
+    .actions , .cart-qty-minus, .cart-qty-plus, .onlyview{display: none}
+    .shop_info {
+        border-bottom: 1px solid #333;
+    }
+    .soluong {border: none;padding: 0}
+    .button-container {width: auto}
+        .cnote {
+        border: none;
+        -webkit-appearance: none;
+        --moz-appearance: none;
+    }
+
+</style>
+</head>
+<body id="page_{$pname}">
+<section>
+     <form action="dat-hang-nhanh" method="post">
+    <div class="actions clearfix">
+                <a class="buy" href="./">Trang chủ</a>
+                <a class="buy" href="dat-hang-nhanh">Chọn lại</a>
+                <button type="submit" name="act" value="checkout" class="button">Đặt Mua</button>
+                <button type="submit" name="act" value="export_xls" class="button" >Tải File Excel Báo Giá</button>
+                <a class="print" href="javascript:window.print();">In báo Giá</a>
+            </div>
+    <div class="are_print">
+        <div class="shop_info clearfix">
+            <div class="shop_logo">
+                <img height="45px" src="{$cdn_path}/upload/files/profile/logo-phukiengiaxuong.png" alt="{$shop_name}">
+            </div>
+            <div class="shop_profile">
+                <p class="shop_name">{$shop_name}</p>
+                <p><span class="boldcolor">Địa chỉ:</span> {$shop_address}</p>
+                <p><span class="boldcolor">Điện thoại:</span> {$service_phone} - <span class="boldcolor">Email:</span> {$service_email}</p>
+                <p><span class="boldcolor">Website:</span> {$base_path}</p>
+            </div>
+        </div>
+        <h1>Bảng Báo Giá Sỉ</h1>
+        <p class="sologan">{$shop_name} trân trọng kính gửi đến quý khách hàng:</p>
+        <div class="customer clearfix" style="display: none">
+            <div class="cusleft">
+                <p>Ông/bà: Quý khách hàng</p>
+                <p>Đơn vị:</p>
+                <p>Địa chỉ:</p>
+                <p>Điện thoại:</p>
+            </div>
+            <div class="cusright">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>Email:</p>
+                <p>Fax:</p>
+            </div>
+        </div>
+       
+            <div class="table_responsive" id='dataCart'>
+                {include file='library/quick_order_cart.lbi'}
+            </div>
+            <input name="update" type="submit" style="display: none" id="updatecart" value="Cập nhật giỏ hàng">
+            <div class="signature"> <p>Người Lập</p> </div>
+            <div class="note">
+                <p>Quý khách lưu ý: Giá bán, khuyến mại của sản phẩm và tình trạng còn hàng có thể bị thay đổi bất cứ lúc nào mà không kịp báo trước</p>
+                <ul class="colfoot" style="width: 50%;margin: 20px 0">
+                 <li class="cot_title">Quy định mua sỉ</li>
+                <li>» Đơn hàng tối thiểu 1 triệu / đơn hàng</li>
+                <li>» Hàng phụ kiện tối thiểu 5c / loại</li>
+                <li>» Hàng ốp lưng tối thiểu 5c / mã máy</li>
+                <li>» Sản phẩm trên 100k tối thiểu 3c</li>
+                <li>» Gửi đơn hàng sỉ khách chịu phí ship</li>
+                <li>» Thời gian nhận hàng có thể từ 3-5 ngày tuỳ địa điểm của khách</li>
+                <li>» Giao hàng toàn quốc COD ( Lần đầu tiên giao dịch yêu cầu khách chuyển cọc 500k )</li>
+                        </ul>
+            </div>
+            <footer class="clearfix">
+                <p>Để biết thêm chi tiết, vui lòng liên hệ Hotline: {$service_phone} (8h00-17h30 hàng ngày)</p>
+                <div class="p">Trân Trọng Cảm Ơn Quý Khách !</p>  
+            </footer>
+            
+        
+    </div>
+     </form>
+</section>
+<script type="text/javascript" src="{$option.static_path}/js/jquery.min.1.8.3.js"></script>
+<script type="text/javascript" src="{$option.static_path}/js/json.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script type="text/javascript">
+
+
+function updateQuantity(goods_id, amount){
+    /* update lại session */
+    $.post('dat-hang-nhanh', {act: 'view', sync:2, goods_id: goods_id, quantity:amount}
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                   $('#dataCart').html(res.content);
+              }else{
+                 console.log(res.message);
+              }
+          },'text'
+    );
+}
+
+/* giảm số lượng */
+function minusQuantity(goods_id){
+    var item = $('table tr.row'+goods_id);
+    var n = item.find(".soluong");
+    let amount = Number(n.val());
+    amount = amount > 1 ? amount-1 : amount;
+    n.val(amount);
+    /* update lại session */
+    updateQuantity(goods_id, amount);
+}
+
+function plusQuantity(goods_id){
+    var item = $('table tr.row'+goods_id);
+    var n = item.find(".soluong");
+    let amount = Number(n.val())+1;
+    n.val(amount);
+    /* update lại session */
+    updateQuantity(goods_id, amount);
+}
+
+function changeQuantity(goods_id){
+    var item = $('table tr.row'+goods_id);
+    var n = item.find(".soluong");
+    let amount = Number(n.val());
+    updateQuantity(goods_id, amount);
+}
+
+
+
+/** cập nhật thay đổi note */
+function updateNote(el){
+    console.log('update note');
+    var note = $(el).val();
+    var goods_id = $(el).data('id');
+    if(note.length >2){
+        $.post(
+            'dat-hang-nhanh', {act: 'view', sync:4, goods_id: goods_id, note:note},
+            function(response){
+                var res = $.evalJSON(response);
+                if(res.error == 0){
+                   $('#dataCart').html(res.content);
+                  }else{
+                    console.log(res.message);
+                  }
+            },
+            'text'
+        );
+    }
+};
+
+/* xóa sản phẩm */
+function removeItem(goods_id){
+    var result = confirm("Chắc chắn muốn xóa ?");
+
+    if(result){
+        $.post('dat-hang-nhanh', {act: 'view',sync:3, goods_id: goods_id}
+        ,function(response){
+              var res = $.evalJSON(response);
+              if(res.error == 0){
+                  // $('table tr.row'+goods_id).remove();
+                  $('#dataCart').html(res.content);
+                  toastr.success('Xóa thành công !','',{positionClass: "toast-bottom-center"});
+              }else{
+                 toastr.error(res.message,'',{positionClass: "toast-bottom-center"});
+              }
+          },'text'
+      );
+    }
+    return false;
+}
+</script>
+</body>
+</html>

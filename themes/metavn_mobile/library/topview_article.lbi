@@ -1,0 +1,11 @@
+{if $topview_article}
+<div class="titlehome">Bạn đọc xem nhiều</div>
+<div class="summarycomment">
+    {foreach from=$topview_article item=article_views name=view_list}
+    <a href="{$article_views.url}">
+        <div>{$smarty.foreach.view_list.iteration}</div>
+        <h3>{$article_views.title}<span class="morecom">• {$article_views.viewed} lượt xem</span></h3>
+    </a>
+  {/foreach}
+</div>
+{/if}

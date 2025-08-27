@@ -1,0 +1,8 @@
+
+{if $user_info}
+<a href="thanh-vien"><strong>{$user_info.username}</strong></a>
+<a href="thanh-vien?act=logout">{$lang.user_logout}</a>
+{else}
+<a href="thanh-vien?act=login"><strong>{$lang.login}</strong></a>
+<p class="userguide">Nhận nhiều ưu đãi hơn</p>
+{/if}

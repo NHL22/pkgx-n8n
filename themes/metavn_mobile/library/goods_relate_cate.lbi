@@ -1,0 +1,43 @@
+{if $goods_related_cate}
+<div class="box goods_related_cate">
+	<h4 class="box_title">Sản phẩm cùng danh mục</h4>
+    <div class="overpromo">
+	<ul class="homeproduct listpromo">
+		{foreach from=$goods_related_cate item=goods name=goods_related_cate_list}
+		<li>
+			<a href="{$goods.url}">
+               {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.goods_name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.goods_name|escape:html}"/>
+                {/if}
+								{if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
+								{if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+				<h3>{$goods.goods_name|escape}</h3>
+				<div class="price">
+                Giá Sỉ <strong>{if $goods.promote_price neq 0}{$goods.formated_promote_price}<del>{$goods.shop_price}</del>{else}{$goods.shop_price}{/if}</strong>
+                </div>
+      <!--      <p class="cprice">Giá CTV: {$goods.partner_price}</p>  -->
+                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+								<!--    <div class="ratingresult">
+                        <span class="rank rank_{$goods.comment_rank}"></span>
+                        <span>{$goods.comment_count} đánh giá</span>
+                    </div> -->
+            </a>
+            <div class="form_add form_add{$goods.goods_id}">
+            <div class="button-container">
+                <button class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                <input type="text" min="1" max="10" class="qty qty{$goods.goods_id}" step="1" name="goods_number" value="1">
+                <button class="qty_button cart-qty-plus" type="button" value="+">+</button>
+            </div>
+            <button class="quick_add" type="button" onclick="quickBuy({$goods.goods_id})"><i class="iconmobile-cart"></i></button>
+        </div>
+		</li>
+		{/foreach}
+	</ul>
+    </div>
+</div>
+{/if}

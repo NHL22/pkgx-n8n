@@ -1,0 +1,42 @@
+<table>
+    <tr class="head">
+        <th>STT</th><th>Hình ảnh</th><th style="width: 30%">Tên sản phẩm</th><th>Mã SP</th><th>Thương hiệu</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th><th class="onlyview">Thao tác</th>
+    </th>
+    <tbody>
+    {foreach from=$goods_list item=goods name=goods_list}
+    <tr class="row{$goods.goods_id}">
+        <td style="text-align: center">{$goods.stt} <input type="hidden" name="goods_id" value="{$goods.goods_id}"></td>
+         <td style="text-align: center"><img height="50" width="50" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.goods_name|escape:html}"></td>
+        <td style="width: 30%">
+            <div class="maxwm">
+                <p>{$goods.goods_name}</p>
+              
+Ghi chú: <textarea cols="4" rows="2" class="cnote" data-id='{$goods.goods_id}' onmouseout="updateNote(this)" placeholder="Ghi chú">{$goods.note}</textarea>
+            </div>
+        </td>
+        <td style="text-align:center">
+            {$goods.goods_sn}
+        </td>
+        <td style="text-align:center">
+           {$goods.brand_name}
+        </td>    
+        <td style="text-align:center">
+            <div class="button-container">
+                <button class="cart-qty-minus" type="button" value="-" onclick="minusQuantity({$goods.goods_id})">-</button>
+                <input class="soluong" type="text" name="soluong" value="{$goods.quantity}" onkeyup="changeQuantity({$goods.goods_id})">
+                <button class="cart-qty-plus" type="button" value="+" onclick="plusQuantity({$goods.goods_id})">+</button>
+            </div>
+            
+        </td>
+        <td style="text-align: right">{$goods.price|number_format}đ</td>
+        <td style="text-align: right;font-weight: 700">{$goods.subtotal|number_format}đ</td>
+        <td class="onlyview" style="text-align:center"><span class="remove" onclick="removeItem({$goods.goods_id})">Xóa</span></td>
+    </tr>
+   {/foreach}
+  
+    <tr>
+        <td colspan="7" style="text-align: right;font-weight: 700">Tổng cộng</td><td id="subtotal" style="text-align: right;font-weight: 700;color: #ee3338">{$total|number_format}đ</td><td class="onlyview"></td>
+    </tr>
+   
+    </tbody>
+</table>

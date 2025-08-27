@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+    <link rel="canonical" href="{$base_path}/{$cat_url}"/>
+
+<link rel="alternate" href="{$base_path}/{$cat_url}" hreflang="vi-vn" />
+<!--#region FAQWebpage-->
+<script type = "application/ld+json" > {
+    "@type": "WebPage",
+    "@context": "https://schema.org",
+    "@id": "{$article.url}#WebPage",
+    "url": "{$article.url}",
+    "inLanguage": ["EN", "VN"],
+    "name": "{$article.title}",
+    "datePublished": "{$article.add_time}",
+    "dateModified": "{$article.add_time}",
+    "publisher": {
+        "@type": "Organization",
+        "@id": "https://phukiengiaxuong.com.vn#Organization"
+    },
+    "description": "{$description}",
+    "author": {
+        "@type": "Person",
+        "@id": "{$article.url}#author",
+        "name": "Phụ Kiện Điện Thoại Giá Sỉ"
+    },
+    "commentCount": 33.0
+} </script>
+<!--#endregion-->
+    {insert_css files="css/global.css,css/article_cat.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header_article.lbi'}
+<section>
+{include file='library/ur_here.lbi'}
+
+<div class="box-cat-list scrollmenu" id="navhome">
+        <div>
+            {foreach from=get_categories_tree() item='cat' name='categories'}
+            <a href="{$cat.url}">{if $cat.icon}<img height="40" src="{$cat.icon}" alt="{$cat.name|escape}">{/if}<span>{$cat.name|escape}</span></a>
+            {/foreach}
+         </div>
+     </div>
+ {include file='library/article_category_tree.lbi'}
+    <!-- TemplateBeginEditable name="Top" -->
+<!-- TemplateEndEditable -->
+{if $search_value ne ''}
+<p style="margin: 10px">Có <strong>{$total_search}</strong> kết quả khớp với từ khóa <strong>"{$search_value}"</strong>: </p>
+{else}
+         <!-- TemplateBeginEditable name="Right" -->
+        <!-- #BeginLibraryItem "/library/topview_article.lbi" -->
+        <div class="clr"></div>
+        <div class="titlehome">Bạn đọc xem nhiều</div>
+        <div class="summarycomment">
+            {foreach from=siy_topview_article($cat_id) item=article name=view_list}
+            <a href="{$article.url|escape:html}">
+                <div>{$smarty.foreach.view_list.iteration}</div>
+                <h3>{$article.title}<span class="morecom">• {$article.viewed} lượt xem</span></h3>
+            </a>
+          {/foreach}
+        </div>
+         <!-- #EndLibraryItem -->
+        <!-- TemplateEndEditable -->
+{/if}<!-- End searh -->
+
+    {if $artciles_list}
+    <div class="titlehome">{$cat_name}</div>
+    <ul class="newslist">
+     {foreach from=$artciles_list item=article name=artciles_list}
+        <li>
+            <a href="{$article.url|escape:html}">
+
+                {if $article.thumb_webp}
+                <picture class="tempvideo">
+                    <source width="150" height="150" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                </picture>
+                {else}
+                <div class="tempvideo">
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                </div>
+                {/if}
+
+                <h3>{$article.title}</h3>
+                <div class="timepost">
+                    <span>{$article.add_time}</span>
+                    <span class="namecate">{$article.author}</span>
+                    <span>• {$article.viewed} lượt xem</span>
+                </div>
+            </a>
+        </li>
+     {/foreach}
+    <!-- #BeginLibraryItem "/library/pages_simple.lbi" --><!-- #EndLibraryItem -->
+    </ul>
+    {else}
+        <p class="empty">{$lang.goods_empty} cho danh mục {$cat_name}</p>
+    {/if}
+    <!-- TemplateBeginEditable name="Bottom" -->
+<!-- TemplateEndEditable -->
+
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='article.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+<script type="text/javascript">
+    $(document).ready(function() {
+        callmenu('._cat_article','.article_categories',2,50);
+         var nav = $('ul.navhome');
+        var item_nav = nav.find('li');
+        var item_w = item_nav.length*(item_nav.width()+15);
+        nav.css('width', item_w);
+
+        $(".mnav li.current").length > 0 && $("._cat_article").scrollLeft($("._cat_article .current").offset().left)
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="INDEX,FOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    <link  rel="canonical" href="{$base_path}/tim-kiem" />
+
+            <link rel="alternate" href="{$base_path}/tim-kiem" hreflang="vi-vn" />
+    <meta property="og:url" itemprop="url" content="{$base_path}/" />
+    <meta itemprop="image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:image:alt" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$base_path}/cdn/upload/files/profile/logo-300x300.png" />
+    {include file='library/html_header.lbi'}
+    <!--Private Stylesheet -->
+    {insert_css files="css/global.css,css/search.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{$render.before_col_main}
+	{include file='library/search_goods_list.lbi'}
+	{$render.after_col_main}
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

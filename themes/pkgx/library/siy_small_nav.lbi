@@ -1,0 +1,7 @@
+{if $nav}
+<div class="top_nav clearfix">
+{foreach from=$nav item='nav' name='nav'}
+<a href="{$nav.url}" {if $nav.opennew} rel="external"{/if}>{$nav.name}</a>
+{/foreach}
+</div>
+{/if}

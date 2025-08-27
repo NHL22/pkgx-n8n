@@ -1,0 +1,6 @@
+{if $pager}
+<p class="pagination">
+    {if $pager.page_prev}<a href="{$pager.page_prev}" class="current prev">{$lang.page_prev}</a>{/if}
+    {if $pager.page_next}<a href="{$pager.page_next}" class="current next caret_down">Xem thêm {if $viewmore_number} {$viewmore_number} {$cat_name|default:kết quả}{/if}</a>{/if}
+</p>
+{/if}

@@ -1,0 +1,14 @@
+<div class="newslist clearfix">
+    <h4>{$lang.article_releate}</h4>
+    <ul>
+    {foreach from=$new_articles item=article name=article_list}
+    <li>
+        <a href="{$article.url}">
+            <img alt="{$article.title|escape:html}" src="{$cdn_path}/{$article.thumb}" width="100">
+            <h3>{$article.title|escape:html}</h3>
+            <span class="timepost">{$article.add_time}</span>
+        </a>
+    </li>
+    {/foreach}
+    </ul>
+</div>

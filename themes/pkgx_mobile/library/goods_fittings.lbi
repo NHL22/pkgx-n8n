@@ -1,0 +1,31 @@
+{if $fittings}
+<div class="box box_relate" id="fittings">
+    <h3 class="box_title">Phụ kiện liên quan</h3>
+    <div class="overpromo">
+    	<ul class="homeproduct listpromo">
+    		{foreach from=$fittings item=goods name=fittings}
+    		<li data-id="{$goods.goods_id}">
+    			<a href="{$goods.url}">
+                    {if $goods.thumb_webp}
+                <picture>
+                    <source width="180" height="180" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="180" height="180" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.short_name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="180" height="180" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.short_name|escape:html}"/>
+                {/if}
+    				<h3>{$goods.short_name}</h3>
+                    <div class="price">
+    				    <strong>{if $goods.promote_price neq 0}{$goods.formated_promote_price}<del>{$goods.shop_price}</del>{else}{$goods.shop_price}{/if}</strong>
+                    </div>
+
+                </a>
+                <p class="actions">
+                    <a href="javascript:fittings_to_flow({$goods.goods_id},{$goods.parent_id})" class="btn_fittings">Mua kèm</a>
+                </p>
+    		</li>
+    		{/foreach}
+    	</ul>
+    </div>
+</div>
+{/if}

@@ -1,0 +1,20 @@
+{if $periods_list}
+<ul class="infocard">
+    <li>
+        <span>Kỳ Hạn</span>
+        <span>Góp Mỗi tháng</span>
+        <span>Tổng góp</span>
+        <span>Chênh lệch giá</span>
+        <span>Action</span>
+    </li>
+    {foreach from=$periods_list item=periods name=periods_list}
+    <li>
+       <span style="font-weight: 600">{$periods.month} tháng</span>
+       <span>{$periods.amountByMonth|number_format}₫</span>
+       <span>{$periods.amountFinal|number_format}₫</span>
+       <span>{$periods.amountFee|number_format}₫</span>
+       <span><div onclick="choise_month({$periods.month}, this);" class="choise_month button">Chọn</div></span>
+    </li>
+    {/foreach}
+</ul>
+{/if}

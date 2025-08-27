@@ -1,0 +1,16 @@
+{if $nav}
+<ul class="txtbanner">
+    {foreach from=$nav item='navi' name='navigation'}
+    <li>
+       <h3> <a class="{if $navi.active}current{/if} {$navi.class}" href="{$navi.url}" {if $navi.opennew} target="_blank"{/if} title="{$navi.name}">{$navi.name}</a></h3>
+        {if $navi.children}
+        <div class="sub_txtbanner">
+            {foreach from=$navi.children item='child' name='child'}
+            <h4><a href="{$child.url}" {if $child.opennew} rel="external"{/if}>{$child.name}</a></h4>
+            {/foreach}
+        </div>
+        {/if}
+    </li>
+    {/foreach}
+</ul>
+{/if}

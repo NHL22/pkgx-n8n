@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+<title>{if $action eq 'default'}{$lang.dashboard}
+{elseif $action eq 'profile'}{$lang.label_profile}
+{elseif $action eq 'order_list' or $action eq 'order_detail'}{$lang.label_order}
+{elseif $action eq 'address_list'}{$lang.label_address}
+{elseif $action eq 'collection_list'}{$lang.label_collection}
+{elseif $action eq 'message_list'}{$lang.label_message}
+{elseif $action eq 'tag_list'}{$lang.label_tag}
+{elseif $action eq 'booking_list'}{$lang.label_booking}
+{elseif $action eq 'add_booking'}{$lang.label_booking}
+{elseif $action eq 'bonus'}{$lang.label_bonus}
+{elseif $action eq 'affiliate'}{$lang.label_affiliate}
+{elseif $action eq 'comment_list'}{$lang.label_comment}
+{elseif $action eq 'track_packages'}{$lang.label_track_packages}
+{elseif $action eq 'account_log' or $action eq 'account_deposit' or $action eq 'account_raply' or $action eq 'account_detail' or $action eq 'act_account' or $action eq 'pay'}{$lang.label_user_surplus}
+{elseif $action eq 'transform_points'}{$lang.label_transform_points}{/if} - {$page_title}</title>
+
+{include file='library/html_header_user.lbi'}
+    <link type="text/css" href="{$option.static_path}/css/user_cpanel.css" rel="stylesheet" />
+</head>
+<body id="page_{$pname}" class="user_cp">
+{include file='library/page_header_user.lbi'}
+<section>
+    <div class="col_sub">
+    {$render.before_col_sub}
+        {include file='library/user_nav.lbi'}
+    {$render.after_col_sub}
+    </div>
+	<div class="col_main">
+	{$render.before_col_main}
+		{if $action eq 'default'}{include file='library/user_default.lbi'}{/if}
+		{if $action eq 'message_list'}{include file='library/user_message_list.lbi'}{/if}
+		{if $action eq 'comment_list'}{include file='library/user_comment_list.lbi'}{/if}
+		{if $action eq 'tag_list'}{include file='library/user_tag_list.lbi'}{/if}
+		{if $action eq 'collection_list'}{include file='library/user_collection_list.lbi'}{/if}
+		{if $action eq 'booking_list'}{include file='library/user_booking_list.lbi'}{/if}
+		{if $action eq 'add_booking'}{include file='library/user_add_booking.lbi'}{/if}
+		{if $affiliate.on eq 1}{if $action eq 'affiliate'}{include file='library/user_affiliate.lbi'}{/if}{/if}
+	{$render.after_col_main}
+	</div>
+
+</section>
+{include file='library/page_footer_user.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer_user.lbi'}
+</body>
+</html>

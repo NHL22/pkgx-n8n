@@ -1,0 +1,13 @@
+<ul class="owl-carousel owl-theme" id="gallery_feature">
+    {if $pictures}
+    {foreach from=$pictures item=picture name=pictures_list}
+    <li class="item">
+        <img src="{$cdn_path}/{$picture.img_url}" alt=""></a>
+    </li>
+    {/foreach}
+    {else}
+    <li class="item">
+        <img src="{$cdn_path}/{$goods_img}" alt=""></a>
+    </li>
+    {/if}
+</ul>

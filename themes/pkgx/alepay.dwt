@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+    {insert_css files="css/global.css,css/alepay.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+    <div class="clr"></div>
+    <div class="tg_wrap" style="margin-top: 20px">
+        <h1>Thanh toán trả góp online lãi suất 0% bằng thẻ tín dụng Visa/Master/JCB</h1>
+
+        <form action="{$base_path}/thanh-toan" class="tf_form" method="post">
+            <div class="group_input">
+              <div class="input">
+                  <label>Tên SP dịch vụ (*)</label>
+                  {if $hideprice eq 1}
+                  <p style="line-height: 25px;margin-bottom: 10px">{$goodsName}</p>
+                  <input type="hidden" name="goodsName"  value="{$goodsName}">
+                  {else}
+                  <input type="text" name="goodsName"  value="{$goodsName}">
+                  {/if}
+              </div>
+               <div class="input">
+                  <label>Giá trả góp (*)</label>
+                  {if $hideprice eq 1}
+                  <p style="font-weight: 600;line-height: 25px;color: red;;margin-bottom: 10px">{$finalPrice_f}</p>
+                  <input type="hidden" name="amount" id="amount" value="{$finalPrice}">
+                  {else}
+                  <input type="text" min="0" class="input-element" name="amount" id="amount" value="{$finalPrice}" placeholder="Giá > 3 triệu">
+                  {/if}
+              </div>
+          </div>
+          <div class="group_input">
+              <div class="input">
+                  <label>Họ và Tên KH (*)</label>
+                  <input type="text" name="buyerName" placeholder="Vd: Nguyễn Văn A">
+              </div>
+               <div class="input">
+                  <label>Số điện thoại (*)</label>
+                  <input type="tel" name="buyerPhone" placeholder="Số điện thoại">
+              </div>
+          </div>
+          <div class="group_input">
+              <div class="input">
+                  <label>Email (*)</label>
+                  <input type="email" name="buyerEmail" placeholder="Email">
+              </div>
+              <div class="input">
+                  <label>Tỉnh/ thành phố (*)</label>
+                  <select name="buyerCity">
+                      <option value="0">Chọn Tỉnh/ thành phố</option>
+                      {foreach from=$region_list item=city name=regionlist}
+                      <option value="{$city.region_name}">{$city.region_name}</option>
+                      {/foreach}
+                  </select>
+              </div>
+          </div>
+          <div class="group_input tg_address clearfix">
+             <div class="input">
+              <label>Địa chỉ nơi ở hiện tại (*)</label>
+                <input type="text" name="buyerAddress" placeholder="Địa chỉ">
+                <p>Số nhà + Tên Đường + Phường/Xã + Quận Huyện</p>
+            </div>
+          </div>
+          <div class="actions clearfix">
+                <input type="hidden" name="action" value="_payment">
+                 <input type="hidden" name="csrf_token" value="{$csrf_token}">
+                <button type="submit" value="2" name="checkoutType"><span>Thanh toán trả góp</span> <p>Thẻ VISA/Master/JCB</p></button>
+                <button style="background: #ff3945" type="submit" value="1" name="checkoutType"><span>Thanh toán trả thẳng</span> <p>Thẻ VISA/Master/JCB</p></button>
+          </div>
+            <p style="color: red;margin-top: 10px">Lưu ý: Để chắc chắn vui lòng liên hệ kiểm tra tình trạng CÒN HÀNG trước khi thực hiện thanh toán trả góp.<br>
+            Khách hàng chịu phí sử dụng thẻ thanh toán quốc tế.</p>
+        </form>
+        <div class="tg_info" style="margin-top: 40px">
+            <div class="type_cart clearfix">
+                <p>Áp dụng cho tất sản phẩm dịch vụ giá trị từ 3 triệu VNĐ trở lên như điện thoại, máy tính bảng, phụ kiện, đồ chơi công nghệ.</p>
+                <p><img src="{$base_path}/alepay/Images/VISA.png" alt=""><img src="{$base_path}/alepay/Images/MASTER.png" alt=""><img src="{$base_path}/alepay/Images/JCB.png" alt=""></p>
+            </div>
+            <div class="tg_banks clearfix">
+               <h3>Ngân hàng hỗ trợ trả góp Online</h3>
+                <p>
+                    <span><img src="{$base_path}/alepay/Images/ANZ.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/CTB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/EXB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/HSBC.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/ICB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/MSB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/NAB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/SC.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/SCB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/SEB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/SHINHAN.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/STB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/TCB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/TPB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/VIB.png" alt=""></span>
+                    <span><img src="{$base_path}/alepay/Images/VPB.png" alt=""></span>
+                </p>
+            </div>
+            <div class="tg_steps clearfix">
+                <h3>Các bước thanh toán trả góp online</h3>
+                <ul>
+                    <li>
+                        <img src="{$base_path}/alepay/Images/icon5.png" alt="">
+                        <p><strong>Bước 1:</strong></p>
+                        <p>Người mua chọn sản phẩm trên các website đủ điều kiện trả góp lãi suất 0%.</p>
+                    </li>
+                    <li>
+                        <img src="{$base_path}/alepay/Images/icon6.png" alt="">
+                        <p><strong>Bước 2:</strong></p>
+                        <p>Khách hàng hoặc nhân viên shop sử dụng thẻ tín dụng của Ngân hàng hỗ trợ để thanh toán ngay trên website như form trên </p>
+                    </li>
+                     <li>
+                        <img src="{$base_path}/alepay/Images/icon7.png" alt="">
+                        <p><strong>Bước 3:</strong></p>
+                        <p>Giao dịch thành công, tổng đài viên sẽ liên hệ khách hàng để xác nhận chuyển đổi giao dịch sang trả góp, khách hàng đồng ý và nhận sản phẩm</p>
+                    </li>
+                    <li>
+                        <img src="{$base_path}/alepay/Images/icon8.png" alt="">
+                        <p><strong>Bước 4:</strong></p>
+                        <p>Hàng tháng khách hàng có trách nhiệm thanh toán tiền trả góp cho Ngân hàng phát hành thẻ theo chu kỳ đã chọn</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+<script type="text/javascript" src="{$option.static_path}/js/cleave.js"></script>
+<script type="text/javascript">
+   if($(".input-element").length > 0){
+       var cleave = new Cleave('.input-element', {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        })
+   };
+</script>
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,24 @@
+{if $new_articles}
+<div class="new_articles box">
+    <div class="box_hd"><h3 class="hometitle">{$lang.new_article}</h3><div class="box_extra"></div></div>
+    <ul class="news">
+        {foreach from=$new_articles item=article name=new_articles}
+        <li>
+            <a href="{$article.url}" title="{$article.title|escape:html}">
+                {if $article.sthumb_webp}
+                <picture>
+                    <source width="100" height="70" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                </picture>
+                {else}
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                {/if}
+                <h3>{$article.title|escape:html}</h3>
+                <div><span>{$article.add_time}</span></div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    <a href="tin-tuc" class="newsother">Xem các tin khác</a>
+</div>
+{/if}

@@ -1,0 +1,20 @@
+<div class="wrap_cart clearfix">
+<form method="post" action="gio-hang?step=login" class="form" id="user_login">
+	<h3>Đăng nhập Thành viên</h3>
+	<input type="text" class="input" name="username" required placeholder="{$lang.label_username}" value="" tabindex="1" id="username_login"/>
+	<input type="password" class="input" name="password" required placeholder="{$lang.label_password}" value="" tabindex="2" id="password_login"/>
+	{if $enabled_login_captcha}
+	<div class="captcha">
+		<input type="text" name="captcha" placeholder="{$lang.comment_captcha}" maxlength="4" size="6" tabindex="3" class="captcha" id="captcha_login"/><span><img src="ajax?act=captcha&is_login=1&{$rand}" alt="{$lang.comment_captcha}" class="captcha tip" title="{$lang.captcha_tip}" onClick="this.src='ajax?act=captcha&is_login=1&'+Math.random()"></span>
+	</div>
+	{/if}
+	<label for="remember" class="checkbox_label"><input type="checkbox" name="remember" value="1" tabindex="3" class="checkbox" id="remember"/>{$lang.remember}</label>
+	<div class="actions">
+		<input type="submit" value="Đăng Nhập" tabindex="4" class="btn_login"/>
+		{if $anonymous_buy eq 1}<a href="gio-hang?step=consignee&amp;direct_shopping=1" class="btn_quick_buy">Mua Không Cần Đăng Nhập</a>{/if}
+		<input type="hidden" name="act" value="signin"/>
+        <p class="extlinks"><a href="thanh-vien?act=get_password">{$lang.forgot_password}</a> | <a href="thanh-vien?act=register" class="text-link">Đăng ký thành viên</a></p>
+	</div>
+</form>
+</div>
+<p class="notice">Bằng cách đăng nhập, bạn đồng ý với Điều khoản sử dụng của {$shop_name}</p>

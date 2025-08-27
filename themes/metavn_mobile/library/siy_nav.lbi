@@ -1,0 +1,8 @@
+<div class="clr bor"></div>
+{if $nav}
+<div class="nav2">
+{foreach from=$nav item='navi' key=i name='navigation'}
+ <a title="{$navi.name}" {if $navi.rel}rel="{$navi.rel}"{/if} href="{$navi.url}" {if $navi.opennew} target="_blank"{/if}>{$navi.name}</a>
+{/foreach}
+</div>
+{/if}

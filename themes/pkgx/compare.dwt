@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+<title>{$page_title}</title>
+{include file='library/html_header.lbi'}
+{insert_css files="css/global.css,css/compare.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{include file='library/ur_here.lbi'}
+    <div class="search-bar">
+        <h1 class="compare-title">{$compare_title}</h1>
+        <form id="suggest-same">
+            <input type="text" id="search_compare" name="goods" autocomplete="off" maxlength="50" placeholder="Nhập tên {$cate.cat_name} bạn muốn so sánh">
+            <input type="hidden" id="_parent_catid" name="cat_id" value="{$cate.cat_id}">
+            <button type="button"><i class="icontgdd-topsearch"></i></button>
+            <div id="result_compare"></div>
+        </form>
+    </div>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th>&nbsp;</th>
+                        {foreach from=$goods_list item=goods name=goods_list}
+                        <td class="goods {if $smarty.foreach.goods_list.index %2==0}odd{else}even{/if}{if $smarty.foreach.goods_list.last} last{/if} center">
+                             {if $smarty.foreach.goods_list.total gt 2}
+                             <span class="remove"><a href="sosanh?{$goods.ids}" onclick="return compareRemove({$goods.goods_id});"><span>x</span></a></span>
+                             {/if}
+                            <a href="{$goods.url}">
+                            <img src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.goods_name}"/>
+                            <h3>{$goods.goods_name}</h3>
+                            <strong>{$goods.shop_price}</strong>
+                            </a>
+                        </td>
+                        {/foreach}
+                    </tr>
+
+                    {foreach key=key from=$attribute item=val}
+                    <tr>
+                        <th>{$val}{$lang.colon}</th>
+                        {foreach from=$goods_list item=goods name=goods_list}
+                        <td class="{if $smarty.foreach.goods_list.index %2==0}odd{else}even{/if}{if $smarty.foreach.goods_list.last} last{/if}">
+                        {foreach from=$goods.properties item=property key=k}
+                        {if $k eq $key}{$property.value}{/if}
+                        {/foreach}
+                        </td>
+                        {/foreach}
+                    </tr>
+                    {/foreach}
+                    <tr>
+                        <th>&nbsp;</th>
+                        {foreach from=$goods_list item=goods name=goods_list}
+                        <td class="{if $smarty.foreach.goods_list.index %2==0}odd{else}even{/if}{if $smarty.foreach.goods_list.last} last{/if} center"><a href="javascript:buy({$goods.goods_id})" class="button brighter_button"><span>{$lang.btn_buy}</span></a></td>
+                        {/foreach}
+                    </tr>
+                </tbody>
+            </table>
+    </section>
+{include file='library/page_footer.lbi'}
+<script type="text/javascript">
+     var goodsId = {$goods_id};
+</script>
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+<script type="text/javascript">
+     /* Search Compare */
+    $('#search_compare').delayKeyup(function(el){
+        var keywords = el.val();
+        var show = $('#result_compare');
+        var cat_id = $('#_parent_catid').val();
+        if(keywords.length >2){
+            $.post(
+                'tim-kiem?act=search_suggest&category='+cat_id+'&gid='+goodsId,
+                {keywords: keywords},
+                function(response){
+                    var res = $.evalJSON(response);
+                    show.show();
+                    show.html(res.content);
+                },
+                'text'
+            );
+        }else{
+            show.hide();
+        }
+    },1000);
+</script>
+</body>
+</html>

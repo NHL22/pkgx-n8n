@@ -1,0 +1,52 @@
+<form action="javascript:;" onsubmit="submitComment(this)" method="post" class="clearfix">
+    <div class="star-rank">
+        <span>Chọn đánh giá của bạn</span>
+        <input type="radio" name="comment_rank" value="1" tabindex="6" class="radio rank_star" title="{$lang.comment_rank_1}"/>
+        <input type="radio" name="comment_rank" value="2" tabindex="5" class="radio rank_star" title="{$lang.comment_rank_2}"/>
+        <input type="radio" name="comment_rank" value="3" tabindex="4" class="radio rank_star" title="{$lang.comment_rank_3}"/>
+        <input type="radio" name="comment_rank" value="4" tabindex="3" class="radio rank_star" title="{$lang.comment_rank_4}"/>
+        <input type="radio" name="comment_rank" value="5" checked="checked" class="radio rank_star" title="{$lang.comment_rank_5}"/>
+        <em id="star_tip"></em>
+    </div>
+    <div class="action-comment clearfix">
+        <textarea name="content" id="cf_content" rows="2" cols="20" required min-lenght="30" max-lenght="500" placeholder="Nhập đánh giá về dịch vụ, ít nhất 80 ký tự"></textarea>
+        <div class="col-input">
+            <input type="text" name="user_name" id="cf_name" class="input-text"  required placeholder="Tên (Bắt buộc)" maxlength="120">
+            <input type="text" name="user_email" id="cf_email" class="input-text"  placeholder="Email" maxlength="120">
+            <input type="tel" name="user_tel" id="cf_tel" class="input-text"  placeholder="Số điện thoại (tùy chọn)" maxlength="10">
+            {if $enabled_captcha}
+            <input type="text" style="width:60px" placeholder="Mã BV" maxlength="4" minlength="4" class="input-text" name="captcha" id="cf_captcha" required autocomplete="off">
+            <img src="ajax?act=captcha&{$rand}" alt="{$lang.comment_captcha}" class="captcha tip" title="{$lang.captcha_tip}" onClick="this.src='ajax?act=captcha&'+Math.random()"/>
+            {/if}
+            <button type="submit" class="btn btn-primary">{$lang.send_rank}</button>
+        </div>
+        <div class="col-submit">
+            <input type="hidden" name="cmt_type" value="{$comment_type}">
+            <input type="hidden" name="id" value="{$id}">
+            <input type="hidden" name="comment_rank" value="5">
+        </div>
+        <div class="clear"></div>
+    </div>
+</form>
+<div class="clearfix"></div>
+{if $comments}
+<ul class="comment_list clearfix">
+    {foreach from=$comments item=comment name=comments}
+    <li id="comment{$comment.id}" class="{cycle values="odd,even"}{if $smarty.foreach.comments.first} first{/if}">
+            <span class="iconcom-user">{$comment.username|truncate:1:"":true}</span><span class="name">{if $comment.username}{$comment.username|escape:html}{else}{$lang.anonymous}{/if}</span>
+        <div class="talk">
+            <p class="text"><i class="rank rank_{$comment.rank}"></i> {$comment.content}</p>
+            <div class="cmextra"><span class="btnreply" onclick="cmtaddreplyclick({$comment.id},{$comment_type},{$comment.id_value},{$comment.id})">Thảo luận</span><span class="time">{$comment.add_time}</span></div>
+            {foreach from=$comment.reply item=cm name=replys}
+            <blockquote class="reply"><span class="iconcom-user">{$cm.re_username|truncate:1:"":true}</span> <span class="name">{$cm.re_username} {if $cm.isadmin > 0}<font>{$lang.re_name}</font>{/if}</span>
+            <p>{$cm.re_content}</p>
+            <span class="btnreply" onclick="cmtaddreplyclick({$comment.id},{$comment_type},{$comment.id_value},{$comment.id})">Thảo luận</span><span class="time">{$cm.re_add_time}</span>
+            </blockquote>
+            {/foreach}
+        </div>
+    </li>
+    {/foreach}
+</ul>
+{include file='library/pages.lbi'}
+<script type="text/javascript" src="{$option.static_path}/js/commentform.js"></script>
+{/if}

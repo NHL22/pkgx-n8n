@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {if $description}<meta name="description" content="{$description}"/>{/if}
+    {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+    <meta content="{$meta_robots}" name="robots" />
+    <title>{$page_title}</title>
+    {include file='library/html_header.lbi'}
+        <link rel="canonical" href="{$base_path}/{$cat_url}"/>
+        <meta property="og:title" content="{$page_title}" />
+
+    <link rel="alternate" href="{$base_path}/{$cat_url}" hreflang="vi-vn" />
+        <meta property="og:url" itemprop="url" content="{$base_path}/{$cat_url}" />
+        <!--#region FAQWebpage-->
+        <script type = "application/ld+json" > {
+            "@type": "WebPage",
+            "@context": "https://schema.org",
+            "@id": "{$base_path}/{$cat_url}#WebPage",
+            "url": "{$base_path}/{$cat_url}",
+            "inLanguage": ["EN", "VN"],
+            "name": "{$page_title}",
+            "datePublished": "{$article.add_time}",
+            "dateModified": "{$article.modify_time}",
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://phukiengiaxuong.com.vn#Organization"
+            },
+            "description": "{$description}",
+            "author": {
+                "@type": "Person",
+                "@id": "{$article.url}#author",
+                "name": "Phụ Kiện Điện Thoại Giá Sỉ"
+            },
+            "commentCount": 1963
+        } </script>
+        <!--#endregion-->
+
+    {insert_css files="css/global.css,css/article_cat.css"}
+
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+{include file='library/ur_here.lbi'}
+{include file='library/article_category_tree.lbi'}
+<div class="clr"></div>
+   <div class="col_main">
+     <div class="titledetail">{$page_title}</div>
+        {if $artciles_list}
+        <ul class="newslist">
+         {foreach from=$artciles_list item=article name=artciles_list}
+            <li>
+                <a href="{$article.url|escape:html}">
+                    {if $article.thumb_webp}
+                    <picture class="tempvideo">
+                        <source width="150" height="150" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+                        <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                    </picture>
+                    {else}
+                    <div class="tempvideo">
+                        <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                    </div>
+                    {/if}
+                    <h3>{$article.title}</h3>
+                    <figure>
+                        {$article.desc|truncate:225:"...":true}
+                    </figure>
+                    <div class="timepost">
+                        <span>{$article.add_time}</span>
+                        <span class="namecate">{$article.author}</span>
+                        <span>• {$article.viewed} lượt xem</span>
+                    </div>
+                </a>
+            </li>
+         {/foreach}
+        </ul>
+         <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+        {else}
+            <p class="empty">Không tìm thấy dữ liệu cho danh mục {$cat_name}</p>
+        {/if}
+   </div>
+   <div class="col_sub">
+     <!-- TemplateBeginEditable name="RightTop" -->
+<!-- TemplateEndEditable -->
+     <!-- TemplateBeginEditable name="Right" -->
+<!-- #BeginLibraryItem "/library/topview_article.lbi" -->
+<div class="box summarycomment">
+    <div class="box_title">Bạn đọc xem nhiều</div>
+    <div class="bd">
+        {foreach from=$topview_article item=article_views name=view_list}
+        <a href="{$article_views.url}">
+            <span class="summary_number">{$smarty.foreach.view_list.iteration}</span>
+            <h3>{$article_views.title}<span class="morecom">• {$article_views.viewed} lượt xem</span></h3>
+        </a>
+        {/foreach}
+  </div>
+</div>
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_articles.lbi" -->
+{if $new_articles}
+<ul>
+	{foreach from=$new_articles item=article name=new_articles}
+	<li>
+        <a href="{$article.url}" title="{$article.title|escape:html}">
+            <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+            <h3>{$article.title|escape:html}</h3>
+            <span>{$article.add_time}</span>
+        </a>
+    </li>
+	{/foreach}
+</ul>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+     <!-- TemplateBeginEditable name="RightBottom" -->
+<!-- TemplateEndEditable -->
+   </div>
+    <div class="clr"></div>
+</section>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,26 @@
+<div class="catetag">
+     {if $price_grade.1}
+    <div>
+        {foreach from=$price_grade key=i item=grade name=price_grade}
+        {if $smarty.foreach.price_grade.index < 4 and $smarty.foreach.price_grade.index > 0}
+        <a rel="nofollow" href="{$grade.url}">{$grade.price_range}</a>
+        {/if}
+        {/foreach}
+    </div>
+    {/if}
+    {if $brands}
+    <div>
+        {foreach from=$brands key=i item=brand name=brands}
+        {if $smarty.foreach.brands.index > 0 and $smarty.foreach.brands.index < 8}
+        <a  href="{$brand.url}">{$brand.brand_name}</a>
+        {/if}
+        {/foreach}
+    </div>
+    {/if}
+</div>
+<div class="catesearch">
+    <form action="tim-kiem" method="get" class="searchlist up">
+        <input name="keywords" type="search" placeholder="Tìm {$cat_name} bạn cần " value="{$search_keywords|escape}" autocomplete="off"  />
+        <button type="submit" class="submit"><i class="iconmobile-search"></i></button>
+    </form>
+</div>

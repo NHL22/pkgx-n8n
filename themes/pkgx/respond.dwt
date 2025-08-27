@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <meta charset="utf-8">
+<title>{$page_title}</title>
+ <base href="{$base_path}/">
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link type="image/x-icon" href="{$option.static_path}/img/favicon.ico" rel="shortcut icon" />
+    {if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}" />{/if}
+{insert_css files="css/global.css,css/respond.css"}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+    <div class="message_wrapper">
+        <p class="message_info {$msg.type}_box">{$lang.pay_online} {$msg.message}</p>
+        {if $virtual_card}
+        <div class="clearfix">
+            <ul class="virtual_card clearfix">
+                {foreach from=$virtual_card item=vgoods name=virtual_card}
+                {foreach from=$vgoods.info item=card name=vgoods_info}
+                <li>
+                    <span class="type">{$vgoods.goods_name}</span>
+                    {if $card.card_sn}<span class="id"><strong>{$lang.card_sn}{$lang.colon}</strong>{$card.card_sn}</em></span>{/if}
+                    {if $card.card_password}<span class="serial_code"><strong>{$lang.card_password}{$lang.colon}</strong><em>{$card.card_password}</em></span>{/if}
+                    {if $card.end_date}<span class="expire_date"><strong>{$lang.end_date}{$lang.colon}</strong><em>{$card.end_date}</em></span>{/if}
+                </li>
+                {/foreach}
+                {/foreach}
+            </ul>
+        </div>
+        {/if}
+        <p> <a href="{$shop_url}" class="button">{$lang.back_home}</a></p>
+    </div>
+
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>p

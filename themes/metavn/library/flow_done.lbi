@@ -1,0 +1,31 @@
+<div class="message_wrapper flow_done">
+    <h3>Đặt hàng Thành công !</h3>
+    <p class="title">{$lang.remember_order_number}</p>
+	<ul class="order_info">
+        <li>Mã đơn hàng: <strong>{$order.order_sn}</strong></li>
+		{if $order.shipping_name}
+        <li>{$lang.select_shipping}{$lang.colon}<strong>{$order.shipping_name}</strong>
+		{/if}
+        </li>
+        <li>{$lang.select_payment}{$lang.colon}<strong>{$order.pay_name}</strong></li>
+		<li>{$lang.order_amount}{$lang.colon}<strong class="price">{$total.amount_formated}</strong></li>
+	</ul>
+	{if $pay_online}
+	<div class="pay_online">{$pay_online}</div>
+	{/if}
+	{if $virtual_card}
+	<ul class="virtual_card clearfix">
+		{foreach from=$virtual_card item=vgoods name=virtual_card}
+		{foreach from=$vgoods.info item=card name=vgoods_info}
+		<li>
+			<span class="type">{$vgoods.goods_name}</span>
+			{if $card.card_sn}<span class="id"><strong>{$lang.card_sn}{$lang.colon}</strong>{$card.card_sn}</em></span>{/if}
+			{if $card.card_password}<span class="serial_code"><strong>{$lang.card_password}{$lang.colon}</strong><em>{$card.card_password}</em></span>{/if}
+			{if $card.end_date}<span class="expire_date"><strong>{$lang.end_date}{$lang.colon}</strong><em>{$card.end_date}</em></span>{/if}
+		</li>
+		{/foreach}
+		{/foreach}
+	</ul>
+	{/if}
+	<div class="actions"><p>{$order_submit_back}</p></div>
+</div>

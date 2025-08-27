@@ -1,0 +1,11 @@
+{if $article_categories}
+<div class="box-cat-list scrollmenu article_categories">
+<div>
+	{foreach from=$article_categories item=cat name=article_categories}
+	<a class="{if $cat_id eq $cat.id}current{/if}" href="{$cat.url}">{$cat.name}</a>
+	{/foreach}
+</div>
+</div>
+<div class="clr"></div>
+{/if}
+

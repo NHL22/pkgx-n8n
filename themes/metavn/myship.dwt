@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="{$option.static_path}/js/html5shiv.js"></script>
+  <script src="{$option.static_path}/js/respond.min.js"></script>
+<![endif]-->
+<head>
+    <meta content="NOINDEX,NOFOLLOW" name="robots" />
+    <meta charset="utf-8">
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title}</title>
+{include file='library/html_header_nosale.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<section>
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="myship box full_box">
+		<div class="hd"><h3>{$lang.myship}</h3><div class="extra"></div></div>
+		<div class="bd">
+			<form action="myship.php" method="post" name="theForm" id="theForm" onsubmit="return checkForm(this)">
+				<span>{$lang.country_province}:</span>
+				<select name="country" id="selCountries_{$sn}" onchange="regionChanged(this, 1, 'selProvinces_{$sn}')">
+					<option value="0">{$lang.please_select}</option>
+					{foreach from=$country_list item=country}
+					<option value="{$country.region_id}" {if $choose.country eq $country.region_id} selected="selected"{/if}>{$country.region_name}</option>
+					{/foreach}
+				</select>
+				<select name="province" id="selProvinces_{$sn}" onchange="regionChanged(this, 2, 'selCities_{$sn}')">
+					<option value="0">{$lang.please_select}</option>
+					{foreach from=$province_list.$sn item=province}
+					<option value="{$province.region_id}" {if $choose.province eq $province.region_id} selected="selected"{/if}>{$province.region_name}</option>
+					{/foreach}
+				</select>
+				<select name="city" id="selCities_{$sn}" onchange="regionChanged(this, 3, 'selDistricts_{$sn}')">
+					<option value="0">{$lang.please_select}</option>
+					{foreach from=$city_list.$sn item=city}
+					<option value="{$city.region_id}" {if $choose.city eq $city.region_id} selected="selected"{/if}>{$city.region_name}</option>
+					{/foreach}
+				</select>
+				<select name="district" id="selDistricts_{$sn}" {if !$district_list.$sn}style="display:none"{/if}>
+					<option value="0">{$lang.please_select}</option>
+					{foreach from=$district_list.$sn item=district}
+					<option value="{$district.region_id}" {if $choose.district eq $district.region_id} selected="selected"{/if}>{$district.region_name}</option>
+					{/foreach}
+				</select>
+				<input type="submit" name="Submit" value="{$lang.search_ship}" class="btn_s4_b"/>
+				<input type="hidden" name="act" value="viewship" />
+			</form>
+			<table class="data_table">
+				<colgroup>
+					<col width="100"/>
+					<col width="700"/>
+					<col width="100"/>
+					<col width="100"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th>{$lang.name}</th>
+						<th>{$lang.describe}</th>
+						<th>{$lang.fee}</th>
+						<th class="last">{$lang.insure_fee}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{foreach from=$shipping_list item='shipping' name='shipping'}
+					<tr class="{cycle values="odd,even"}{if $smarty.foreach.shipping.last} last{/if}">
+						<td >{$shipping.shipping_name}</td>
+						<td>{$shipping.shipping_desc}</td>
+						<td class="price">{$shipping.fee}</td>
+						<td class="last">{if $shipping.insure neq 0}{$shipping.insure_formated}{else}{$lang.not_support_insure}{/if}</td>
+					</tr>
+					{/foreach}
+			</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</section>
+{include file='library/page_footer.lbi'}
+{insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+<script type="text/javascript">
+{foreach from=$lang.flow_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+{literal}
+//
+onload = function(){if (!document.all){document.forms['theForm'].reset();}}
+function checkForm(frm) {
+	var msg = new Array();
+	var err = false;
+	if (frm.elements['country'].value == 0) {
+		msg.push(country_not_null);
+		err = true;
+	}
+	if (frm.elements['province'].value == 0 && frm.elements['province'].length > 1) {
+		err = true;
+		msg.push(province_not_null);
+	}
+	if (frm.elements['city'].value == 0 && frm.elements['city'].length > 1) {
+		err = true;
+		msg.push(city_not_null);
+	}
+	if (frm.elements['district'].length > 1) {
+		if (frm.elements['district'].value == 0)
+		{
+			err = true;
+			msg.push(district_not_null);
+		}
+	}
+	if (err) {
+		message = msg.join("\n");
+		cAlert(message);
+	}
+	return ! err;
+}
+{/literal}
+</script>
+</body>
+</html>

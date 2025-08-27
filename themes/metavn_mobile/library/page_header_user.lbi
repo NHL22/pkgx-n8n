@@ -1,0 +1,27 @@
+{$render.before_header}
+
+<div class="over"></div>
+<header>
+    <div class="header_bar">
+        <div class="menu" id="_menu"><i class="iconmobile-menu"></i></div>
+        <a  title="Về trang chủ {$shop_name}" href="./" style="display: block">
+            <img style="margin:0 auto;height: 35px;display: block;padding-top: 5px" src="{$cdn_path}/upload/files/profile/logo.png" alt="{$shop_name}">
+        </a>
+         <span class="cart" id="cart">
+            <a href="gio-hang"><i class="iconmobile-cart"></i>{insert name='cart_info'}</a>
+        </span>
+    </div>
+    <div class="header_search">
+    <form action="tim-kiem" method="get" class="search" id="search-site">
+        <input name="keywords" id="search-keyword" type="search" placeholder="Tìm sản phẩm bạn cần " value="{$search_keywords|escape}" autocomplete="off"  />
+        <div class="iconsearch"><i class="iconmobile-search"></i></div>
+        <button type="reset" class="btn-reset" style="display: none;"><i class="iconmobile-reset"></i></button>
+        <button type="submit" class="btn-submit" style="display: none;">Tìm</button>
+        <div id="suggestion"></div>
+    </form>
+    </div>
+    <!-- sugguest -->
+    {include file='library/category_tree.lbi'}
+</header>
+
+{$render.after_header}

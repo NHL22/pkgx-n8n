@@ -1,0 +1,9 @@
+<span class="user_links">
+{if $user_info}
+<a rel="noffolow" href="thanh-vien"><strong>{$user_info.username}</strong></a>
+<a rel="noffolow" href="thanh-vien?act=logout">{$lang.user_logout}</a>
+{else}
+<a rel="noffolow" href="thanh-vien?act=register">{$lang.reg_free}</a>
+<a rel="noffolow" href="thanh-vien?act=login">{$lang.login}</a>
+{/if}
+</span>

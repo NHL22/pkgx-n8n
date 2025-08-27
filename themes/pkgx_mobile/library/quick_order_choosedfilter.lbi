@@ -1,0 +1,23 @@
+
+<div class="choosedfilter">
+    {if $brand_name}
+    <a href="javascript:loadGoods('{siy:build_uri app='category' cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr}')">
+       {$brand_name}
+    </a>
+    {/if}
+    {if $price_name}
+    <a href="javascript:loadGoods('{siy:build_uri app='category' cid=$category bid=$brand_id filter_attr=$filter_attr}')">
+        {$price_name}
+    </a>
+    {/if}
+    {if $attribute_name}
+
+    {foreach from=$attribute_name item=attr name=att_selected}
+    <a href="javascript:loadGoods('{$attr.url}')">{$attr.name}</a>
+    {/foreach}
+
+    {/if}
+    {if $brand_name || $price_name || $attribute_name}
+     <a href="javascript:loadGoods('{$cat_url}')" class="reset">Xóa bộ lọc</a>
+    {/if}
+</div>

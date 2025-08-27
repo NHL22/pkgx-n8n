@@ -1,0 +1,21 @@
+{if $ads}
+<ul class="ads">
+	{foreach from=$ads item='ad' name='ads'}
+	<li{if $smarty.foreach.ads.first} class="first"{/if}>
+		{if $ad.type eq 'image'}
+		<a href="{$ad.url}"><img src="{$option.static_path}{$ad.image}" alt="{$ad.ad_name|escape:html}"/></a>
+		{elseif $ad.type eq 'text'}
+		<a href="{$ad.url}">{$ad.text}</a>
+		{elseif $ad.type eq 'code'}
+		{$ad.code}
+		{elseif $ad.type eq 'flash'}
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="{$ad.ad_width}" height="{$ad.ad_height}">
+		<param name="movie" value="{$ad.flash}"/>
+		<param name="quality" value="high"/>
+		<embed src="{$ad.flash}" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="{$ad.ad_width}" height="{$ad.ad_height}"></embed>
+		</object>
+		{/if}
+	</li>
+	{/foreach}
+</ul>
+{/if}
