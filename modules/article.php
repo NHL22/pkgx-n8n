@@ -212,7 +212,29 @@ function get_article_info($article_id)
             $row['author'] = $GLOBALS['_CFG']['shop_name'];
         }
     }
+        /* Thêm code xử lý ảnh đại diện */
+    if ($row)
+    {
+        // Tạo biến thumb, sthumb... từ dữ liệu $row
+        $row['thumb']       = (empty($row['article_thumb'])) ? $GLOBALS['_CFG']['no_picture'] : $row['article_thumb'];
+        $row['sthumb']      = (empty($row['article_sthumb'])) ? $GLOBALS['_CFG']['no_picture'] : $row['article_sthumb'];
 
+        // Xử lý ảnh WebP cho ảnh chính
+        $thumb_webp = convertExtension($row['article_thumb'], 'webp');
+        if(file_exists(ROOT_PATH . CDN_PATH . '/' . $thumb_webp)){
+            $row['thumb_webp'] = $thumb_webp;
+        } else {
+            $row['thumb_webp'] = '';
+        }
+
+        // Xử lý ảnh WebP cho ảnh nhỏ
+        $sthumb_webp = convertExtension($row['article_sthumb'], 'webp');
+        if(file_exists(ROOT_PATH . CDN_PATH . '/' . $sthumb_webp)){
+            $row['sthumb_webp'] = $sthumb_webp;
+        } else {
+            $row['sthumb_webp'] = '';
+        }
+    }
     return $row;
 }
 

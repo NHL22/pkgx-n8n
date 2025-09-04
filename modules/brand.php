@@ -320,7 +320,7 @@ function brand_get_goods($brand_id, $cate, $size, $page, $sort, $order)
     $cate_where = ($cate > 0) ? 'AND ' . get_children($cate) : '';
 
     /* 获得商品列表 */
-    $sql = 'SELECT g.goods_id, g.goods_name, g.deal_price, g.partner_price, g.market_price, g.shop_price AS org_price, ' .
+    $sql = 'SELECT g.goods_id, g.goods_sn, g.goods_name, g.deal_price, g.partner_price, g.market_price, g.shop_price AS org_price, ' .
                 "IFNULL(mp.user_price, g.shop_price * '$_SESSION[discount]') AS shop_price, g.promote_price, " .
                 'g.promote_start_date, g.promote_end_date, g.goods_brief, g.goods_thumb , g.goods_img ' .
             'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g ' .
@@ -359,6 +359,8 @@ function brand_get_goods($brand_id, $cate, $size, $page, $sort, $order)
 
         $arr[$row['goods_id']]['deal_price'] =  price_format($row['deal_price']);
         $arr[$row['goods_id']]['partner_price'] =  price_format($row['partner_price']);
+        $arr[$row['goods_id']]['goods_sn'] =  $row['goods_sn'];
+        $arr[$row['goods_id']]['shop_price_raw']    = $row['shop_price'];
 
         $arr[$row['goods_id']]['market_price']  = price_format($row['market_price']);
         $arr[$row['goods_id']]['shop_price']    = price_format($row['shop_price']);

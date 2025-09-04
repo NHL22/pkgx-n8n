@@ -1,0 +1,22 @@
+.message-form {
+    padding: 10px;
+}
+.message-form input[type="text"], .message-form input[type="tel"],
+ .message-form textarea, .message-form input[type="email"]
+{
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 5px;
+    border:1px solid #ddd;
+}
+.message-form label b{margin-bottom: 10px;display: block;}
+.message-form .radio_wrap {margin:10px 0;}
+.message-form .radio_wrap label{display: inline-block;width: auto;padding: 0}
+.message-form input.incaptcha {width: 150px !important;margin-bottom: 0;display: inline-block !important;}
+.message-form .captcha {vertical-align: middle;}
+.submit_wrap {margin-top: 20px;}
+
+.message-form {margin-bottom: 20px;}
+.message-form  .text {line-height: 24px;margin-bottom: 10px;}

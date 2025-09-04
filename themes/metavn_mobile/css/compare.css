@@ -1,0 +1,92 @@
+.compare-title {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    line-height: 25px;
+}
+
+.goods {position: relative;background: #fff}
+.goods .remove{position: absolute;top: 5px;right: 5px;z-index: 3}
+.goods .remove span{display: block;background: #f8f8f8;width: 20px;height: 20px;line-height: 20px;border-radius: 10px}
+.goods h3{font-weight: 600}
+.goods strong {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 0 10px 0;
+    color: #c70101;
+    margin-top: 5px;
+    display: block;
+}
+
+.properties dt{display:inline-block;float:left;line-height:30px}
+.properties dd{display:inline-block;padding:3px 0}
+.properties label{display:block;float:left;margin:0 5px 3px 0;padding:3px 8px;line-height:14px;background-color:#fff;border:2px solid #eee}
+.properties label.hover{border-color:#ccc}
+.properties label.checked{color:#f60;background:#fff url('../img/checked.gif') no-repeat right bottom;border-color:#f60}
+.properties label input{display:none}
+/* so sanh */
+
+#suggest-same {position: relative;margin: 10px;width: 100%;box-sizing: border-box;}
+#suggest-same input {
+    border: 1px solid #f6a623;
+    border-radius: 2px;
+    padding: 8px 10px;
+    height: 40px;
+    width: 97%;
+    box-sizing: border-box;
+}
+#suggest-same button {
+    background: #fff;
+    border: 0;
+    width: 20px;
+    height: 30px;
+    border-radius: 2px;
+    position: absolute;
+    top: 1px;
+    right: 40px;
+    cursor: pointer;
+}
+#result_compare .wrap-suggestion {
+    width: 97%
+}
+
+/*table */
+table{width: 100%; max-width: 100% }
+table>thead>tr>th {border-bottom: 1px solid #bbb; text-align: left; font-weight: 600; }
+table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, table>thead>tr>td, table>thead>tr>th {
+    padding: 8px 10px; line-height: 1.5384616; vertical-align: middle; border-top: 1px solid #ddd
+}
+table td, table th, table tr{transition: background-color .15s ease-in-out }
+table tbody>tr:nth-of-type(odd) {background-color: #fcfcfc; }
+table>tbody>tr:hover, table>tbody>tr.active>td, table>tbody>tr.active>th, table>tbody>tr>td.active, table>tbody>tr>th.active, table>tfoot>tr.active>td, table>tfoot>tr.active>th, table>tfoot>tr>td.active, table>tfoot>tr>th.active, table>thead>tr.active>td, table>thead>tr.active>th, table>thead>tr>td.active, table>thead>tr>th.active {
+    background-color: #f6f6f6;
+}
+table td, table th {white-space: nowrap}
+table>tbody>tr>th {text-align: right}
+
+@media screen and (min-width:240px) and (max-width: 600px) {
+    table {
+        width: 100%;
+        display: block;
+        table-layout: auto;
+    }
+    table, td, th {border-collapse: collapse; }
+}
+@media screen and (max-width:480px) {
+    .goods img {width: 100px;height: 100px}
+    .button, button {padding: 5px 10px;font-size: 14px }
+}
+@media screen and (max-width:414px) {
+
+}
+@media screen and (max-width:384px) {
+
+}
+@media screen and (max-width:375px) {
+
+}
+@media screen and (max-width:360px) {
+
+}
+@media screen and (max-width:320px) {
+}

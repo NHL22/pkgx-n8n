@@ -1,0 +1,876 @@
+.icon_hot {
+    position: absolute;
+    z-index: 3;
+    background: url(https://phukiengiaxuong.com.vn/images/icon-hot.png) no-repeat;
+    top: 1%;
+    right: 2%;
+    width: 25px;
+    height: 50px;
+}
+p.preorder{
+  background-color: #dc3545;
+    border-radius: 4px;
+    color: #fff;
+    display: -webkit-inline-box;
+    font-size: 11px;
+    margin-right: 4px;
+    padding: 0 5px;
+    white-space: nowrap;
+    max-width: 90%;
+    margin-bottom: 5px;
+    position: absolute;
+    top: 2%;
+}
+section{
+  background: #fff;
+}
+.scrollmenu {
+    display: block;
+    background: transparent;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
+    -ms-scroll-snap-points-x: snapInterval(0%,100%);
+    -ms-scroll-chaining: chained;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+
+.empty {
+    padding: 30px 0;
+    text-align: center
+}
+#owl-home {
+    display: block;
+}
+
+#owl-home .item img {
+    display: block;
+    width: 100%;
+    height: auto
+}
+#owl-home .owl-pagination {text-align: center}
+#owl-home .owl-controls .owl-page span {
+    width: 4px;
+    height: 4px;
+    border: 1px solid #ccc;
+    background: none
+}
+
+#owl-home .owl-controls .owl-page.active span {
+    background: #fe7705;
+    border: 1px solid #fe7705
+}
+
+#owl-home .item {
+    display: none
+}
+
+#owl-home .item:first-child {
+    display: block
+}
+
+#owl-home.owl-theme .item:first-child {
+    display: block
+}
+
+#owl-home .owl-item.loading {
+    background: none
+}
+
+#filter_brand a {
+  align-items: center;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      color: #333;
+      font-size: 14px;
+      padding: 5px;
+      margin-right: 5px;
+    }
+/*goods List */
+.homeproduct {
+  grid-auto-rows: minmax(min-content,max-content);
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  border-left: 1px solid #f1f1f1;
+  border-top: 1px solid #f1f1f1;
+  clear: both;
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 100%;
+  border-bottom: 1px solid #eee;
+}
+
+.homeproduct li {
+  float: left;
+  position: relative;
+  background: #fff;
+  width: 49.7%;
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+.homeproduct li a {
+    display: block;
+    overflow: hidden;
+    padding:  0;
+}
+.homeproduct li a span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    margin-left: 5px;
+}
+span.daban{
+  text-decoration: line-through;
+  float: right;
+}
+.homeproduct li h3 {
+    display: block;
+    overflow: hidden;
+    line-height: 1.3em;
+    font-size: 14px;
+    font-weight: bold;
+    color: #222;
+    clear: both;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 5px 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-height: 36px;
+}
+
+
+.homeproduct li .cprice {
+    padding: 2px 10px;
+    display: block;
+    line-height: 15px;
+    font-size: 12px;
+
+}
+.homeproduct li .price {
+    display: block;
+    overflow: hidden;
+    padding: 4px 10px 5px 10px;
+    line-height: 15px;font-size: 12px;
+}
+.homeproduct li strong {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    font-size: 14px;
+    color: #e10c00;
+    font-weight: 600;
+    line-height: 15px
+}
+
+.homeproduct li strong del {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    margin-left: 5px;
+    text-decoration: line-through;
+    color: #222
+}
+.homeproduct li .photobox{min-height: 180px}
+.homeproduct li img {
+    display: block;
+    margin: 5px auto;
+     width: 150px;
+    height: auto;
+    max-height: 150px
+}
+
+
+.homeproduct li label {
+    display: inline-block;
+    position: absolute;
+    top: 142px;
+    left: 10px;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    background: #3fb846;
+    border-radius: 3px;
+    padding: 0 5px;
+    height: 18px
+}
+
+.homeproduct li label.discount {
+    background-image: linear-gradient(-90deg, #ec1f1f 0%, #ff9c00 100%);
+    border-radius: 10px;
+    padding: 1px 7px;
+    padding-left: 0;
+    padding-right: 10px
+}
+
+.homeproduct li label.discount:before {
+    content: ' ';
+    display: inline-block;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAAABGdBTUEAALGPC/xhBQAAAVpJREFUOBGVki1LBFEUhueuH0FQTAuimxVE2KZBgxj8AxaLglj8AYLJZLOYtFpFwWQ2iMUkiyBqNCloEFEQYXzuzl7mzP0Y7z3w7j0f73PuDDtZFhl5njfRI5qJREobUB+6RL9otJxEZkD7SMd1JFLagFa6aPGzW04iMpgp9CEWzEZghQVoGN0L+I28kbLgVMA6PUmBty1YlxtRCzAuIv132THx7wKIcfRik9R3IbjfDDANkp+hpumJ8535pqhN+mySDMMhSo1OdwHUWiqJ/wu19c3tXsGRFOvm9k4SVpiPzLsr6mWKlmmIc568uEU0SW/QglLqp9q2KhYfe57slZ7vsiqNqYHs70F/XEtVZ6DCOIfs2AnY3TbknkWfUyvXGehgvhULHshHAla3jbkl4E/yaddV0wHYEgtWa6z+EfBFb8GB31HTBRxC3+gKDdRY/SOgSfSExvwOt/sHwv9i4NYIgYYAAAAASUVORK5CYII=');
+    background-size: 50% 50%;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #f13500;
+    border-radius: 50%;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-right: 5px
+}
+.homeproduct .ratingresult {
+    padding: 5px 10px
+}
+.homeproduct{
+  clear: both;
+      display: block;
+      background: #fff;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-flow: row wrap;
+      flex-flow: row wrap;
+      flex: 1 100%;
+      border-bottom: 1px solid #eee;
+}
+.homeproduct .ratingresult span {
+    color: #777;
+    text-decoration: none;
+    position: relative;
+    top: 1px
+}
+
+.rank{display:inline-block;height:12px;width:70px;text-indent:-999em;background:url('../img/stars.gif') no-repeat left top;vertical-align: middle;background-size: 65px 67px;}
+
+.rank_2{background-position:0 -14px}
+.rank_3{background-position:0 -27px}
+.rank_4{background-position:0 -40px}
+.rank_5{background-position:0 -52px}
+
+
+.homeproduct li .promotion {
+    display: block;
+    max-height: 36px;
+    overflow: hidden;
+    padding-left: 5px;
+}
+.homeproduct li .promotion p {
+    color: #666;
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.homeproduct li .promotion p::before {
+    color: #999;
+    content: "•";
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+
+/* promo */
+
+/* scroll */
+.overpromo {
+    display: block;
+    background: transparent;
+    overflow-y: hidden;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
+    -ms-scroll-snap-points-x: snapInterval(0%, 100%);
+    -ms-scroll-chaining: chained;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0
+}
+
+.overpromo::-webkit-scrollbar {
+    width: 0;
+    height: 0
+}
+
+.overpromo::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px
+}
+
+.overpromo::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px
+}
+.listpromo {
+    background: #f4f4f4;
+    padding: 5px 0;
+    position: relative;
+    z-index: 1;
+    width: 2000px
+}
+
+.listpromo li {
+    float: left;
+    width: 185px;
+    background: #fff;
+    position: relative;
+    padding: 0;
+    margin-left: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px
+}
+
+.listpromo li img {
+    width: 130px;
+    height: 130px
+}
+
+.listpromo li label {
+    top: 132px;
+    left: 5px
+}
+
+.listpromo li strong {
+    font-size: 13px
+}
+
+.listpromo li h3,
+.listpromo li .overpromo {
+    padding-left: 5px;
+    padding-right: 5px
+}
+
+.listpromo li .price {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 5px 10px 5px
+}
+
+.listpromo li .promo {
+    padding: 0 5px
+}
+
+/* catesearch */
+
+.catesearch {
+    display: block;
+    background: #f4f4f4;
+    padding: 10px;
+}
+
+.catesearch form {
+    display: block;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    height: 34px;
+    position: relative
+}
+
+.catesearch input {
+    display: block;
+    border: 0;
+    background: #fff;
+    padding: 10px;
+    height: 34px;
+    border-radius: 3px;
+    width: 90%
+}
+
+.catesearch .submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px 10px;
+    background: #fff;
+    height: 16px;
+    border-radius: 0 3px 3px 0;
+    border: 0;
+    height: 34px
+}
+
+.catesearch .reset {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 34px;
+    width: 30px;
+    height: 34px;
+    border: 0;
+    background: #fff;
+    border: 0
+}
+
+.pagination{padding:15px 0 10px;font-size:14px;text-align:center;clear:both}
+.pagination a{color:#333;margin-left:3px;padding:4px 9px;background-color:#eee;border:1px solid #bbb;border-radius:3px}
+.pagination a:hover{color:#111;text-decoration:none;background-color:#ddd;border-color:#999}
+.pagination a.current{color:#3740ff;border-color:#3740ff}
+.pagination span{padding:5px 10px}
+.pagination .total{color:#ccc;}
+
+
+/* filter */
+.filter {
+    display: block;
+    position: relative;
+    padding: 0 10px;
+    border-top:1px solid #ddd;
+    border-bottom:5px solid #fafafa;
+}
+span.criteria {
+    padding: 10px 0;
+}
+
+
+.filter li .criteria,
+.filter li .selected {
+    display: block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333
+}
+.filter li .criteria.cactive {
+    background: #d9d9d9;
+}
+.filter li .criteria:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 5px solid #333;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px
+}
+
+.filter li div {
+    display: none;
+    overflow: visible;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .1);
+    padding: 5px 10px;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 40px;
+    z-index: 9;
+    text-align: left
+}
+
+.filter li div .all {
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+    color: #333;
+    padding: 10px 0
+}
+.filter li div a{display: block}
+.filter li aside {
+    float: left;
+    overflow: hidden;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box
+}
+.filter li aside>strong{
+     width: 100%;
+     display: block
+}
+.filter li aside a{
+    display: inline-block;
+    float: left;
+    width: 49%;
+}
+.filter li .breakline {
+    border-bottom: 1px solid #d9d9d9;
+}
+.filter li div .breakline:last-child{display: none}
+.filter li label {
+    display: block;
+    padding: 5px 0 6px
+}
+
+.filter li label a {
+    color: #333
+}
+
+
+.filter li label span {
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    margin-right: 5px;
+    border: 1px solid #ececec;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.filter li label span.check {
+    background: #4a90e2;
+    color:#fff;
+    border: 1px solid #4a90e2!important;
+}
+
+.filter li .rowfeature {
+    float: none;
+    width: 100%;
+    display: block;
+    padding: 0
+}
+
+.iconmobile-closefil {
+    width: 20px;
+    height: 20px;
+    background-position: -205px -100px
+}
+
+.filter li .closefilter {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    border: 0;
+    background: none
+}
+
+div#filter_brand img {
+  display: inline-block;
+  max-height: 25px;
+  vertical-align: middle;
+}
+.box-cat-list div {
+    white-space: nowrap;
+    padding: 5px;
+}
+#filter_price a {
+    color: #1b75bc;
+    margin-right: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+#filter_price a {
+    border: 1px solid #d0d0d0 !important;
+}
+
+
+#navhome {min-height: 76px;padding: 5px 0;}
+#navhome a{
+    padding: 8px;
+    border: 0;
+    color: #333;
+    box-sizing: border-box;
+    border-radius: 0;
+     margin-right: 0;
+     display: contents;
+}
+#navhome a img{
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+}
+#navhome a span {
+    width: 65px;
+    display: inline-block;
+    white-space: normal;
+    vertical-align: middle;
+    font-size: 13px
+}
+
+
+#filter_sub a img{
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    margin-right: 5px
+}
+
+#filter_price  a{
+    border: none
+}
+div#filter_sub h2 {
+    font-size: 12px;
+}
+
+
+.choosedfilter {
+    display: block;
+    overflow: hidden;
+    margin: 10px 0;
+    padding: 0 10px
+}
+
+.choosedfilter a {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding: 6px;
+    background: #288ad6;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 5px
+}
+
+.choosedfilter a:after {
+    content: "x";
+    display: inline-block;
+    color: #fff;
+    margin-left: 8px;
+}
+.choosedfilter a.reset {
+    background: #c10017
+}
+.watching {
+    float: left;
+    white-space: nowrap;
+    line-height: 30px;
+    margin-right:30px;
+}
+
+.watching h1 {
+    display: inline;
+    font-weight: bold;
+    text-transform: uppercase
+}
+
+/*table */
+table{width: 100%; max-width: 100% }
+table>thead>tr>th {border-bottom: 1px solid #bbb; text-align: left; font-weight: 600; }
+table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, table>thead>tr>td, table>thead>tr>th {
+    padding: 8px 10px; line-height: 1.5384616; vertical-align: middle; border-top: 1px solid #ddd
+}
+table td, table th, table tr{transition: background-color .15s ease-in-out }
+table tbody>tr:nth-of-type(odd) {background-color: #fcfcfc; }
+table>tbody>tr:hover, table>tbody>tr.active>td, table>tbody>tr.active>th, table>tbody>tr>td.active, table>tbody>tr>th.active, table>tfoot>tr.active>td, table>tfoot>tr.active>th, table>tfoot>tr>td.active, table>tfoot>tr>th.active, table>thead>tr.active>td, table>thead>tr.active>th, table>thead>tr>td.active, table>thead>tr>th.active {
+    background-color: #f6f6f6;
+}
+
+article{display: block; overflow: hidden;padding:0 10px}
+article p, article div, article h2, article h3, article h4 {
+    margin: 5px auto 5px;
+    color: #333;
+    line-height: 28px;
+}
+article a, article a:hover, article a:active {color: #288ad6;font-size: 15px}
+article h3, article h3 a{font-size: 16px}
+article h2, article h2 a {font-size: 15px}
+article h4, article h4 a{font-size: 15px}
+article div {margin-top: 0}
+article div em, article p em{font-style: italic}
+article h2, article h3, article h4, article h5{font-weight: 700;margin: 10px auto;}
+article ul{list-style: disc;margin-left: 10px}
+article ol{margin-left: 30px}
+
+article table {
+    margin: 10px auto;
+    border-collapse: collapse;
+    max-width: 100%;
+    font-weight: 300;
+    width: 100%
+}
+
+article table+table {
+    margin-top: 15px
+}
+
+article table ul,
+article table ol {
+    width: auto
+}
+
+article td,
+article th {
+    padding: .3em;
+    border: 1px #ccc solid;
+    width: auto
+}
+
+article td p,
+article th p {
+    width: auto
+}
+
+article img {
+    display: block;
+    height: auto;
+    margin: 15px auto 5px;
+    max-width: 100%;
+    width: auto;
+}
+
+article .short_view {
+    max-height: 500px;
+    clear: both;
+    overflow: hidden;
+    display: block;
+}
+article .view-more {background: #fff;width: 100%;min-height: 50px}
+article .view-more p {margin-top: 0px; text-align: center}
+article .view-more p:before{height: 55px;margin-top: -45px;display: block;content: color:#1b75bc;}
+article .view-more p span { width: 50px;color: #1b75bc  ;cursor: pointer;border:1px solid  #1b75bc;padding:8px 25px;border-radius: 3px;background: #fff}
+article .view-more p span:hover{background: #1b75bc;color: #fff}
+
+
+
+@media screen and (max-width:480px) {
+}
+@media screen and (max-width:414px) {
+}
+@media screen and (max-width:384px) {
+}
+
+@media screen and (max-width:320px) {
+}
+
+#filter_sub a {
+    color: #1b75bc;
+    margin-right: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#filter_sub a {
+    border: 1px solid #d0d0d0 !important;
+}
+div#filter_sub {
+    padding: 5px 0;
+}
+div#filter_brand {
+    padding: 5px 0;
+}
+div#filter_price {
+    padding: 5px 0;
+}
+
+/* ----- CSS CHO THANH SẮP XẾP GIAO DIỆN MỚI ----- */
+
+/* 1. Container bao ngoài */
+.sort-bar-container {
+    padding: 5px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+}
+
+/* 2. Thanh sắp xếp chính (thẻ ul) */
+ul.sort-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+/* 3. Các mục sắp xếp (thẻ li) và dấu chấm ngăn cách */
+ul.sort-bar > li {
+    position: relative;
+    margin: 0;
+}
+
+
+/* 4. Các liên kết (thẻ a) */
+ul.sort-bar > li > a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #555;
+    transition: color 0.2s ease;
+    background-color: transparent;
+}
+
+ul.sort-bar > li > a:hover {
+    color: #007bff;
+}
+
+/* 5. Trạng thái ACTIVE cho mục đang được chọn */
+ul.sort-bar > li.active > a {
+    color: #007bff;
+    font-weight: 600;
+}
+
+/* 6. Mũi tên đi xuống cho mục "Giá" */
+.dropdown-toggle .arrow-down {
+    display: inline-block;
+    border: solid #555;
+    border-width: 0 1px 1px 0;
+    padding: 3px;
+    margin-left: 5px;
+    transform: rotate(45deg);
+    transition: border-color 0.2s ease;
+}
+
+li.active .dropdown-toggle .arrow-down,
+li:hover .dropdown-toggle .arrow-down {
+    border-color: #007bff;
+}
+
+/* 7. Menu dropdown cho mục "Giá" */
+.sort-price-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin-top: 5px;
+    padding: 5px 0;
+    min-width: 160px;
+    z-index: 100;
+    border: 1px solid #eee;
+}
+
+/* THÊM ĐOẠN NÀY VÀO CSS CỦA BẠN */
+/* Hiển thị dropdown khi class .is-open được thêm vào bằng JavaScript */
+.sort-price-dropdown.is-open .dropdown-menu {
+    display: block;
+}
+
+/* 8. Các mục con trong dropdown */
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 8px 15px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown-menu li:hover a {
+    background-color: #f5f5f5;
+}
+
+/* Đánh dấu mục đang được chọn trong dropdown */
+.dropdown-menu li.selected a {
+    font-weight: 600;
+    color: #007bff;
+}
+span.criteria {
+    padding: 10px 0;
+}

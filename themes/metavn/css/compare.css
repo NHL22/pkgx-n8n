@@ -1,0 +1,90 @@
+footer{border-top: 2px solid #ececec;margin-top: 30px}
+/*table */
+table{width: 100%; max-width: 100%;border-collapse:collapse; }
+table>thead>tr>th {border-bottom: 1px solid #bbb; text-align: left; font-weight: 600; }
+table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, table>thead>tr>td, table>thead>tr>th {
+    padding: 8px 10px; line-height: 1.5384616; vertical-align: middle; border: 1px solid #ddd;margin:0;
+}
+table td, table th, table tr{transition: background-color .15s ease-in-out }
+table tbody>tr:nth-of-type(odd) {background-color: #fcfcfc; }
+
+.compare-title {
+    font-size: 20px;
+    font-weight: 100;
+    padding: 0 0 15px;
+    line-height: 25px;
+    display: inline-block;
+    float: left;width: 600px;
+    overflow: hidden
+}
+.goods {position: relative;background: #fff}
+.goods img {width: 200px;height: auto}
+.goods .remove{position: absolute;top: 5px;right: 5px;z-index: 3}
+.goods .remove span{display: block;background: #f8f8f8;width: 20px;height: 20px;line-height: 20px;border-radius: 10px}
+.goods h3{font-weight: 600}
+.goods strong {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 0 10px 0;
+    color: #c70101;
+    margin-top: 5px;
+    display: block;
+}
+
+
+/* so sanh */
+#suggest-same {position: relative;width: 350px;float: right;margin-bottom: 10px;border: 1px solid #f6a623; border-radius: 2px;}
+#suggest-same input {
+    border: none;
+    padding: 5px 10px;
+    height: 30px;
+    box-sizing: border-box;
+    width: 320px
+}
+#suggest-same button {
+    background: #fff;
+    border: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    position: absolute;
+    top: 1px;
+    right: 15px;
+    cursor: pointer;
+}
+#suggest-same .icontgdd-topsearch {margin: -3px 0 0}
+
+.search-suggestion-list {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    line-height: 18px;
+    z-index: 1000;
+    width: 98%;
+    display: block;
+    overflow: hidden;
+}
+.search-suggestion-list li {
+    height: 30px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    box-sizing: border-box
+}
+.search-suggestion-list li a{
+    color: #333;
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    box-sizing: border-box
+}
+.search-suggestion-list li:hover{
+    background: #288ad6
+}
+.search-suggestion-list li:hover a{color: #fff}

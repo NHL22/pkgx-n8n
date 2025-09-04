@@ -1,0 +1,6 @@
+/*
+ * Tabiy Slidiy mSlidiy Formiy
+ * (c) 2013 by David. <http://www.shopiy.com/>
+ */
+(function(a){var b=1;a.fn.Tabiy=function(){var e=a(this),c=e.find('.box[id!=""]'),d=e.find('.box[id=""]');if(c.length>0){e.prepend('<div class="tab_wrapper"><p class="tabs" id="tabs-'+b+'"></p><div class="extra"></div></div>');var f=a("#tabs-"+b+""),j=f.outerHeight()+7;c.hide().css({paddingTop:j,marginTop:-j});c.find(".hd").hide();c.each(function(){var h=a(this).find(".hd .extra em").text();h=h.length<1?"":"<sup><em>"+h+"</em></sup>";f.append('<a href="#'+a(this).attr("id")+'" id="tab-'+a(this).attr("id")+
+'"><span>'+a(this).find(".hd h3").text()+h+"</span></a>")});d.detach();e.append(d);d=e.find(location.hash);if(d.length==1){a("#tab-"+location.hash.slice(1)+"").addClass("current");d.show()}else{a("#tabs-"+b+" a:eq(0)").addClass("current");c.eq(0).show()}a("#tabs-"+b+" a").click(function(){a(this).addClass("current").siblings().removeClass("current");e.find('.box[id!=""]').hide();a("#"+a(this).attr("id").slice(4)+"").fadeIn("fast");return false})}b++}})(jQuery);

@@ -652,6 +652,7 @@ function category_get_goods($children, $brand, $min, $max, $ext, $size, $page, $
         $arr[$row['goods_id']]['shop_price']       = price_format($row['shop_price']);
         $arr[$row['goods_id']]['deal_price'] =  price_format($row['deal_price']);
         $arr[$row['goods_id']]['partner_price'] =  price_format($row['partner_price']);
+        $arr[$row['goods_id']]['shop_price_raw']       = $row['shop_price'];
 
         $arr[$row['goods_id']]['type']             = $row['goods_type'];
         $arr[$row['goods_id']]['promote_price']    = ($promote_price > 0) ? price_format($promote_price) : '';

@@ -1,0 +1,13 @@
+section {min-height: 500px}
+.message_wrapper {
+    display: block;
+    clear: both;
+    text-align: center;
+    padding:30px 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.message_wrapper .notice_box {
+    margin: 20px auto;
+}

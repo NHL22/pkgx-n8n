@@ -1,0 +1,73 @@
+.tg_wrap {padding: 0 10px}
+.tg_wrap h1 {font-size: 18px;text-align: center;font-weight: 700;margin: 20px 0;line-height: 26px}
+.tg_wrap .product_info {margin: 30px 0}
+.product_info p {line-height: 24px;}
+.tf_form, .tf_form .group_input{width: 100%;}
+.tf_form .group_input {height: auto;clear: both;}
+.group_input .input{display: inline-block;float: left;width: 49%;box-sizing: border-box;margin-right: 1%;}
+.group_input .input:last-child{margin-right: 0;}
+.group_input .input label, .group_input .input input, .group_input .input select,.group_input .input textarea{display: block;width: 100%;margin-bottom: 10px;box-sizing: border-box;}
+.group_input .input label {font-weight: 700;}
+.group_input .input input, .group_input .input select, .price_input input{padding: 8px 10px; border:1px solid #ddd}
+.tg_address  .input, .tag_goods_name .input{width: 100%;}
+.price_input {margin-bottom: 20px;}
+.tf_form .actions {text-align: center;margin-top: 20px;display: block;}
+.tf_form .actions button{background: #0084ff}
+.tf_form .actions button span {text-transform: uppercase;display: block;margin: 5px auto}
+.tf_form .actions button p {font-size: 12px}
+.type_cart p{display: inline-block;float: left;}
+.type_cart p:first-child {width: 60%;}
+.type_cart p:last-child {width: 40%;}
+.type_cart p:last-child img{height: 40px;width: auto}
+.tg_banks p>span{width: 16.6%;display: inline-block;float: left;height: 50px}
+.tg_banks  img{vertical-align: middle;height: 40px;width: auto}
+.tg_banks h3, .tg_steps h3 {text-align: center;margin: 20px;font-weight: 700;}
+
+.tg_steps ul li{display: inline-block;float: left;width: 25%;box-sizing: border-box;text-align: center;padding: 10px}
+.tg_steps p {font-size: 12px;margin: 10px 0}
+
+.area_promotion {
+    background: #fff;
+    border: 1px solid #f60;
+    border-radius: 4px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+}
+.area_promotion .prob{padding: 5px 9px 5px}
+.area_promotion .prob p::before,
+.basic li::before {
+    content: "•";
+    color: #22b15c;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    margin-right: 5px;
+}
+.basic li::before{margin-left: 10px}
+.area_promotion .protit {
+    background: #f60;
+
+    color: #fff;
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px;
+    text-transform: uppercase
+}
+.area_promotion a {
+    color: #288ad6
+}
+
+@media screen and (max-device-width: 480px) and (max-width: 480px){
+    .type_cart p {display: block;width: 100% !important;text-align: center;margin-bottom: 10px;}
+    .tg_banks p>span {width: 25%}
+    .tg_steps ul li {width: 50%}
+}
+@media screen and (max-device-width: 480px) and (max-width: 480px){
+    .tg_banks p>span {width: 33.33%}
+    .group_input .input {width: 99%;display: block !important;}
+
+}

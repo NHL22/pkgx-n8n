@@ -1,0 +1,15 @@
+.message_wrapper {
+    margin: 0 auto;
+    background: #fff;
+    padding:20px;
+    border-radius: 5px;
+    border:1px solid #f3f3f3;
+
+}
+.message_wrapper h3{font-size: 22px;text-align: center;padding: 10px 0;margin-bottom: 20px;}
+.message_wrapper p {line-height: 24px}
+.order_info {margin: 10px 0}
+.order_info li {padding: 5px 0;line-height: 24px}
+.price {font-weight: 600;color: #e10000}
+.actions {margin-top: 10px;}
+.actions a{color: #288ad6}

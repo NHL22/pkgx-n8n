@@ -1,0 +1,11 @@
+section {min-height: 300px}
+.message_wrapper {
+    display: block;
+    clear: both;
+    text-align: center;
+    padding:30px 0;
+}
+.message_wrapper .notice_box {
+    width: 500px;
+    margin: 20px auto;
+}

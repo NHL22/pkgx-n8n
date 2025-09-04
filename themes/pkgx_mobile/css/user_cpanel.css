@@ -1,0 +1,264 @@
+.scrollmenu {
+    display: block;
+    background: transparent;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
+    -ms-scroll-snap-points-x: snapInterval(0%,100%);
+    -ms-scroll-chaining: chained;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+/* danh muc tin */
+.mnav{
+    width: 100%;
+    clear: both;
+    display: block;
+    margin-bottom: 20px;
+}
+.mnav li {
+    float: left;
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    background: #f1f1f1;
+    border-bottom: 2px solid #f1f1f1;
+    border-right: 1px solid #e5e5e5;
+    white-space: nowrap;text-overflow: ellipsis;overflow: hidden
+}
+.mnav li a{color: #111;}
+.mnav li.current {border-bottom: 2px solid #e61d22}
+.mnav li.current a{color:#e61d22}
+
+.pagination{padding:15px 0 10px;font-size:14px;font-weight:bold;text-align:right;clear:both}
+.pagination a{color:#999;margin-left:3px;padding:4px 9px;background-color:#eee;border:1px solid #bbb;border-radius:3px}
+.pagination a:hover{color:#666;text-decoration:none;background-color:#ddd;border-color:#999}
+.pagination a.current{color:#ff8c22;background-color:#ffe8ce;border-color:#ff8c22}
+.pagination span{padding:5px 10px}
+.pagination .total{color:#ccc;}
+
+.box{margin-bottom:10px}
+.box .hd{height:40px;}
+.box .hd h3{float:left;height:40px;padding:0 10px 0;font-size:14px;font-weight:bold;line-height:40px;}
+.box .hd .extra{float:right;height:40px;padding:0 10px 0;line-height:40px;}
+.box .hd .extra a{color: #288ad6}
+.box .bd{padding:10px;background-color:#fff;border:1px solid #e4e4e4;border-radius:0 0 5px 5px}
+.bd:after{clear:both;content:'\0020';display:block;visibility:hidden;height:0}
+.bd{display:inline-block}* html .bd{height:1%}.bd{display:block}
+.box .bd .more{visibility:hidden;position:relative;float:right;margin-top:-40px;margin-right:5px}
+.box:hover .bd .more{visibility:visible}
+
+.tab_wrapper{position:relative;height:32px;line-height:32px;border-bottom:2px solid #ddd}
+.tab_wrapper .tabs{float:left;height:32px}
+.tab_wrapper .extra{float:right;height:30px;overflow:hidden;}
+.tab_wrapper .tabs .label{display:inline-block;float:left;padding:0 5px 0 10px;line-height:32px}
+.tab_wrapper .tabs a{display:block;color:#333;float:left;height:29px;padding:3px 20px 0;margin-right:4px;line-height:29px;font-size:14px;font-weight:bold;text-decoration:none;background:#f5f5f5;border-radius:5px 5px 0 0}
+.tab_wrapper .tabs a sup{display:inline-block;float:right;height:19px;margin:5px -5px 0 5px;padding:0 6px;color:#fff;line-height:19px;font-size:12px;font-weight:bold;background:#ccc;border-radius:500px;text-shadow:0 1px 0 #999}
+.tab_wrapper .tabs a.current{position:relative;margin-bottom:-2px;padding:1px 18px 2px;background-color:#fff;border:2px solid #ddd;border-bottom-width:0}
+.tab_wrapper .tabs .arrow_up, .tab_wrapper .tabs .arrow_down{display:inline-block;float:right;height:19px;width:19px;margin:5px -5px 0 5px;text-indent:-999em;background:url('../img/tab_arrow.gif') no-repeat left top}
+.tab_wrapper .tabs .arrow_down{background-position:left -20px}
+.tab_able_box .box {padding:10px;}
+.empty {padding:20px 0 ;text-align: center}
+
+.data_table_responsive{
+    overflow-x:auto
+}
+.data_table{border-width:0;width: 100%}
+.data_table tr{background-color:#fff}
+.data_table .odd{background-color:#fff}
+.data_table .even{background-color:#f8f8f8 !important}
+.data_table td.last, .data_table th.last{border-right-width:0}
+.data_table tr.last th, .data_table tr.last td{border-bottom-width:0}
+.data_table th{padding:8px 10px;color:#444;text-align:left;white-space:nowrap;border-right:1px solid #ddd;border-bottom:1px solid #ddd}
+.data_table th.wrap{white-space:normal}
+.data_table th a, .data_table th a:hover{color:#fff}
+.data_table td{padding:8px 10px}
+.data_table thead th{background-color:#f6f6f6;border-bottom-width:0;border-right-width:0}
+.data_table tbody{border-top:1px solid #eee;border-bottom:1px solid #eee}
+.data_table tbody td{border-bottom-width:0;border-right-width:0}
+.data_table tbody th{background-color:#f6f6f6;border-bottom-width:0;border-right:1px solid #eee}
+.data_table tbody.odd tr{background-color:#f8f7f5 !important}
+.data_table tbody.even tr{background-color:#f6f6f6 !important}
+.data_table tbody.odd tr td, .data_table tbody.even tr td{border-bottom:0}
+.data_table tbody.odd tr.border td, .data_table tbody.even tr.border td{border-bottom:1px solid #d9dde3}
+.data_table tbody td h5.title{margin:0;padding:0;color:#2f2f2f;font-size:1em;font-weight:bold}
+.data_table tbody td .option-label{font-weight:bold;font-style:italic}
+.data_table tbody td .option-value{padding-left:10px}
+.data_table tfoot tr{background-color:#fcfcfc !important}
+.data_table tfoot td{border-bottom-width:0}
+.data_table tfoot td.last{border-right-width:0}
+.data_table_responsive td{white-space: nowrap}
+
+/* form */
+.form .label {font-weight: bold}
+.form label {
+    display: block;
+    margin: 5px 0;
+}
+.form label .req {
+    color: #dc3545;
+}
+.form label .label_text, .form .label .label_text {
+    margin-right: 20px;
+}
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='password'],
+.form  input[type='tel'],
+.form select{
+    border:1px solid #ddd;
+    padding:8px 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+.form select {
+    padding:8px 30px 8px 10px;
+}
+.radio_wrap label {display: inline-block;width: auto;margin-right: 10px;}
+.radio_wrap label input{vertical-align: middle;margin-right: 5px;}
+.form textarea {width: 100%;
+box-sizing: border-box;
+}
+.form h4 {
+    width: 100%;
+    padding: 20px 0 20px;
+    display: block;
+    font-size: 18px;
+}
+.submit_wrap {margin-top: 10px}
+.submit_wrap .submit {
+    background: #f60;
+    color: #fff;
+    padding:10px 12px;
+    text-align: center;
+    font-size: 18px;
+    border:none;
+    border-radius: 5px
+}
+.submit_wrap .ext_links {text-align: center;width: 100%;margin-top: 10px;font-size: 12px;}
+.submit_wrap .ext_links a{font-size: 12px;color: #357edd}
+.submit_wrap .ext_notice {font-size: 12px;margin-top: 10px;display: block}
+
+/* user nav */
+.user_nav {border-top: 1px solid #ececec}
+.user_nav li {
+    display: block;
+    padding:10px;
+    background: #fafafa;
+    border-bottom: 1px solid #ececec;
+    border-left: 1px solid #ececec;
+    border-right: 1px solid #ececec
+}
+.user_nav li.current {
+    background: #fff;
+    border-right: 1px solid #fff
+}
+.user_nav li a{
+    display: block;
+    color: #288ad6
+}
+.user_nav li.current a{font-weight: 600}
+
+
+/* user dashboard */
+.user_dashboard{
+    margin-bottom:9px;
+    padding: 0 5px;
+    clear: both;
+    display: none;
+}
+.user_dashboard .item{
+    display:inline-block;
+    float:left;
+    width:23.5%;
+    border-radius: 5px;
+    background:#eee;
+    margin: 5px 5px;
+}
+
+.user_dashboard .item .item_inner{display:block;text-decoration:none;color: #333}
+.user_dashboard .item .item_inner .count{display:block;width:100%;padding-top:10px;overflow:hidden;text-align:center;font-size:18px;font-weight:bold}
+.user_dashboard .item .item_inner .label{display:block;width:100%;overflow:hidden;text-align:center;font-size:14px;font-weight:bold;line-height:32px}
+.user_dashboard .item .price{color:#F34331}
+.user_dashboard .item .price sup{display:none}
+.user_dashboard .item .price sub{vertical-align: middle}
+
+
+
+.user_status{padding:10px;line-height:18px}
+.user_status .hello{margin-right:10px;font-size:16px}
+.user_status .hello em{padding-left:3px;font-weight:bold}
+.user_status .email_valid{display:block;margin-right:10px}
+.user_status .email_valid a{margin-left:5px;padding-left:20px;background:url('../img/icon/email.gif') no-repeat left center}
+.user_status .rank, .user_status .log{margin-right:10px;color:#999}
+
+.user_cp .display_text li .actions{width:150px}
+.merge_order p{padding-top:10px;font-size:1.2em;line-height:1.3em}
+.merge_order select{margin-right:5px}
+.generate_code .options{width:300px;float:left}
+.generate_code .options input[type='text'], .generate_code .options input[type='password']{width:20px}
+.generate_code .code_wrapper{width:330px;float:right}
+.generate_code .code_wrapper textarea{height:120px;width:320px;margin:0}
+.affiliate_code label{display:block;padding-bottom:10px}
+.affiliate_code label input{width:180px;margin-left:5px}
+.affiliate_code_goods .preview table, .affiliate_code_goods .preview table tbody{border-width:0}
+.affiliate_code_goods .preview th, .affiliate_code_goods .preview td{border-top:none;border-bottom:none;border:none}
+.affiliate_code_goods .item{margin-bottom:10px}
+.affiliate_code_goods .item .label{padding:5px}
+.affiliate_code_goods .item .label a{float:right}
+.affiliate_code_goods .item textarea{width:98%}
+.user .affiliate_code table table,
+.user .affiliate_code table table tbody,
+.user .affiliate_code table table tr,
+.user .affiliate_code table table td,
+.user .affiliate_code table table th{background-color:transparent !important;border-width:0}
+.user .affiliate_code .item{padding-bottom:10px}
+.user .affiliate_code .item em{display:block;padding-bottom:5px;color:#069;font-size:1.2em}
+.user .affiliate_code .item a{display:block;padding-top:5px}
+.funds .actions{padding:5px 0}
+
+
+.order_list td{line-height:26px}
+.order_list .order_id{font-size:1.2em;font-weight:bold;color: #288ad6}
+.order_list .handle, .order_list .handler, .order_list .order_status{text-align:center}
+.order_list .order_status em, .order_list .handler .status, .order_detail .status{padding:3px 8px;line-height:20px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}
+.order_status_0{color:#fff;background-color:#ff9522}
+.order_status_1, .order_status_5, .order_status_6{color:#fff;background-color:#97cf4d}
+.order_status_2, .order_status_3, .order_status_4{color:#fff;background-color:#ff5215}
+.pay_status_1{color:#fff;background-color:#ff9522}/*orange*/
+.pay_status_2{color:#fff;background-color:#97cf4d}/*green*/
+.pay_status_0{color:#fff;background-color:#ff5215}/*red*/
+.shipping_status_1, .shipping_status_3, .shipping_status_4, .shipping_status_5{color:#fff;background-color:#ff9522}
+.shipping_status_2{color:#fff;background-color:#97cf4d}
+.shipping_status_0{color:#fff;background-color:#ff5215}
+.order_detail .status{margin-right:5px;background-color:#eee}
+.order_detail .order_id{font-size:1.2em;font-weight:bold}
+.order_detail .view_message{float:right}
+.order_detail .invoice_no a{display:inline-block;padding:3px 3px 3px 20px;font-size:14px;background:url('../img/icon/delivery.gif') no-repeat left 3px}
+.order_goods_list p{margin-bottom:5px;line-height:18px}
+.order_goods_list .photo img{float:left;height:40px;width:40px}
+.order_goods_list .price_input{width:50px;margin:0 5px;padding:2px}
+.order_goods_list .extra_info{color:#999}
+.order_goods_list .extra_info em{margin-left:2px;padding:2px 5px;color:#fff;background-color:#ff8c22;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}
+
+@media screen and (max-width:480px) {
+}
+@media screen and (max-width:414px) {
+    .user_dashboard .item{
+       width: 47%;
+    }
+}
+@media screen and (max-width:384px) {
+}
+
+@media screen and (max-width:320px) {
+}
+
+.user_collection_list{display: none; !important}
+.user_account {display: none; !important}

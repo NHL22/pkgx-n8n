@@ -1,0 +1,249 @@
+body {
+    background: #f0f0f0;
+}
+
+.col_sub {
+    display: inline-block;
+    width: 245px;
+    float: left;
+    margin-bottom: 20px;
+}
+.col_main  {
+    width: 940px;
+    display: inline-block;
+    float: right;
+     margin-bottom: 20px;
+}
+.box>.hd {padding: 5px 0}
+.price_active {font-weight: bold}
+/* brand_detail */
+.brand_info {
+    padding: 10px;
+}
+
+.cat_list li{
+    padding: 5px 0;
+}
+.brand-desc p{
+  padding: 0 10px;
+}
+article a, article a:hover, article a:active {
+    color: #3740ff;
+}
+.cat_list li a.current {font-weight: bold}
+article {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    padding: 0 20px;
+    border-radius: 5px;
+}
+article p, article div, article h2, article h3, article h4 {
+    margin: 10px auto;
+    font-size: 14px;
+    color: #333;
+    line-height: 28px;
+}
+.homeproduct {
+    clear: both;
+    display: block;
+    background: #fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    flex: 1 100%;
+    padding: 0 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px 0;
+    position: relative;
+}
+.homeproduct li {
+    float: left;
+    position: relative;
+    width: 220px;
+    overflow: hidden;
+    margin:5px 5px;
+    border-radius:5px;
+}
+
+.homeproduct li a {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    padding: 10px 0
+}
+.homeproduct li a:hover h3 {
+    color: #288ad6
+}
+.homeproduct li img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    margin: 15px auto
+}
+.homeproduct a>img {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+.homeproduct a:hover>img {
+    margin: 5px auto 25px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+
+.homeproduct li h3 {
+    display: block;
+    line-height: 1.3em;
+    min-height: 36px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #111;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+.homeproduct li .price {
+    display: block;
+    overflow: hidden;
+    padding: 5px 10px 10px 10px
+}
+.homeproduct li .price strong {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    font-size: 14px;
+    color: #e10c00;
+    line-height: 15px
+}
+.homeproduct li .price span, .homeproduct li del {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: line-through;
+    margin-left: 5px;
+    color: #222
+}
+.homeproduct li label {
+    display: inline-block;
+    position: absolute;
+    top: 187px;
+    left: 10px;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    background: #3fb846;
+    border-radius: 2px;
+    padding: 0 5px;
+    height: 18px
+}
+
+.homeproduct li .promotion {
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding-top: 5px;
+}
+.homeproduct li .promotion p {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.4;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: auto;
+}
+
+.homeproduct li label.discount {
+    background-image: linear-gradient(-90deg, #ec1f1f 0%, #ff9c00 100%);
+    border-radius: 10px;
+    padding: 1px 7px;
+    padding-left: 0;
+    padding-right: 10px
+}
+.homeproduct li label.discount:before {
+    content: ' ';
+    display: inline-block;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAAABGdBTUEAALGPC/xhBQAAAVpJREFUOBGVki1LBFEUhueuH0FQTAuimxVE2KZBgxj8AxaLglj8AYLJZLOYtFpFwWQ2iMUkiyBqNCloEFEQYXzuzl7mzP0Y7z3w7j0f73PuDDtZFhl5njfRI5qJREobUB+6RL9otJxEZkD7SMd1JFLagFa6aPGzW04iMpgp9CEWzEZghQVoGN0L+I28kbLgVMA6PUmBty1YlxtRCzAuIv132THx7wKIcfRik9R3IbjfDDANkp+hpumJ8535pqhN+mySDMMhSo1OdwHUWiqJ/wu19c3tXsGRFOvm9k4SVpiPzLsr6mWKlmmIc568uEU0SW/QglLqp9q2KhYfe57slZ7vsiqNqYHs70F/XEtVZ6DCOIfs2AnY3TbknkWfUyvXGehgvhULHshHAla3jbkl4E/yaddV0wHYEgtWa6z+EfBFb8GB31HTBRxC3+gKDdRY/SOgSfSExvwOt/sHwv9i4NYIgYYAAAAASUVORK5CYII=');
+    background-size: 50% 50%;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #f13500;
+    border-radius: 50%;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-right: 5px
+}
+.homeproduct .ratingresult {
+    padding: 5px 10px
+}
+
+.homeproduct .ratingresult span {
+    color: #777;
+    text-decoration: none;
+    position: relative;
+    top: 1px
+}
+
+.rank{display:inline-block;height:12px;width:70px;text-indent:-999em;background:url('../img/stars.gif') no-repeat left top;vertical-align: middle;background-size: 65px 67px}
+
+.rank_2{background-position:0 -14px}
+.rank_3{background-position:0 -27px}
+.rank_4{background-position:0 -40px}
+.rank_5{background-position:0 -52px}
+
+
+.pagination{padding:15px 0 10px;font-size:14px;font-weight:bold;text-align:center;clear:both}
+.pagination a{color:#999;margin-left:3px;padding:4px 9px;background-color:#eee;border:1px solid #bbb;border-radius:3px}
+.pagination a:hover{color:#666;text-decoration:none;background-color:#ddd;border-color:#999}
+.pagination a.current{color:#ff8c22;background-color:#ffe8ce;border-color:#ff8c22}
+.pagination span{padding:5px 10px}
+.pagination .total{color:#ccc}
+.empty {
+    padding: 30px 0;
+    min-height: 300px;
+    text-align: center
+}
+
+
+/* brand list */
+.brands_list {
+    display: block;
+    clear: both;
+    padding: 10px 5px;
+    background: #fff;
+}
+.brands_list  li{
+    width: 160px;
+    height: 40px;
+    display: inline-block;
+    float: left;
+    margin: 0 5px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 40px;
+
+}
+.brands_list li img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 35px;
+    vertical-align: middle;
+}

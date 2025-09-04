@@ -1,0 +1,64 @@
+body {background: #f8f8f8}
+.user_form_wrapper {
+    padding-top: 30px
+}
+.user_form {
+    max-width: 300px;
+    width: 100%;
+    margin: 20px auto;
+    background: #fff;
+    padding:20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 20px rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 0 20px rgba(0,0,0,.15);
+    box-shadow: 0 0 20px rgba(0,0,0,.15);
+}
+.user_form h1 {
+    text-align: center;
+    width: 100%;
+    padding: 0 0 20px;
+    display: block;
+    font-size: 22px;
+}
+.user_form_wrapper form label {
+    display: block;
+    margin: 5px 0;
+    position: relative;
+}
+.user_form_wrapper form label .req {
+    color: #dc3545;
+    position: absolute;top: 10px;
+    right: 10px;
+    z-index: 2
+}
+.user_form_wrapper form input[type='text'],
+.user_form_wrapper form input[type='email'],
+.user_form_wrapper form input[type='password'],
+.user_form_wrapper form input[type='tel']
+{border:1px solid #ececec;
+padding:8px 10px;
+border-radius: 5px;
+width: 100%;
+}
+.user_form_wrapper form label.error input{
+    border:1px solid #dc3545;
+}
+.user_form_wrapper form label.valid input{
+    border:1px solid #28a745;
+}
+.checkbox_wrap input {vertical-align: middle;margin-right: 10px;}
+.checkbox_wrap label {font-size: 12px}
+.submit_wrap {margin-top: 10px}
+.submit_wrap .submit {width: 100%;
+    background: #f60;
+    color: #fff;
+    padding:10px 12px;
+    text-align: center;
+    font-size: 18px;
+    border:none;
+    border-radius: 5px
+}
+.submit_wrap .ext_links {text-align: center;width: 100%;margin-top: 10px;font-size: 12px;}
+.submit_wrap .ext_links a{font-size: 12px;color: #357edd}
+.submit_wrap .ext_notice {font-size: 12px;margin-top: 10px;display: block}

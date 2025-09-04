@@ -171,6 +171,47 @@ if ($_REQUEST['step'] == 'add_to_cart')
     $result['confirm_type'] = !empty($_CFG['cart_confirm']) ? $_CFG['cart_confirm'] : 2;
     die($json->encode($result));
 }
+/*------------------------------------------------------ */
+//-- Thêm nhiều sản phẩm vào giỏ hàng từ trang Đặt hàng nhanh
+/*------------------------------------------------------ */
+elseif ($_REQUEST['step'] == 'add_to_cart_quick')
+{
+    include_once('includes/cls_json.php');
+    $json = new JSON;
+    $result = array('error' => 0, 'message' => '');
+
+    $goods_list_json = isset($_POST['goods_list']) ? $_POST['goods_list'] : '[]';
+    $goods_list = $json->decode($goods_list_json, true);
+
+    if (empty($goods_list) || !is_array($goods_list)) {
+        $result['error'] = 1;
+        $result['message'] = 'Không có sản phẩm nào được chọn.';
+        die($json->encode($result));
+    }
+
+    include_once(ROOT_PATH . 'includes/lib_order.php');
+    $success_count = 0;
+
+    foreach ($goods_list as $goods_item) {
+        $goods_id = isset($goods_item['id']) ? intval($goods_item['id']) : 0;
+        $number = isset($goods_item['num']) ? intval($goods_item['num']) : 0;
+        
+        if ($goods_id > 0 && $number > 0) {
+            if (addto_cart($goods_id, $number)) {
+                $success_count++;
+            }
+        }
+    }
+
+    if ($success_count > 0) {
+        $result['message'] = 'Đã thêm ' . $success_count . ' sản phẩm vào giỏ hàng.';
+    } else {
+        $result['error'] = 1;
+        $result['message'] = 'Không thể thêm sản phẩm vào giỏ. Vui lòng thử lại.';
+    }
+
+    die($json->encode($result));
+}
 elseif ($_REQUEST['step'] == 'link_buy')
 {
     $goods_id = intval($_GET['goods_id']);
@@ -1739,7 +1780,7 @@ elseif ($_REQUEST['step'] == 'done')
         $smarty->assign('shop_name', $_CFG['shop_name']);
         $smarty->assign('send_date', date($_CFG['time_format']));
         $content = $smarty->fetch('str:' . $tpl['template_content']);
-        //send_mail($_CFG['shop_name'], $_CFG['service_email'], $tpl['template_subject'], $content, $tpl['is_html']);
+        send_mail($_CFG['shop_name'], $_CFG['service_email'], $tpl['template_subject'], $content, $tpl['is_html']);
     }
 
     /* 如果需要，发短信 */

@@ -1,0 +1,261 @@
+.brand_details {
+    padding: 0 10px;
+    background: #fff;
+}
+.brands_list {
+    clear: both;
+    display: block;
+    background: #fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    flex: 1 100%;
+}
+.brands_list li{
+    width: 25%;
+    display: inline-block;
+    float: left;
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+.box>.box_title {
+    font-weight: bold;
+    padding: 10px 0;
+    line-height: 30px;
+    display: block;
+    clear: both;
+    overflow: hidden;
+    font-size: 22px;
+    color: #333;
+}
+article {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    padding: 0 20px;
+    border-radius: 5px;
+}
+.brands_list li a{display: block}
+.brands_list li img{
+    vertical-align: middle;
+    width: 90%;
+    height: 100%;
+    max-height: 35px;
+}
+
+.scrollmenu {
+    display: block;
+    background: transparent;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    -ms-scroll-snap-type: mandatory;
+    -ms-scroll-snap-points-x: snapInterval(0%,100%);
+    -ms-scroll-chaining: chained;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+/* danh muc tin */
+.mnav{
+    width: 100%;
+    clear: both;
+    display: block;
+    margin: 20px 0;
+}
+.mnav li {
+    float: left;
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    background: #f1f1f1;
+    border-bottom: 2px solid #f1f1f1;
+    border-right: 1px solid #e5e5e5;
+    white-space: nowrap;text-overflow: ellipsis;overflow: hidden
+}
+.mnav li a{color: #111;}
+.mnav li.current {border-bottom: 2px solid #e61d22}
+.mnav li.current a{color:#e61d22}
+
+
+article p, article div, article h2, article h3, article h4 {
+    margin: 5px auto 5px;
+    font-size: 14px;
+    color: #333;
+    line-height: 28px;
+}
+/*goods List */
+.homeproduct {
+    clear: both;
+    display: block;
+    background: #fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    flex: 1 100%;
+    border-bottom: 1px solid #eee
+}
+
+.homeproduct li {
+    float: left;
+    position: relative;
+    background: #fff;
+    width: 49.7%;
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    border-right: 1px solid #eee
+}
+
+.homeproduct li a {
+    display: block;
+    overflow: hidden;
+    padding: 10px 0
+}
+
+.homeproduct li h3 {
+    display: block;
+    overflow: hidden;
+    line-height: 1.3em;
+    font-size: 14px;
+    font-weight: 600;
+    clear: both;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 0 10px
+}
+
+
+.homeproduct li .price {
+    display: block;
+    overflow: hidden;
+    padding: 5px 10px 5px 10px
+}
+
+
+.homeproduct li strong {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    font-size: 14px;
+    color: #e10c00;
+    line-height: 15px
+}
+
+.homeproduct li strong del {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    margin-left: 5px;
+    text-decoration: line-through;
+    color: #222
+}
+
+.homeproduct li img {
+    display: block;
+    margin: 10px auto;
+    height: 140px;
+    width: 140px
+}
+
+
+.homeproduct li label {
+    display: inline-block;
+    position: absolute;
+    top: 142px;
+    left: 10px;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    background: #3fb846;
+    border-radius: 3px;
+    padding: 0 5px;
+    height: 18px
+}
+
+.homeproduct li label.discount {
+    background-image: linear-gradient(-90deg, #ec1f1f 0%, #ff9c00 100%);
+    border-radius: 10px;
+    padding: 1px 7px;
+    padding-left: 0;
+    padding-right: 10px
+}
+
+.homeproduct li label.discount:before {
+    content: ' ';
+    display: inline-block;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAAABGdBTUEAALGPC/xhBQAAAVpJREFUOBGVki1LBFEUhueuH0FQTAuimxVE2KZBgxj8AxaLglj8AYLJZLOYtFpFwWQ2iMUkiyBqNCloEFEQYXzuzl7mzP0Y7z3w7j0f73PuDDtZFhl5njfRI5qJREobUB+6RL9otJxEZkD7SMd1JFLagFa6aPGzW04iMpgp9CEWzEZghQVoGN0L+I28kbLgVMA6PUmBty1YlxtRCzAuIv132THx7wKIcfRik9R3IbjfDDANkp+hpumJ8535pqhN+mySDMMhSo1OdwHUWiqJ/wu19c3tXsGRFOvm9k4SVpiPzLsr6mWKlmmIc568uEU0SW/QglLqp9q2KhYfe57slZ7vsiqNqYHs70F/XEtVZ6DCOIfs2AnY3TbknkWfUyvXGehgvhULHshHAla3jbkl4E/yaddV0wHYEgtWa6z+EfBFb8GB31HTBRxC3+gKDdRY/SOgSfSExvwOt/sHwv9i4NYIgYYAAAAASUVORK5CYII=');
+    background-size: 50% 50%;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #f13500;
+    border-radius: 50%;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-right: 5px
+}
+.homeproduct .ratingresult {
+    padding: 5px 10px
+}
+
+.homeproduct .ratingresult span {
+    color: #777;
+    text-decoration: none;
+    position: relative;
+    top: 1px
+}
+
+.rank{display:inline-block;height:12px;width:70px;text-indent:-999em;background:url('../img/stars.gif') no-repeat left top;vertical-align: middle;background-size: 65px 67px;}
+
+.rank_2{background-position:0 -14px}
+.rank_3{background-position:0 -27px}
+.rank_4{background-position:0 -40px}
+.rank_5{background-position:0 -52px}
+
+
+.homeproduct li .promotion {
+    display: block;
+    max-height: 36px;
+    overflow: hidden;
+    padding-left: 5px;
+}
+.homeproduct li .promotion p {
+    color: #666;
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.homeproduct li .promotion p::before {
+    color: #999;
+    content: "•";
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+
+.pagination{padding:15px 0 10px;font-size:14px;text-align:center;clear:both}
+.pagination a{color:#999;margin-left:3px;padding:4px 9px;background-color:#eee;border:1px solid #bbb;border-radius:3px}
+.pagination a:hover{color:#666;text-decoration:none;background-color:#ddd;border-color:#999}
+.pagination a.current{color:#ff8c22;background-color:#ffe8ce;border-color:#ff8c22}
+.pagination span{padding:5px 10px}
+.pagination .total{color:#ccc;}

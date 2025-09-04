@@ -1,0 +1,270 @@
+section {
+ margin: 70px auto 0;
+ min-height: 300px
+}
+body {background: #f1f1f1;}
+.wrappertg {
+    display: block;
+    position: relative;
+    overflow: visible;
+    width: 800px;
+    margin: 20px auto;
+}
+.boxsp, .subtotal{
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    border-bottom:1px solid #ececec;
+}
+.subtotal{
+    border-bottom:none;
+    padding: 20px 10px;
+}
+
+.infoproduct {
+    float: left;
+    width: 49%;
+    padding: 10px;
+    background: #fff;
+}
+.infoproduct .linksp {
+    float: left;
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+}
+.infoproduct .linksp img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.infoproduct div {
+    display: block;
+    margin-left: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 24px;
+}
+.infoproduct div strong {
+    color: #d0021b;
+    font-size: 15px;
+}
+
+.tim {
+    float: right;
+    width: 34%;
+    margin-top: 12px;
+    position: relative;
+    height: 37px;
+    margin-right: 10px;
+}
+
+.tim .km {
+    color: #4a90e2;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 6px;
+}
+.boxshowkm{
+    width: 100%;
+}
+
+.boxshowkm p::before {
+    content: "•";
+    color: #288ad6;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.tim .icon_delete {color:#444;background: #f6f6f6;width: 20px;height: 20px;border-radius: 10px;text-align: center;margin: 0 auto;
+position: absolute;top:5px;right:5px;z-index: 2;}
+
+.tabslink {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    margin-top: 10px;
+}
+
+.tabslink a {
+    float: left;
+    padding: 10px 0;
+    width: 49.7%;
+    text-align: center;
+    font-size: 14px;
+    color: #4a90e3;
+    text-transform: uppercase;
+    border-left: 1px solid #4a90e2;
+    border-top: 3px solid #fff;
+}
+.tabslink a.current {
+    color: #333;
+    border-top: 3px solid #4a90e2;
+    font-weight: 600;
+    background: #fff;
+}
+
+.tabslink a:first-child {
+    border-left: 0;
+    width: 50%;
+}
+
+.tabslink a div {
+    display: block;
+    overflow: hidden;
+    width: 47%;
+    margin: auto;
+}
+.tabslink a span {
+    display: block;
+    font-size: 13px;
+    text-align: center;
+    text-transform: none;
+    margin-top: 3px;
+}
+
+.datatable {
+    display: block;
+    overflow: visible;
+    border-top: 1px solid #4a90e2;
+    margin-top: 5px;
+    padding: 10px;
+    background: #fff;
+    position: relative;
+}
+
+.step {
+    display: block;
+    clear: both;
+    overflow: hidden;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.data_box>.step {
+    padding-left: 20px;
+}
+.listbank {
+    display: block;
+    overflow: visible;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.listbank label {
+    float: left;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin: 0 10px 10px 0;
+    width: 15%;
+    padding: 5px 0 0;
+    text-align: center;
+    min-height: 36px;
+}
+.listbank label.acti {
+    border-color: #f5a623;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.15);
+}
+.listbank label input[type="radio"]{
+    margin:0;padding:0;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+}
+
+.barcard {
+    display: block;
+    overflow: hidden;
+    background: #ffee5d;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.infocard {
+    display: block;
+    overflow: hidden;
+    background: #fff9e8;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: 15px auto;
+}
+.infocard li {
+    clear: both;
+    display: block;
+    overflow: hidden;
+}
+.infocard li span{
+    padding: 10px;
+    box-sizing: border-box;
+    display:inline-block;
+    float: left;
+    height:50px;
+    vertical-align: middle;
+    border-right: 1px solid #ddd;
+    width: 20%;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+.infocard li:first-child span{font-weight:600}
+
+
+.infocard label input[type="radio"] {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.infocard .selected{
+    background: #288ad6;
+}
+
+
+.customer_info {
+    overflow: visible;
+    background: #f6f6f6;
+    padding: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+.customer_info input, .customer_info select, .customer_info textarea {
+    display: block;width: 100%;margin: 5px 0;box-sizing: border-box;
+    padding: 8px 10px;
+    border:1px solid #ddd;
+    border-radius: 3px;
+}
+.customer_info .group_input {
+    margin: 5px 0;
+    display: block;
+    clear: both;
+
+}
+.group_input input, .group_input select {display: inline-block;width: 49.3%;float: left;margin-right: 5px;}
+.group_input input:last-child, .group_input select:last-child {margin-right: 0;float: right}
+.input_notice {
+    padding: 5px 0;font-size: 12px;
+}
+.input_radio label, .input_radio label input {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+
+}
+.input_radio label input {width: auto;margin-right: 5px;vertical-align: middle}
+.actions {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+}
+.checkout_now {
+    background: #f60;
+    text-transform: uppercase;
+    padding: 12px 0;
+    width: 300px;
+    border-radius:5px;
+    margin: 0 auto;
+}

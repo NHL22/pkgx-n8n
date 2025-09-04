@@ -1,0 +1,15 @@
+.progress_bar {background: #f6f6f6;display:none;}
+.progress_bar ol{list-style:none;counter-reset:li;}
+.progress_bar li{float:left;height:40px;width:auto;margin-right:10px;padding:0 10px;color:rgba(0,0,0,0.5);font-size:14px;line-height:40px}
+.progress_bar li:before{content:counter(li);counter-increment:li;float:left;height:20px;width:20px;margin-right:10px;margin-top: 8px;color:rgba(0,0,0,0.3);line-height:20px;font-size:16px;text-align:center;background-color:transparent;border:3px solid rgba(0,0,0,0.08);border-radius:20px;}
+.progress_bar .current{color:rgba(0,0,0,1);font-size:14px}
+.progress_bar .current:before{color:rgba(0,0,0,0.9);border-color:rgba(0,0,0,0.9);}
+.notice {
+    color: white;
+    padding: 5px;
+    font-size: 18px;
+    line-height: normal;
+    background: #2196F3;
+    list-style: inside;
+}
+.notice a{color: #fff}

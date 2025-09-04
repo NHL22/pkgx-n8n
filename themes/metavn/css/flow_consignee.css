@@ -1,0 +1,31 @@
+.consignee_list {
+    max-width: 500px;
+    width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding:20px;
+    border-radius: 5px;
+    border:1px solid #f3f3f3;
+
+}
+
+.consignee_list h3{font-size: 22px;text-align: center;padding: 10px 0;margin-bottom: 20px;}
+.consignee_list select{width: 33.3%;box-sizing: border-box;padding:10px;border-radius: 3px;border:1px solid #ececec;}
+.inline_input {padding: 5px 0;}
+.inline_input input, .block_input input {
+     width: 49%;box-sizing: border-box;padding:10px;
+    border: 1px solid #ececec;
+    border-radius: 3px;
+}
+.block_input input {width: 100%}
+.actions .btn_submit, .actions a.btn_del {
+    width: 100%;
+    display: block;
+    background: #fd6e1d;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    border:none;
+    padding: 9px 0;
+    border-radius: 4px
+}

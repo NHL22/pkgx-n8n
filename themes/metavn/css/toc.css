@@ -1,0 +1,18 @@
+div.wrap_toc {
+    visibility: hidden;
+    background: #f3f3f3;
+    width: 100%;
+    float: left;
+}
+.titletoc {
+    font-weight: 700;
+    padding: 10px;
+    margin: 0px;
+}
+#toc {
+    list-style-type: decimal;
+    margin-left: 0;
+    padding-left: 10px;
+}
+#toc ol{list-style-type: lower-alpha;}
+#toc li, #toc ol li {line-height: 24px}

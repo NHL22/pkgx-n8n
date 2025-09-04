@@ -1,0 +1,388 @@
+{include file='library/html_header.lbi'}
+{insert_css files="owl-carousel/owl.carousel.2.3.4.min.css,css/magiczoomplus.css,css/style.css,css/goods.css"}
+</head>
+<body id="page_{$pname}" class="animated fadeIn">
+{include file='library/page_header.lbi'}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Product",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{$goods.comment_rank}",
+    "reviewCount": "{siy:comment_count id=$id type=$type default=1}"
+  },
+  "description": "{$description|escape}",
+  "name": "{$goods.goods_name|escape}",
+  "image": "{$option.cdn1_path}{$goods.goods_thumb}",
+  "offers": {
+    "@type": "Offer",
+    "availability": "http://schema.org/InStock",
+    "price": "{$goods.shop_price}",
+    "priceCurrency": "VND"
+  }
+}
+</script>
+<section>
+    {include file='library/ur_here.lbi'}
+    {$render.before_main}
+    <!-- TemplateBeginEditable name="Top" -->
+<!-- TemplateEndEditable -->
+
+    {if $goods.is_on_sale neq 1 || $goods.price eq 0}
+        {include file='library/goods_detail_noonsale.lbi'}
+    {else}
+        {if $goods.is_real eq 3}
+        {include file='library/goods_detail3.lbi'}
+        {elseif $goods.is_real eq 4}
+        {include file='library/goods_detail4.lbi'}
+        {else}
+        {include file='library/goods_detail.lbi'}
+        {/if}
+         {$render.before_goods_info}
+        {include file='library/goods_price.lbi'}
+    {/if}
+    <div class="col_main_lg">
+        <div class="clearfix"></div>
+        {if $goods.guide_thumb}
+        <div class="imgnote">
+            <img src="{$goods.guide_thumb}" alt="{$goods.goods_name|escape}">
+        </div>
+        {/if}
+        {include file='library/goods_gallery_magiczoomplus.lbi'}
+        {if $goods.goods_desc || $goods.goods_brief}
+        <article id="description">
+            <div class="article_content">
+            {$goods.goods_desc}
+        </div>
+        <div class="view-more hidden">
+        <p id="btn-viewmore"><span id="view1">Đọc thêm </span><!-- <span id="view2" class="hidden">Thu gọn </span> --></p>
+        </div>
+        </article>
+            {if $goods.is_on_sale eq 1 and $goods.price neq 0}
+            <div class="actions_article clearfix">
+                <div class="ginfo">
+                    <img src="{$option.cdn1_path}{$goods.goods_thumb}" alt="{$goods.goods_name|escape}">
+                    <h3>{$goods.goods_name}</h3>
+                    <strong> {if $goods.is_promote and $goods.gmt_end_time}{$goods.promote_price}{else}{$goods.shop_price_formated}{/if}</strong>
+                </div>
+                <div class="gbutton">
+                     {if $goods.shop_price neq 0}
+                     <a href="javascript:buy({$goods.goods_id})" class="button btn-inline btn-buy">
+                        <span>{$lang.btn_buy}</span> Mua online hoặc tại cửa hàng</a>
+                     {if $istragop}
+                     <a rel="nofollow" href="mua-tra-gop-thiet-bi-am-thanh-tai-bao-chau-elec-lai-suat-chi-tu-149" class="button btn-inline btn-tragop">
+                        <span>Mua Trả góp</span> Qua thẻ tín dụng Visa, Mastercard</a>
+                     {/if}
+                     {/if}
+                </div>
+            </div>
+             {/if}<!-- is_onsale -->
+        {/if}
+
+        {include file='library/goods_combo.lbi'}
+        {if $goods.is_on_sale eq 1 and $goods.price neq 0}
+        {include file='library/goods_related.lbi'}
+        {/if}
+        {include file='library/goods_fittings.lbi'}
+        <div class="clr"></div>
+         <!-- TemplateBeginEditable name="BottomMain" -->
+<!-- TemplateEndEditable -->
+        {if $option.comment_enabled}<div class="clr"></div>{include file='library/comments.lbi'}{/if}
+    </div>
+    <div class="col_sub_lg">
+        {if $properties}
+        <div class="tableparameter" id="tableparameter">
+            <h2>Thông số kỹ thuật</h2>
+            <ul class="parameter">
+                {foreach from=$properties item=property_group key=key}
+                 {foreach from=$property_group item=property name=property_list}
+                {if $smarty.foreach.property_list.index < 8}
+                <li><span>{$property.name|escape:html}:</span> {$property.value|escape:html}</li>
+                {/if}
+                 {/foreach}
+                {/foreach}
+            </ul>
+            <div class="viewparameterfull">Xem chi tiết thông số kỹ thuật</div>
+        </div>
+        {/if}
+        <div class="articles_cat">
+            {if $goods_article_list || $article_rela}<h2>{$lang.article_releate}</h2>{/if}
+            <ul>
+                {foreach from=$article_rela item=article name=article_rela_lisst}
+                <li>
+                    <a href="{$article.url}" target="_blank" title="{$article.title|escape:html}">
+                        <img src="{$option.cdn1_path}{$article.article_sthumb}" alt="{$article.title|escape:html}">
+                        <h3>{$article.title|escape:html}</h3>
+                        <span>{$article.add_time} - Lượt xem: {$article.viewed}</span>
+                    </a>
+                </li>
+                {/foreach}
+                <!-- TemplateBeginEditable name="TinLienQuan" -->
+<!-- #BeginLibraryItem "/library/goods_article.lbi" -->
+{if $goods_article_list}
+    {foreach from=$goods_article_list item=article name=goods_article_list}
+    <li>
+        <a href="{$article.url}" target="_blank" title="{$article.title|escape:html}">
+            <img src="{$option.cdn1_path}{$article.article_sthumb}" alt="{$article.title|escape:html}">
+            <h3>{$article.title|escape:html}</h3>
+            <span>{$article.add_time} - Lượt xem: {$article.viewed}</span>
+        </a>
+    </li>
+    {/foreach}
+{/if}
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_articles.lbi" -->
+{if $articles }
+<div class="articles_cat">
+    <h2><a href="{$articles_cat.url}">{$articles_cat.name|escape:html}</a></h2>
+        <ul>
+           {foreach from=$articles item=article_item name=articles}
+            <li>
+                <a href="{$article_item.url}" target="_blank" title="{$article_item.title|escape:html}">
+                    <img class="lazyload" data-original="{$option.cdn1_path}{$article_item.thumb}" src="{$option.cdn1_path}{$article_item.thumb}" alt="{$article_item.title|escape:html}">
+                    <h3>{$article_item.title|truncate:70:"...":true}</h3>
+                    <span class="timeview">{$article_item.add_time} - Lượt xem: {$article_item.viewed}</span>
+                </a>
+            </li>
+            {/foreach}
+    </ul>
+</div>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+        </ul>
+        </div>
+
+    </div>
+    {$render.after_goods_info}
+    <!-- TemplateBeginEditable name="Bottom" -->
+<!-- TemplateEndEditable -->
+    {$render.after_main}
+
+</section>
+<!-- full thong so ky thuat -->
+{if $properties}
+<div class="closebtn"><span>✖</span>Đóng</div>
+<div class="fullparameter">
+    <div class="scroll"><h3>Thông số kỹ thuật chi tiết {$goods.goods_name}</h3>
+        <ul class="parameter">
+            {foreach from=$properties item=property_group key=key}
+             {foreach from=$property_group item=property}
+            <li><span>{$property.name|escape:html}</span> {$property.value|escape:html}</li>
+             {/foreach}
+            {/foreach}
+        </ul>
+</div></div>
+{/if}
+<!-- End full thong so ky thuat -->
+
+{include file='library/page_footer.lbi'}
+{insert_js name='goods.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js,js/magiczoomplus.js,owl-carousel/owl.carousel.2.3.4.min.js' minify='js/global.js,js/init.js' }
+
+<script type="text/javascript">
+    var goodsId = {$goods_id};
+    var base_path = '{$option.static_path}';
+    $(".viewparameterfull, .tskt").click(function() {
+        if($(".fullparameter").css("display") == "block"){
+            $(".closebtn").hide();
+            $(".fullparameter").hide();
+            $("body").removeClass("fixbody");
+            $(".fixparameter").remove();
+        }else{
+            $(".fullparameter").show();
+            $(".closebtn").show();
+            $("body").addClass("fixbody").prepend('<div class="fixparameter">content<\/div>');
+        }
+    });
+    $(".closebtn").click(function() {
+        $(".viewparameterfull").click();
+        $("body").removeClass("fixbody");
+        $(".fixparameter").remove();
+        $(".closebtn").hide();
+    });
+    $(document.body).on("click", ".fixparameter", function() {
+        $("body").toggleClass("fixbody");
+        $(".fixparameter").remove();
+        $(".viewparameterfull").click();
+    });
+
+    if ($('#gallery .thumb_inner').length) {
+        $('#gallery .thumb_inner').mSlidiy({num:9,step:1});
+    }
+    var owl = $("#goods_price .cate");
+    if(owl.length > 0){
+        owl.find('li').css('width','100%');
+        owl.owlCarousel({items: 5,slideBy: 3,lazyLoad:!0,slideSpeed : 2000,nav:!0,dots:!1,loop:!1,responsiveRefreshRate : 200,navText: ['‹','›'],});
+    }
+
+    var gallery_feature = $("#gallery_feature");
+    if(gallery_feature.length > 0){
+        gallery_feature.on('initialized.owl.carousel', syncPosition);
+        gallery_feature.owlCarousel({items: 1,margin:0,lazyLoad:!0,slideSpeed : 2000,nav:!0,dots:!1,loop:!1,responsiveRefreshRate : 200,navText: ['‹','›']});
+        gallery_feature.on('changed.owl.carousel', syncPosition);
+        function syncPosition(event) {
+            var element   = event.target;
+            var items     = event.item.count;
+            var item      = event.item.index + 1;
+            if(item > items) {
+                item = item - items
+              }
+              $('#shownum').html(+item+"/"+items)
+            }
+    }
+</script>
+<script type="text/javascript">
+
+    /** view more */
+    var el = $('#description .article_content');
+    var h = el.height();
+
+    if(h>500){
+        el.addClass('short_view');
+        $('#description .view-more').removeClass('hidden');
+    }
+    $('#btn-viewmore').click(function(e){
+        el.toggleClass('short_view');
+        $('#view1').toggleClass('hidden');
+        e.preventDefault();
+    });
+    /** end view more */
+
+    $("div.requestcall a").click(function(){
+        $form=$(this).closest("form");
+        var $tel=0;
+        $tel=$form.find("input[name='tel']").val();
+
+        if($tel.length<10 || $tel.length > 11 || $tel[0]!="0")
+        {
+            alert("Số điện thoại không hợp lệ");
+        }
+        else
+        {
+            $form.find("input[type='hidden']").val(window.location.href);
+            $.ajax({
+                    url:$("base").attr("href")+"ajax/requestcall.php",
+                    data:$form.serialize(),
+                    type:"POST",
+                    success:function(data){
+                            $form.hide();
+                            $form.find("input[name='tel']").val('');
+                            $(".request-msg").fadeIn();
+                    }
+            });
+        }
+        return false;
+    });
+    /* Kich nut danh gia la hien thi
+    $('#btnrank').click(function(h){
+        $(this).toggleClass('hidden');
+        $('#comment_wrapper .star-rank').toggleClass('hidden');
+        $('#comment_wrapper .action-comment').toggleClass('hidden');
+        h.preventDefault();
+    });
+    */
+    $('.rank_star').rating({
+        focus: function(value, link){
+            var tip = $('#star_tip');
+            tip[0].data = tip[0].data || tip.html();
+            tip.html(link.title || 'value: '+value).show();
+        },
+        blur: function(value, link){
+            $('#star_tip').html(link.title).show();
+        },
+        callback: function(value, link){
+           $('#star_tip').html(link.title).show();
+           $('div.action-comment').fadeIn('600');
+        }
+    });
+    /* Search Compare */
+    $('#search_compare').delayKeyup(function(el){
+        var keywords = el.val();
+        var show = $('#suggest-same .result_compare');
+        var cat_id = $('#_parent_catid').val();
+        if(keywords.length >2){
+            $.post(
+                'ajax/search_suggest.php?act=compare&cat_id='+cat_id+'&gid='+goodsId,
+                {keywords: keywords},
+                function(response){
+                    var res = $.evalJSON(response);
+                    show.show();
+                    show.html(res.content);
+                },
+                'text'
+            );
+        }else{
+            show.hide();
+        }
+    },1000);
+
+    $("#_booking").click(function(){
+        $form=$(this).closest("form");
+        var $tel=0;
+        var $linkman = '';
+        var $sex = '';
+        $tel=$form.find("input[name='tel']").val();
+        $sex=$form.find("input[name='sex']").val();
+        $linkman=$form.find("input[name='linkman']").val();
+
+        if($tel.length<10 || $tel.length > 11 || $tel[0]!="0")
+        {
+            alert("Số điện thoại không hợp lệ");
+        }
+        else if($linkman < 6 || $linkman == '')
+        {
+            alert("Tên có dộ dài ít nhất 6 ký tự");
+        }
+        else if($sex == '')
+        {
+            alert("Chưa chọn giới tính");
+        }
+        else
+        {
+            $("#loading_box").show();
+            $.ajax({
+                    url:$("base").attr("href")+"ajax/goods.php?act=booking",
+                    data:$form.serialize(),
+                    type:"POST",
+                    success:function(data){
+                        var res = $.evalJSON(data);
+                        $("#loading_box").hide();
+                        if(res.err_no == 1){
+                            $("#_bookingresult").html(res.err_msg).addClass('error_box').fadeIn();
+                        }else{
+                            $form.find("input[name='tel']").val('');
+                            $form.find("input[name='linkman']").val('');
+                            $form.find("input[name='email']").val('');
+                            $("#_bookingresult").html(res.err_msg).addClass('success_box').fadeIn();
+                        }
+                    }
+            });
+        }
+        return false;
+    });
+
+    function LoadPreOrderCustomer() {
+        var list = $('#listorder').html();
+        html = '<div class="danhsach"><h4>Danh sách đăng ký đặt trước</h4><ul class="listorder">';
+        html += list+'</ul></div>';
+        $.fn.colorbox({fixed: true,html:'<div class="message_box" id="modal_listorder">' + html + '</div>'});
+    }
+</script>
+<!-- Comment -->
+<script type="text/javascript" src="{$option.static_path}static/js/commentform.js"></script>
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js#xfbml=1&version=v3.0&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{include file='library/html_desktopmobile.lbi'}
+
+</body>
+</html>

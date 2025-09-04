@@ -8,7 +8,7 @@ $act = isset($_REQUEST['act']) ? $_REQUEST['act'] : '';
 $sync = isset($_REQUEST['sync']) ? intval($_REQUEST['sync']) : 0;
 
 if($act == 'gallery'){
-	define('IS_AJAX', true);
+    define('IS_AJAX', true);
     $result = array('error' => 0, 'message' => '', 'content' => '');
     $goods_id = intval($_REQUEST['goods_id']);
     
@@ -22,7 +22,7 @@ if($act == 'gallery'){
     die(json_encode($result));
 
 }elseif ($act == 'desc') {
-	define('IS_AJAX', true);
+    define('IS_AJAX', true);
     $result = array('error' => 0, 'message' => '', 'content' => '');
     $goods_id = intval($_REQUEST['goods_id']);
      $goods_desc = $db->getOne('SELECT goods_desc FROM '.$ecs->table('goods')." WHERE goods_id = $goods_id");
@@ -91,32 +91,32 @@ elseif ($act == 'getproducts') {
    
 }
 elseif ($act == 'addtocard') {
-	define('IS_AJAX', true);
+    define('IS_AJAX', true);
     $result = array('error' => 0, 'message' => '', 'content' => '');
 
     $product = [
-    	'goods_id' => intval($_REQUEST['goods_id']),
-    	'note' => addslashes(strip_tags($_REQUEST['note'])),
-    	'quantity' => intval($_REQUEST['quantity']),
+        'goods_id' => intval($_REQUEST['goods_id']),
+        'note' => addslashes(strip_tags($_REQUEST['note'])),
+        'quantity' => intval($_REQUEST['quantity']),
         'goods_name' => addslashes(strip_tags($_REQUEST['goods_name'])),
         'price' => intval($_REQUEST['price'])
     ];
     /* nếu chưa tồn tại */
     if(isset($_SESSION['quick_order']) && !isset($_SESSION['quick_order'][$product['goods_id']])){
-    	
-    	$_SESSION['quick_order'][$product['goods_id']] = $product;
+        
+        $_SESSION['quick_order'][$product['goods_id']] = $product;
 
     }
     /* nếu tồn tại */
     elseif(isset($_SESSION['quick_order']) && isset($_SESSION['quick_order'][$product['goods_id']])){
-    	$_SESSION['quick_order'][$product['goods_id']]['quantity'] = $_SESSION['quick_order'][$product['goods_id']]['quantity'] +intval($_REQUEST['quantity']);
-    	$_SESSION['quick_order'][$product['goods_id']]['note'] = addslashes(strip_tags($_REQUEST['note'])); 
+        $_SESSION['quick_order'][$product['goods_id']]['quantity'] = $_SESSION['quick_order'][$product['goods_id']]['quantity'] +intval($_REQUEST['quantity']);
+        $_SESSION['quick_order'][$product['goods_id']]['note'] = addslashes(strip_tags($_REQUEST['note'])); 
     }
      /* lần đầu */
     else{
-    	$arr = [];
-    	$arr[$product['goods_id']] = $product;
-    	$_SESSION['quick_order'] = $arr;
+        $arr = [];
+        $arr[$product['goods_id']] = $product;
+        $_SESSION['quick_order'] = $arr;
     }
    
     $result['quick_order'] = count($_SESSION['quick_order']);
@@ -193,7 +193,7 @@ elseif($act == 'checkout'){
         exit;
     }
 elseif ($act=='getnumber') {
-	define('IS_AJAX', true);
+    define('IS_AJAX', true);
     $result = array('error' => 0, 'message' => '', 'content' => '');
     $result['quick_order'] = isset($_SESSION['quick_order']) ? count($_SESSION['quick_order']) : 0;
     die(json_encode($result));
@@ -425,21 +425,21 @@ elseif($act == 'export_xls'){
 }
 elseif ($act=='view') {
 
-	
+    
 
-	if(!isset($_SESSION['quick_order']) || empty($_SESSION['quick_order'])){
-		 show_message('Bạn chưa tạo danh sách đặt hàng');
-	}
+    if(!isset($_SESSION['quick_order']) || empty($_SESSION['quick_order'])){
+         show_message('Bạn chưa tạo danh sách đặt hàng');
+    }
 
-	/**
-	 * Update thông tin
-	 */
-	if($sync === 2){
-		$goods_id = intval($_POST['goods_id']);
-	    if(isset($_SESSION['quick_order'][$goods_id])){
-	    	$_SESSION['quick_order'][$goods_id]['quantity'] = intval($_POST['quantity']);
-	    }
-	}
+    /**
+     * Update thông tin
+     */
+    if($sync === 2){
+        $goods_id = intval($_POST['goods_id']);
+        if(isset($_SESSION['quick_order'][$goods_id])){
+            $_SESSION['quick_order'][$goods_id]['quantity'] = intval($_POST['quantity']);
+        }
+    }
     elseif($sync === 3){
         $goods_id = intval($_POST['goods_id']);
         if(isset($_SESSION['quick_order'][$goods_id])){
@@ -453,12 +453,12 @@ elseif ($act=='view') {
     }
 
 
-	$goods_id = [];
-	foreach ($_SESSION['quick_order'] as $key => $value) {
-		$goods_id[] = $key;
-	}
+    $goods_id = [];
+    foreach ($_SESSION['quick_order'] as $key => $value) {
+        $goods_id[] = $key;
+    }
 
-	$where = db_create_in($goods_id, 'g.goods_id');
+    $where = db_create_in($goods_id, 'g.goods_id');
     /* lấy danh sách sản phẩm theo ID đã chọn */
 
     $sql = 'SELECT g.goods_id, g.goods_sn, g.cat_id, g.brand_id, g.goods_name, g.seller_note, g.deal_price, g.partner_price, g.market_price, g.is_new,g.goods_number, g.is_best, g.is_hot, g.shop_price AS org_price, ' .
@@ -537,32 +537,32 @@ elseif ($act=='view') {
     $smarty->assign('total', !empty($arr) ? $total : 0);
 
     if($sync === 2 || $sync === 3 || $sync === 4){
-    	define('IS_AJAX', true);
-    	$result = array('error' => 0, 'message' => '', 'content' => '');
-    	$result['content']   =  $smarty->fetch('library/quick_order_cart.lbi');
-    	die(json_encode($result));
+        define('IS_AJAX', true);
+        $result = array('error' => 0, 'message' => '', 'content' => '');
+        $result['content']   =  $smarty->fetch('library/quick_order_cart.lbi');
+        die(json_encode($result));
     }
 
     /* render */
     assign_template();
-	$position = assign_ur_here(0, 'Sản phẩm đã chọn | Đặt hàng nhanh');
-	$smarty->assign('page_title',       $position['title']);
-	$smarty->assign('ur_here',          $position['ur_here']);
-	$smarty->assign('keywords',     '');
-	$smarty->assign('description', '');
+    $position = assign_ur_here(0, 'Sản phẩm đã chọn | Đặt hàng nhanh');
+    $smarty->assign('page_title',       $position['title']);
+    $smarty->assign('ur_here',          $position['ur_here']);
+    $smarty->assign('keywords',     '');
+    $smarty->assign('description', '');
 
-	$smarty->display('quick_order_cart.dwt');
+    $smarty->display('quick_order_cart.dwt');
 
 }
 else{
-	assign_template();
-	$position = assign_ur_here(0, 'Đặt hàng nhanh');
-	$smarty->assign('page_title',       $position['title']);
-	$smarty->assign('ur_here',          $position['ur_here']);
-	$smarty->assign('keywords',     '');
-	$smarty->assign('description', '');
+    assign_template();
+    $position = assign_ur_here(0, 'Đặt hàng nhanh');
+    $smarty->assign('page_title',       $position['title']);
+    $smarty->assign('ur_here',          $position['ur_here']);
+    $smarty->assign('keywords',     '');
+    $smarty->assign('description', '');
 
-	$smarty->display('quick_order.dwt');
+    $smarty->display('quick_order.dwt');
 
 }
 
