@@ -51,6 +51,24 @@
       ]
     }
     </script>
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://phukiengiaxuong.com.vn/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://phukiengiaxuong.com.vn/tim-kiem?keywords={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <!--#endregion-->
     <!--Private Stylesheet -->
     {insert_css files="owl-carousel/owl.carousel.2.1.css,css/global.css,css/index.css"}
@@ -111,7 +129,6 @@
 .cat_goods .view_more a {
     cursor: pointer;
     display: inline-block;
-    width: 240px;
     margin-top: 12px;
     padding: 8px 12px;
     border-radius: 4px;
@@ -196,10 +213,10 @@
                      <strong>{$goods.shop_price}</strong>
                     {/if}
                 </div>
-     <p class="cprice">Giá CK: {$goods.partner_price}</p> 
-                    <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p>
+         <p class="cprice">Giá CK: {$goods.partner_price}</p>  
+                   <!-- <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p> -->
 
-                <div class="promotion">{$goods.seller_note}</div>
+                <div class="promotion clr">{$goods.seller_note}</div>
             </a>
             <div class="form_add form_add{$goods.id}">
                     <div class="button-container">
@@ -323,51 +340,6 @@
 </div>
 
  <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
-    <ul class="homeproduct"></ul>
-    <div class="view_more">
-        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
-    </div>
-</div>
-
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
-    <ul class="homeproduct"></ul>
-    <div class="view_more">
-        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
-    </div>
-</div>
-
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
-    <ul class="homeproduct"></ul>
-    <div class="view_more">
-        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
-    </div>
-</div>
-
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
-    <ul class="homeproduct"></ul>
-    <div class="view_more">
-        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
-    </div>
-</div>
-
- <!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
-<div class="box cat_goods clearfix {if $goods_cat.id eq 302}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
-    <ul class="homeproduct"></ul>
-    <div class="view_more">
-        <a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
-    </div>
-</div>
-
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
     </div>
 
@@ -376,6 +348,33 @@
      <!-- TemplateBeginEditable name="BestBrands" -->
 <!-- TemplateEndEditable -->
     <!-- TemplateBeginEditable name="Footer" -->
+<!-- #BeginLibraryItem "/library/new_articles.lbi" -->
+{if $new_articles}
+<div class="box cat_articles">
+    <h4 class="box_title">{$lang.new_article}</h4>
+    <ul>
+    	{foreach from=$new_articles item=article name=new_articles}
+    	<li>
+            <a href="{$article.url}" title="{$article.title|escape:html}">
+                {if $article.sthumb_webp}
+                <picture>
+                    <source width="210" height="auto" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+                    <img width="210" height="auto" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                </picture>
+                {else}
+                    <img width="210" height="auto" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                {/if}
+
+                <h3>{$article.title|escape:html}</h3>
+                <span>{$article.add_time}</span>
+            </a>
+        </li>
+    	{/foreach}
+    </ul>
+</div>
+{/if}
+
+ <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 <div class="box clearfix">
     <div class="hd">
@@ -437,8 +436,8 @@ $(document).ready(function() {
 
     // Tạo danh mục recomend
     let cate_rec = '';
-    let current_id = 302;
-    let current_url = 'hang-theo-loai-ban.html';
+    let current_id = 37;
+    let current_url = 'si-tai-nghe.html';
     $("#products_today .cat_goods").each(function(){
         let cat_name = $(this).data('name');
         let url = $(this).data('url');
@@ -455,7 +454,7 @@ $(document).ready(function() {
     owl_products_cate.owlCarousel({
             navigation: !0,
             pagination: !1,
-            items: 12,
+            items: 10,
             scrollPerPage: !0
     });
     owl_products_cate.trigger("refresh.owl.carousel");
@@ -464,14 +463,14 @@ $(document).ready(function() {
 
 });
 
-$(window).scroll(function fix_element() {
-    $('#products_today .fix_cate').css(
-    $(window).scrollTop() > 1060
-        ? {'max-width' : '1200px', 'margin':'0 auto', 'position': 'fixed', 'top': '0', 'left': '0', 'right': '0', 'z-index': '9999' }
-        : { 'position': 'relative', 'top': 'auto' }
-    );
-    return fix_element;
-}());
+ //$(window).scroll(function fix_element() {
+   //  $('#products_today .fix_cate').css(
+   //  $(window).scrollTop() > 1060
+    //     ? {'max-width' : '1200px', 'margin':'0 auto', 'position': 'fixed', 'top': '0', 'left': '0', 'right': '0', 'z-index': '9999' }
+    //     : { 'position': 'relative', 'top': 'auto' }
+    // );
+   //  return fix_element;
+ //}());
 
 $("p.page_ajax a.caret_down").click(function(e) {
     e.preventDefault();

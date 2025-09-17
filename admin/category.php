@@ -1,5 +1,13 @@
 <?php
 
+// ----- BẮT ĐẦU CODE BẬT HIỂN THỊ LỖI -----
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// ----- KẾT THÚC CODE BẬT HIỂN THỊ LỖI -----
+
+
+
 /**
  * ECSHOP 商品分类管理程序
  * ============================================================================
@@ -104,6 +112,8 @@ if ($_REQUEST['act'] == 'insert')
     $cat['show_in_nav']  = !empty($_POST['show_in_nav'])  ? intval($_POST['show_in_nav']): 0;
     $cat['style']        = !empty($_POST['style'])        ? trim($_POST['style'])        : '';
     $cat['is_show']      = !empty($_POST['is_show'])      ? intval($_POST['is_show'])    : 0;
+    $cat['related_article_cat_id']     = !empty($_POST['related_article_cat_id'])     ? trim($_POST['related_article_cat_id'])     : '';
+
     $cat['grade']        = !empty($_POST['grade'])        ? intval($_POST['grade'])      : 0;
     $cat['filter_attr']  = !empty($_POST['filter_attr'])  ? implode(',', array_unique(array_diff($_POST['filter_attr'],array(0)))) : 0;
     /* Ext */
@@ -225,12 +235,16 @@ if ($_REQUEST['act'] == 'edit')
     CKeditor('long_desc', $cat_info['long_desc']);
 
     $smarty->assign('cat_info',    $cat_info);
+    $smarty->assign('article_cat_list', article_cat_list(0));
+
     $smarty->assign('form_act',    'update');
     $smarty->assign('cat_select',  cat_list(0, $cat_info['parent_id'], true));
+    $smarty->assign('article_cat_select', article_cat_list_html(0, $cat_info['related_article_cat_id']));
     $smarty->assign('goods_type_list',  goods_type_list(0)); // 取得商品类型
 
     /* 显示页面 */
     assign_query_info();
+
     $smarty->display('category_info.htm');
 }
 
@@ -283,6 +297,7 @@ if ($_REQUEST['act'] == 'update')
     $cat['show_in_nav']  = !empty($_POST['show_in_nav'])  ? intval($_POST['show_in_nav']): 0;
     $cat['style']        = !empty($_POST['style'])        ? trim($_POST['style'])        : '';
     $cat['grade']        = !empty($_POST['grade'])        ? intval($_POST['grade'])      : 0;
+    $cat['related_article_cat_id']     = !empty($_POST['related_article_cat_id'])     ? trim($_POST['related_article_cat_id'])     : '';
     $cat['filter_attr']  = !empty($_POST['filter_attr'])  ? implode(',', array_unique(array_diff($_POST['filter_attr'],array(0)))) : 0;
     $cat['cat_recommend']  = !empty($_POST['cat_recommend'])  ? $_POST['cat_recommend'] : array();
 
@@ -737,6 +752,51 @@ function insert_cat_recommend($recommend_type, $cat_id)
     {
         $GLOBALS['db']->query("DELETE FROM ". $GLOBALS['ecs']->table("cat_recommend") . " WHERE cat_id=" . $cat_id);
     }
+}
+/**
+ * Tạo ra chuỗi HTML <option> cho danh sách danh mục tin tức.
+ * Tự động thêm 'selected' cho ID được chọn.
+ *
+ * @access  public
+ * @param   integer $selected_id    ID của danh mục đang được chọn
+ * @return  string
+ */
+function article_cat_list_html($parent_id = 0, $selected = 0, $level = 0)
+{
+    // Lấy tất cả danh mục một lần duy nhất để tăng hiệu suất
+    static $res = NULL;
+    if ($res === NULL) {
+        // Lấy dữ liệu từ bảng article_cat
+        $sql = "SELECT cat_id, cat_name, parent_id FROM " . $GLOBALS['ecs']->table('article_cat') . " ORDER BY parent_id, sort_order ASC";
+        $res = $GLOBALS['db']->getAll($sql);
+    }
+
+    if (empty($res)) {
+        return '';
+    }
+
+    $html = '';
+    foreach ($res as $cat) {
+        // Chỉ xử lý các danh mục con của cấp hiện tại
+        if ($cat['parent_id'] == $parent_id) {
+            $cat_id   = $cat['cat_id'];
+            $cat_name = htmlspecialchars($cat['cat_name']);
+
+            // Tạo phần thụt đầu dòng cho danh mục con, mỗi cấp 2 ký tự &nbsp;
+            $indentation = str_repeat('&nbsp;&nbsp;', $level);
+
+            $html .= '<option value="' . $cat_id . '"';
+            // Kiểm tra và thêm 'selected' nếu ID trùng khớp
+            $html .= ($selected == $cat_id) ? ' selected="true"' : '';
+            $html .= '>';
+            $html .= $indentation . $cat_name . '</option>';
+
+            // Đệ quy để tìm các danh mục con của danh mục này (tăng level lên 1)
+            $html .= article_cat_list_html($cat_id, $selected, $level + 1);
+        }
+    }
+
+    return $html;
 }
 
 ?>

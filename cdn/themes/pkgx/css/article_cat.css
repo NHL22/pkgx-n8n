@@ -290,6 +290,7 @@ body {
     overflow: hidden;
 }
 .col_sub .cat_articles ul{
+    display: block;
     padding: 0 10px;
 }
 .cat_articles li {

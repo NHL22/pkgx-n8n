@@ -21,7 +21,7 @@
                 Giá Sỉ <strong>{if $goods.promote_price neq 0}{$goods.formated_promote_price}<del>{$goods.shop_price}</del>{else}{$goods.shop_price}{/if}</strong>
                 </div>
            <p class="cprice">Giá CK: {$goods.partner_price}</p> 
-                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+              <!--  <p class="cprice">Giá Lẻ: {$goods.deal_price}</p> -->
 								<!--    <div class="ratingresult">
                         <span class="rank rank_{$goods.comment_rank}"></span>
                         <span>{$goods.comment_count} đánh giá</span>

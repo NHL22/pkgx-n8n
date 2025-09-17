@@ -2,7 +2,6 @@
 <html lang="vi">
 <head>
     {if $keywords}<meta name="keywords" content="{$keywords}">{/if}
-    <meta name="robots" content="{$meta_robots}">
     <title>{$page_title}</title>
     <link rel="canonical" href="{$base_path}/{$article.url}">
     <link rel="alternate" href="{$base_path}/{$article.url}" hreflang="vi-vn" />
@@ -10,48 +9,42 @@
     <meta property="og:url" content="{$base_path}/{$article.url}">
     <meta property="og:image" content="{$cdn_path}/{$article.thumb}">
     <meta property="og:image:secure_url" content="{$cdn_path}/{$article.thumb}">
+    <meta name="twitter:image" content="{$cdn_path}/{$article.thumb}">
+
     <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "{$article.title}",
-            "url": "{$base_path}/{$article.url}",
-            "description": "{$description}",
-            "inLanguage": "vi-VN",
-            "datePublished": "{$article.add_time|date_format:'%Y-%m-%d'}",
-            "dateModified": "{$article.add_time|date_format:'%Y-%m-%d'}",
-            "author": {
-                "@type": "Person",
-                "name": "Phụ Kiện Điện Thoại Giá Sỉ"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "Phụ Kiện Giá Xưởng",
-                "url": "https://phukiengiaxuong.com.vn"
-            }
-        }
-    </script>
-        <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Trang chủ",
-          "item": "https://phukiengiaxuong.com.vn/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "{$article.title|escape:html}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$article.url}" // URL của danh mục hiện tại
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{$base_path}/{$article.url}"
+      },
+      "headline": "{$page_title}",
+      "description": "{$description}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{$cdn_path}/{$article.thumb}",
+        "width": 800,
+        "height": 600
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Phụ Kiện Điện Thoại Giá Sỉ",
+        "url": "https://phukiengiaxuong.com.vn/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Phụ Kiện Giá Xưởng",
+        "url": "https://phukiengiaxuong.com.vn/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.webp",
+          "width": 235,
+          "height": 45
         }
-        
-      
-        // Nếu có danh mục cha, bạn có thể chèn thêm vào giữa
-      ]
+      },
+      "datePublished": "2025-08-27T16:27:00+07:00",
+      "dateModified": "2025-08-27T16:27:00+07:00"
     }
     </script>
 </head>

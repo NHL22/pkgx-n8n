@@ -29,7 +29,7 @@
                     {/if}
                 </div>
            <p class="cprice">Giá CK: {$goods.partner_price}</p>
-                    <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p>
+                   <!-- <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p> -->
               <!--    <div class="ratingresult">
                     <span class="rank rank_{$goods.comment_rank}"></span>
                     <span>{$goods.comment_count} đánh giá</span>

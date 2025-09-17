@@ -1,0 +1,13 @@
+{if $related_articles} <div class="brand-articles-wrapper" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+  <h2 style="text-align: center; margin-bottom: 20px;">Tin tức & Hướng dẫn về {$cat_name|escape:html}</h2>
+  <div class="article-list"> {foreach from=$related_articles item=article} <div class="article-item">
+      <a href="{$article.url}" title="{$article.title|escape:html}"> {if $article.image} <div class="article-image">
+          <img src="{$cdn_path}/{$article.image}" alt="{$article.title|escape:html}" />
+        </div> {/if} <div class="article-content">
+          <h3>{$article.title|escape:html}</h3>
+          <p>{$article.summary|escape:html}</p>
+          <span class="date">{$article.add_time_formatted}</span>
+        </div>
+      </a>
+    </div> {/foreach} </div>
+</div> {/if}

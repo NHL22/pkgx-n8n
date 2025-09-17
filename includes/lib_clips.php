@@ -156,7 +156,7 @@ function add_message($message)
     $upload_size_limit = $GLOBALS['_CFG']['upload_size_limit'] == '-1' ? ini_get('upload_max_filesize') : $GLOBALS['_CFG']['upload_size_limit'];
     $status = 1 - $GLOBALS['_CFG']['message_check'];
 
-    $last_char = strtolower($upload_size_limit{strlen($upload_size_limit)-1});
+    $last_char = strtolower($upload_size_limit[strlen($upload_size_limit)-1]);
 
     switch ($last_char)
     {

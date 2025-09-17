@@ -6,104 +6,124 @@
   <script src="{$option.static_path}/js/respond.min.js"></script>
 <![endif]-->
 <head>
-<meta charset="utf-8">
 {if $description}<meta name="description" content="{$description}"/>{/if}
 {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
 <meta content="INDEX,FOLLOW" name="robots" />
-<title>Phụ Kiện {$brand.brand_name} Giá Sỉ, Bán Buôn phụ kiện {$brand.brand_name} rẻ nhất</title>
+<title>Nhà Phân Phối Phụ Kiện {$brand.brand_name} Chính Thức Tại VN</title>
 <link rel="canonical" href="{$base_path}/thuong-hieu/{$brand.site_url}.html" />
 <link rel="alternate" href="{$base_path}/thuong-hieu/{$brand.site_url}.html" hreflang="vi-vn" />
 <meta itemprop="image" content="{$brand.brand_logo}" />
 <meta property="og:image" content="{$brand.brand_logo}" />
 <meta property="og:url" itemprop="url" content="{$base_path}/thuong-hieu/{$brand.site_url}.html" />
 <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$brand.brand_logo}" />
-<!--#region Thông tin sản phẩm theo Cate, hãng, filter-->
-<script type="application/ld+json">
-{
-"@context": "https://schema.org/",
-"@type": "Product",
-"name": "{$brand.brand_name}",
-"image": ["{$brand.brand_logo}"],
-"sku": "{$brand.brand_name}",
-"mpn": "{$brand.brand_name}",
-"description":"{$description}",
-"brand": {
-"@type": "Thing",
-"name": ["Hoco","Remax","Baseus","Borofone","Airpods","Apple","Samsung","Oppo","Xiaomi","Realme","Vivo","Huawei"]
-},
-  "review": {
-    "@type": "Review",
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "5",
-      "bestRating": "5"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "Phụ Kiện Điện Thoại Giá Sỉ"
+{include file='library/html_header.lbi'}
+
+    {* --- Bắt đầu Schema ItemList cho trang danh mục --- *}
+    <script type="application/ld+json">
+    {
+      "@type": "ItemList",
+      "name": "{$page_title}",
+      "description": "{$description|escape:'json'}",
+      "numberOfItems": "{$total}",
+      "itemListElement": [
+        {* Vòng lặp `foreach` cho từng sản phẩm *}
+        {foreach from=$goods_list item=goods name=goods_list}
+        {
+          "@type": "ListItem",
+          "position": {$smarty.foreach.goods_list.iteration},
+          "item": {
+            "@type": "Product",
+            "name": "{$goods.goods_name|escape:'json'}",
+            "url": "{$base_path}/{$goods.url}",
+            "image": "{$cdn_path}/{$goods.goods_thumb}",
+            "brand": {
+                "@type": "Brand",
+                "name": "{$brand.brand_name}"
+            },
+            "sku": "{$goods.goods_sn}",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "VND",
+              "price": "{$goods.shop_price_raw}",
+              "itemCondition": "https://schema.org/NewCondition",
+              "availability": "https://schema.org/InStock"
+            },
+            "description": "{$goods.goods_brief|escape:'json'}"
+          }
+        }
+        {if !$smarty.foreach.goods_list.last},{/if}
+        {/foreach}
+      ]
     }
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5",
-    "reviewCount": "1939"
-  },
-"offers": {
-  "@type": "AggregateOffer",
-  "url": "{$base_path}/thuong-hieu/{$brand.site_url}.html",
-  "priceCurrency": "VND",
-  "lowPrice": "1000",
-  "highPrice": "100000",
-  "price": "1000",
-  "offerCount": "17563",
-  "priceValidUntil": "2059-11-20",
-  "itemCondition": "http://schema.org/NewCondition",
-  "availability": "https://schema.org/InStock"
-}
-}
-</script>
-{include file='library/html_header_nosale.lbi'}
+
+    </script>
+
+<link type="text/css" href="{$option.static_path}/css/global.css" rel="stylesheet"/>
 {insert_css files="css/brand_list.css"}
 </head>
 <body id="page_{$pname}">
 {include file='library/page_header.lbi'}
 <section>
-	{include file='library/ur_here.lbi'}
+    {include file='library/ur_here.lbi'}
+    {include file='library/cat_filter_brand.lbi'}
+{* ----- HIỂN THỊ DANH MỤC CON (VÀ NÚT XEM TẤT CẢ) ----- *}
+{if $sub_categories}
+<div class="manuwrap" style="margin-top: 15px;">
+    <div class="manunew">
 
-	<div class="col_sub">
-	{$render.before_col_sub}
-		<div class="box thin_box brand_details">
-			<h1 class="box_title">PHỤ KIỆN {$brand.brand_name}</h1>
-			<div class="bd brand_info">
-				<p class="description">
-					{if $brand.brand_logo}<img src="{$brand.brand_logo}" alt="{$brand.brand_name}">{/if}
-				</p>
-				<ul class="cat_list">
-                    {foreach from=$brand_cat_list item=cat}
-                    {if $cat.goods_count != 0}
-                    <li><h3><a href="{$cat.url}"{if $cat.cat_id eq $category} class="current"{/if}>{$cat.cat_name|escape:html}</a></h3></li>
-                    {/if}
-                    {/foreach}
-                </ul>
-			</div>
-		</div>
+        {* THÊM MỚI: Nút "Xem tất cả" chỉ hiển thị khi đang ở trong danh mục con *}
+        {if $parent_category}
+            <a href="{$parent_category.url}" class="view-all-button">
+                <span>Xem tất cả {$parent_category.name|escape:html}</span>
+            </a>
+        {/if}
 
-	{$render.after_col_sub}
-	</div>
-    <div class="col_main">
+        {* Hiển thị các danh mục con *}
+        {foreach from=$sub_categories item=sub}
+            <a href="{$sub.url}" {if $sub.cat_id eq $category}class="selected"{/if}>
+                <span>{$sub.cat_name|escape:html}</span>
+            </a>
+        {/foreach}
+    </div>
+</div>
+{/if}
+{* ----- KẾT THÚC PHẦN HIỂN THỊ DANH MỤC CON ----- *}
+    <div class="col_sub">
+    {$render.before_col_sub}
+
+    {$render.after_col_sub}
+    </div>
     {$render.before_col_main}
     <!-- #BeginLibraryItem "/library/brand_goods_list.lbi" --><!-- #EndLibraryItem -->
     {$render.after_col_main}
-    </div>
-        <div class="clr"></div>
-    {if $brand.brand_cat_desc}
 
-    <article style="margin-bottom: 10px">
-            <div class="article_content">
-            {$brand.brand_cat_desc}
-            </div>
-    </article>
-    {/if}
+        <div class="clr"></div>
+
+        {* ----- PHẦN HIỂN THỊ TIN TỨC LIÊN QUAN ĐẾN THƯƠNG HIỆU ----- *}
+{if $brand_articles}
+<div class="brand-articles-wrapper" style="padding-top: 20px; border-top: 1px solid #eee;">
+    <h2>Tin tức &amp; Đánh giá về {$brand.brand_name|escape:html}</h2>
+    <div class="article-list">
+        {foreach from=$brand_articles item=article}
+        <div class="article-item">
+            <a href="{$article.url}" title="{$article.title|escape:html}">
+                {if $article.image}
+                <div class="article-image">
+                    <img src="{$cdn_path}/{$article.image}" alt="{$article.title|escape:html}" />
+                </div>
+                {/if}
+                <div class="article-content">
+                    <h3>{$article.title|escape:html}</h3>
+                    <p>{$article.summary|escape:html}</p>
+                    <span class="date">{$article.add_time_formatted}</span>
+                </div>
+            </a>
+        </div>
+        {/foreach}
+    </div>
+</div>
+{/if}
+
     {if $brand.brand_long_desc}
     <article style="margin-bottom: 10px">
           <div class="article_content">
@@ -114,5 +134,63 @@
 {include file='library/page_footer.lbi'}
 {insert_js name='default.Desktop.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
 {include file='library/html_footer.lbi'}
+<script type="text/javascript">
+$(document).ready(function() {
+    
+    // Bắt sự kiện click trên container chứa nút "Xem thêm"
+    // Dùng event delegation để nó hoạt động cả sau khi nút được tải lại
+    $(document).on('click', '#load_more_container a', function(e) {
+        // Ngăn link tự chuyển trang
+        e.preventDefault();
+
+        var buttonLink = $(this);
+        var container = $('#load_more_container');
+        
+        // Tìm link của trang tiếp theo từ khu vực phân trang BỊ ẨN
+        var nextPageLink = $('#hidden_pager').find('a.next, a:contains("Tiếp theo"), a:contains("Trang tiếp")');
+
+        if (nextPageLink.length === 0) {
+            container.hide(); // Nếu không còn trang tiếp, ẩn nút đi
+            return;
+        }
+
+        var url = nextPageLink.attr('href');
+        
+        // Hiển thị trạng thái loading
+        container.html('<p>Đang tải...</p>');
+
+        // Thêm tham số is_ajax=1 vào URL
+        var ajaxUrl = url + (url.indexOf('?') > -1 ? '&' : '?') + 'is_ajax=1';
+
+        $.ajax({
+            url: ajaxUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Nối thêm sản phẩm mới vào danh sách
+                if (response && response.goods_list) {
+                    $('#brand_goods_list').append(response.goods_list);
+                }
+                
+                // Cập nhật lại phân trang số bị ẩn
+                if (response && response.hidden_pager) {
+                    $('#hidden_pager').html(response.hidden_pager);
+                }
+                
+                // Cập nhật lại nút "Xem thêm"
+                if (response && response.load_more_button) {
+                    container.html(response.load_more_button);
+                } else {
+                    container.hide();
+                }
+            },
+            error: function() {
+                // Nếu có lỗi, chỉ đơn giản là chuyển hướng đến trang tiếp theo
+                window.location.href = url;
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

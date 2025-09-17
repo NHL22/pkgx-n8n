@@ -1,0 +1,25 @@
+{foreach from=$artciles_list item=article}
+    <li>
+    <a href="{$article.url|escape:html}">
+    {if $article.thumb_webp}
+    <picture class="tempvideo">
+    <source width="150" height="150" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+    </picture>
+    {else}
+    <div class="tempvideo">
+    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+    </div>
+    {/if}
+    <h3>{$article.title}</h3>
+    <figure>
+    {$article.desc|truncate:225:"...":true}
+    </figure>
+    <div class="timepost">
+    <span>{$article.add_time}</span>
+    <span class="namecate">{$article.author}</span>
+    <span>• {$article.viewed} lượt xem</span>
+    </div>
+    </a>
+    </li>
+{/foreach}

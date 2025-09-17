@@ -1,0 +1,121 @@
+{if $brand_cat_actual_count > 8}
+    <div class="box-cat-list2" id="filter_sub">
+  <div class="hide-scrollbar">
+    <div class="stardust-horizontal-scroll-view hide-scrollbar">
+      <div class="box-3">
+        <div class="nav-mobilee">
+    {foreach from=$brand_cat_list item=cat}
+        {if $cat.cat_id > 0}
+         <div class="box-ca">   
+                <a href="{$cat.url}">
+                    {if $cat.icon}
+                      <div class="ima-ca">  <img width="55px" height="55px" src="{$cat.icon}" alt="{$cat.cat_name|escape:html}"></div>
+                    {/if}
+                    <div class="nam-ca">{$cat.cat_name|escape:html}</div>
+                </a>
+            </div>
+        {/if}
+    {/foreach}
+
+ </div> </div>
+    </div>
+  </div>
+</div>
+
+{else}
+<div class="box-cat-list3" id="filter_sub">
+  <div class="hide-scrollbar">
+    <div class="stardust-horizontal-scroll-view hide-scrollbar2">
+      <div class="box-3">
+        <div class="nav-mobilee2">
+    {foreach from=$brand_cat_list item=cat}
+        {if $cat.cat_id > 0}
+         <div class="box-ca">   
+                <a href="{$cat.url}">
+                    {if $cat.icon}
+                      <div class="ima-ca">  <img width="55px" height="55px" src="{$cat.icon}" alt="{$cat.cat_name|escape:html}"></div>
+                    {/if}
+                    <div class="nam-ca">{$cat.cat_name|escape:html}</div>
+                </a>
+            </div>
+        {/if}
+    {/foreach}
+
+ </div> </div>
+    </div>
+  </div>
+</div>
+{/if}
+
+
+
+<div class="brand-header" style="text-align: center; ">
+    <h1><strong>PHỤ KIỆN ĐIỆN THOẠI {$brand.brand_name|escape:html}</strong></h1>
+    <h2 class="box_title_brand">{$brand.title}</h2>
+
+    {if $brand.brand_desc}
+        <p style="font-size: 14px; color: #666;">{$brand.brand_desc}</p>
+    {/if}
+</div>
+{* ----- HIỂN THỊ DANH MỤC CON (VÀ NÚT XEM TẤT CẢ) ----- *}
+{if $sub_categories}
+<div class="box-cat-list scrollmenu" id="filter_sub2">
+<div>
+        {* Hiển thị các danh mục con *}
+        {foreach from=$sub_categories item=sub}
+            <a href="{$sub.url}" {if $sub.cat_id eq $category}class="selected"{/if}>
+                {$sub.cat_name|escape:html}
+            </a>
+        {/foreach}
+</div></div>
+{/if}
+{* ----- KẾT THÚC PHẦN HIỂN THỊ DANH MỤC CON ----- *}
+<ul class="filter_brand">
+    <li>
+        {if $recommend eq 'moi-ve'}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}?rc=moi-ve" class="new2018">Mới</a>
+        {else}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=moi-ve}?rc=moi-ve" class="new2018">Mới</a>
+        {/if}
+    </li>
+    <li>
+        {if $recommend eq 'noi-bat'}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}?rc=noi-bat" class="new2018">Nổi Bật</a>
+        {else}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=noi-bat}?rc=noi-bat" class="new2018">Nổi Bật</a>
+        {/if}
+    </li>
+    <li>
+        {if $recommend eq 'ban-chay'}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}?rc=ban-chay" class="new2018">Bán chạy</a>
+        {else}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=ban-chay}?rc=ban-chay" class="new2018">Bán chạy</a>
+        {/if}
+    </li>
+
+    {if $filter_attr_list}
+        {foreach from=$filter_attr_list item=filter_attr}
+        <li class="frange">
+            <span class="criteria">{$filter_attr.filter_attr_name|escape:html}</span>
+            <div class="fsub">
+                <i class="closefilter">x</i>
+                {foreach from=$filter_attr.attr_list item=attr}
+                <label><span {if $attr.selected}class="check"{/if}>{if $attr.selected}✓{/if}</span> <a rel="nofollow" href="{$attr.url}">{$attr.attr_value}</a></label>
+                {/foreach}
+            </div>
+        </li>
+        {/foreach}
+    {/if}
+    
+    <li>
+                <a {if $pager.sort eq 'shop_price' and $pager.order eq 'DESC'}class="price_active"{/if} href="{siy:build_uri app='brand' cid=$category bid=$brand_id page=$pager.page sort='shop_price' order='DESC'}">
+                 <span class="fcheck">&darr;</span>Giảm dần
+                </a>
+</li>
+<li>
+                <a {if $pager.sort eq 'shop_price' and $pager.order eq 'ASC'}class="price_active"{/if} href="{siy:build_uri app='brand' cid=$category bid=$brand_id  page=$pager.page sort='shop_price' order='ASC'}">
+                    <span class="fcheck">&#8593;</span>Tăng dần
+                </a>
+    </li>
+</ul>
+

@@ -1,49 +1,30 @@
-{$render.before_html_header}
-<meta charset="utf-8"> {* Chuẩn hiện đại, cần có ở đầu tiên *}
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<base href="{$base_path}/">
-
-{* --- CÁC THẺ META SEO ĐỘNG CHO TỪNG TRANG --- *}
-{* Các biến này cần được định nghĩa ở từng trang riêng (sản phẩm, danh mục...) *}
-<meta name="description" content="{$description|escape}">
-<meta name="robots" content="{if $is_noindex}noindex,nofollow{else}index,follow{/if}">
-
-{* --- OPEN GRAPH (FACEBOOK, ZALO...) --- *}
-<meta property="og:site_name" content="{$shop_name}">
-<meta property="og:locale" content="vi_VN">
-<meta property="og:type" content="website">
-<meta property="fb:app_id" content="1832942710343877">
-{* Các biến động cho OG *}
-<meta property="og:title" content="{$page_title|default:$shop_name}">
-<meta property="og:description" content="{$description|escape}">
-
-
-{* --- TWITTER CARD --- *}
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@phukiengiaxuon1"> {* Sửa lại thành handle, không phải URL *}
-<meta name="twitter:creator" content="@phukiengiaxuon1">
-<meta name="twitter:title" content="{$page_title|default:$shop_name}">
-<meta name="twitter:description" content="{$description|escape}">
-<meta name="twitter:image" content="{$og_image_url|default:$cdn_path/upload/files/profile/logo.png}">
-
-{* --- ICONS & PWA --- *}
-<link rel="shortcut icon" type="image/x-icon" href="{$cdn_path}/upload/files/profile/favicon.png">
-<link rel="apple-touch-icon" href="{$cdn_path}/upload/files/profile/logo-300x300.png">
-<meta name="theme-color" content="#fff">
-<link rel="manifest" href="/manifest.json">
-<script src="/script.js" defer></script>
-<script src="/service-worker.js" defer></script>
-
-{* --- SCHEMA JSON-LD --- *}
-{* Biến này sẽ chứa toàn bộ mã schema được tạo ra ở từng trang riêng *}
-{$schema_json_ld}
-
-{* --- CÁC THẺ KHÁC --- *}
-<link rel="dns-prefetch" href="//www.google-analytics.com">
-{if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}">{/if}
-{$render.after_html_header}
-
+    <meta charset="utf-8"> {* Chuẩn hiện đại, cần có ở đầu tiên *}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <base href="{$base_path}/">
+    <meta name="description" content="{$description|escape}">
+    <meta name="robots" content="{if $is_noindex}noindex,nofollow{else}index,follow{/if}">
+    <meta property="og:site_name" content="{$shop_name}">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="1832942710343877">
+    <meta property="og:title" content="{$page_title|default:$shop_name}">
+    <meta property="og:description" content="{$description|escape}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@phukiengiaxuon1"> {* Sửa lại thành handle, không phải URL *}
+    <meta name="twitter:creator" content="@phukiengiaxuon1">
+    <meta name="twitter:title" content="{$page_title|default:$shop_name}">
+    <meta name="twitter:description" content="{$description|escape}">
+    <link rel="shortcut icon" type="image/x-icon" href="{$cdn_path}/upload/files/profile/favicon.png">
+    <link rel="apple-touch-icon" href="{$cdn_path}/upload/files/profile/logo-300x300.png">
+    <meta name="theme-color" content="#fff">
+    <link rel="manifest" href="/manifest.json">
+    <script src="/script.js" defer></script>
+    <script src="/service-worker.js" defer></script>
+    {$schema_json_ld}
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    {if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}">{/if}
+    {$render.after_html_header}
 
 
 

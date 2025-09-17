@@ -1,9 +1,8 @@
-
 <div class="img_filter"  id="filter_sub">
     {foreach from=get_categories_tree() item='cat' name='categories'}
     <a {if $active_url eq $cat.url}class="selected"{/if} href="{$cat.url}">
         {if $cat.icon}<img width="55px" height="55px" src="{$cat.icon}" alt="{$cat.name|escape}">{/if}
-        <h3>{$cat.name}</h3>
+        <span>{$cat.name}</span>
     </a>
     {/foreach}
  </div>
@@ -11,29 +10,7 @@
 <li>
    <h1>{$cat_name}{if $brand_name} {$brand_name}{/if}</h1>
 </li>
-{if $price_grade.1}
-<li>Chọn Mức giá: </li>
-<li class="frc">
-    {foreach from=$price_grade key=i item=grade name=price_grade}
-    {if $smarty.foreach.price_grade.index < 3 and $smarty.foreach.price_grade.index > 0}
-    <a rel="nofollow" href="{$grade.url}" {if $grade.selected}class="check"{/if}>{$grade.price_range}</a>
-    {/if}
-    {/foreach}
-</li>
-{/if}
-{if $price_grade.3}
-<li class="frange">
-    <span class="criteria">Giá Khác</span>
-    <div class="fsub listprice" >
-        <i class="closefilter">x</i>
-        {foreach from=$price_grade key=i item=grade name=price_grade}
-        {if $smarty.foreach.price_grade.index > 2}
-        <label class="{if $i eq 0}all {/if}"><span {if $grade.selected}class="check"{/if}>{if $grade.selected}✓{/if}</span> <a rel="nofollow" href="{$grade.url}">{$grade.price_range}</a></label>
-        {/if}
-        {/foreach}
-    </div>
-</li>
-{/if}
+
 <li>
     {if $recommend eq 'moi-ve'}
     <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}" class="new2018"><span class="checkbox">✓</span> Mới</a>
@@ -50,37 +27,40 @@
 </li>
 <li>
     {if $recommend eq 'ban-chay'}
-    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}" class="new2018"><span class="checkbox">✓</span> Bán chạy</a>
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}" class="new2018"><span class="checkbox">✓</span> Xem Nhiều</a>
     {else}
-    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=ban-chay}" class="new2018"><span class="checkbox"></span> Bán chạy</a>
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=ban-chay}" class="new2018"><span class="checkbox"></span> Xem Nhiều</a>
     {/if}
 </li>
-<li class="frange sort-last fr">
-        <span class="criteria">Sắp xếp</span>
-        <div class="fsub sortprice">
-                <i class="closefilter">x</i>
 
-                <label>{if $pager.sort eq 'shop_price' and $pager.order eq 'ASC'}✓{/if}
-                    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page sort='shop_price' order='ASC'}">Giá từ thấp đến cao</a>
-                </label>
-                <label>{if $pager.sort eq 'shop_price' and $pager.order eq 'DESC'}✓{/if}
-                    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page sort='shop_price' order='DESC'}">Giá từ cao đến thấp</a>
-                </label>
-        </div>
-    </li>
+    <li class="frange sort-last fr">
+        <div class="extra">
+            <span class="order">
+                {$lang.order_by}{$lang.colon}
+
+                {if $pager.sort eq 'shop_price' and $pager.order eq 'ASC'}{/if}
+                    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page sort='shop_price' order='ASC'}" >  ↑Giá tăng dần</a>
+                    {if $pager.sort eq 'shop_price' and $pager.order eq 'DESC'}{/if}
+                    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page sort='shop_price' order='DESC'}"> ↓Giá giảm dần</a>
+               
+               </li>  
 </ul>
 {if $catsubs}
-    <div class="img_filter" id="filter_brand">
-    <a style="border:none">Tìm kiếm nhiều: </a>
+<div class="manuwrap">
+   <div class="manunew"> 
+   <style="border:none">Tìm kiếm nhiều: </a>
         {foreach from=$catsubs item=sub name=catsub}
         <a {if $active_url eq $sub.url}class="selected"{/if}  href="{$sub.url}">
-            <h2>{if $sub.icon}<img  width="55px" height="55px"  src="{$sub.icon}" alt="{$sub.name|escape}">{/if}
-            {if $sub.custom_name}{$sub.custom_name}{else}{$sub.name}{/if}</h2>
+            <span>{if $sub.icon}<img  width="55px" height="55px"  src="{$sub.icon}" alt="{$sub.name|escape}">{/if}
+            {if $sub.custom_name}{$sub.custom_name}{else}{$sub.name}{/if}</span>
         </a>
          {/foreach}
     </div>
+</div>
 
 {/if}
+
+
     {if $filter_attr_list}
     <ul class="filter">
 <li>Lọc theo: </li>

@@ -53,7 +53,7 @@
 		<p class="label">{$lang.backup_phone}{$lang.colon}</p>
 		<input name="mobile" type="text" value="{$consignee.mobile|escape}" id="mobile_{$sn}"/>
 
-		<p class="label">{$lang.sign_building}{$lang.colon}</p>
+		<p class="label">CCCD - MST</p>
 		<input type="text" name="sign_building" value="{$consignee.sign_building|escape}" id="sign_building_{$sn}"/>
 		<p class="label">{$lang.deliver_goods_time}{$lang.colon}</p>
 		<input type="text" name="best_time" value="{$consignee.best_time|escape}" id="best_time_{$sn}"/>

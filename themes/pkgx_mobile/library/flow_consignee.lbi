@@ -12,6 +12,13 @@
 var {$key} = "{$item}";
 {/foreach}
 </script>
-<p class="notice">Chú ý đơn hàng tối thiểu 1 triệu, đối với đơn hàng 5 triệu trở lên thanh toán trước 100% đơn hàng shop sẽ hỗ trợ tối đa 100k ship</p>
-<p class="notice">Khách hàng đặt hàng lần đầu tối thiểu 1 triệu, các đơn hàng sau tối thiểu 500k, Các đơn hàng không đạt yêu cầu shop sẽ không liên lạc</p>
-<p class="notice">Nếu bạn muốn chọn mã máy ốp hoặc mã máy cường lực vui lòng nhắn tin Zalo số <a href="https://zalo.me/0981239686">0981239686</a></p>
+
+    <div class="clr"></div>
+    <ul class="notice"> 
+    <li>SHOP KHÔNG BÁN LẺ</li>
+    <li>Đơn hàng tối thiểu 1 triệu</li>
+    <li>Đối với đơn hàng 5 triệu trở lên thanh toán trước 100% đơn hàng shop sẽ hỗ trợ tối đa 100k ship</li>
+  <li>Khách hàng đặt hàng lần đầu tối thiểu 1 triệu, các đơn hàng sau tối thiểu 500k</li>
+    <li>Nếu bạn muốn chọn mã máy ốp hoặc mã máy cường lực vui lòng nhắn tin Zalo số <a href="https://zalo.me/{$service_phone}">{$service_phone}</a> hoặc ghi chú vào đơn hàng.</li>
+    </ul>
+

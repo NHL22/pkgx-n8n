@@ -1,0 +1,12 @@
+{if $related_articles} <div class="brand-articles-wrapper" >
+  <h2>Tin tức & Hướng dẫn về {$cat_name|escape:html}</h2>
+  <ul class="news"> {foreach from=$related_articles item=article} <li>
+      <a href="{$article.url}" title="{$article.title|escape:html}"> {if $article.image} 
+          <img src="{$cdn_path}/{$article.image}" alt="{$article.title|escape:html}" />
+         {/if} 
+          <h3>{$article.title|escape:html}</h3>
+          <span>{$article.summary|escape:html}</span>
+          <span class="date">{$article.add_time_formatted}</span>
+      </a>
+    </li> {/foreach} </ul>
+</div> {/if}

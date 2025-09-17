@@ -2,14 +2,15 @@
 <html lang="vi">
 <head>
     {if $keywords}<meta name="keywords" content="{$keywords}">{/if}
-    <meta name="robots" content="{$meta_robots}">
     <title>{$page_title}</title>
     <link rel="canonical" href="{$base_path}/{$article.url}">
     <link rel="alternate" href="{$base_path}/{$article.url}" hreflang="vi-vn" />
     {include file='library/html_header.lbi'}
     <meta property="og:url" content="{$base_path}/{$article.url}">
-    <meta property="og:image" content="{$cdn_path}/{$article.thumb_webp}">
-    <meta property="og:image:secure_url" content="{$cdn_path}/{$article.thumb_webp}">
+    <meta property="og:image" content="{$cdn_path}/{$article.thumb}">
+    <meta property="og:image:secure_url" content="{$cdn_path}/{$article.thumb}">
+    <meta name="twitter:image" content="{$cdn_path}/{$article.thumb}">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -43,24 +44,7 @@
         }
       },
       "datePublished": "2025-08-27T16:27:00+07:00",
-      "dateModified": "2025-08-27T16:27:00+07:00",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Trang chủ",
-            "item": "https://phukiengiaxuong.com.vn/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "{$page_title}",
-            "item": "{$cdn_path}/{$article.thumb}"
-          }
-        ]
-      }
+      "dateModified": "2025-08-27T16:27:00+07:00"
     }
     </script>
 {insert_css files="css/global.css,css/article.css,css/toc.css"}

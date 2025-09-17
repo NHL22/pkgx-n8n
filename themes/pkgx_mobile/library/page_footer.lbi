@@ -3,7 +3,7 @@
 
 <div class="box clearfix ">
    <div class="hd">
-       <div class="box_title">Link cộng đồng Signal sỉ</div>
+       <div class="box_title">Link cộng đồng ZALO sỉ</div>
    </div>
 <div class="bottom-search__container">
             <ul>
@@ -19,6 +19,29 @@
  </div>
  </div>
 {include file='library/links.lbi'}
+
+<div class="sec">
+
+<div class="box clearfix ">
+   <div class="hd">
+       <div class="box_title">Chính sách</div>
+   </div>
+<div class="bottom-search__container">
+            <ul>
+            {foreach from=$helps item=help_cat name=helps}
+             {foreach from=$help_cat.article item=item name=help_list}
+            {if $smarty.foreach.help_list.index < 6}
+            <li><a href="{$item.url}">{$item.title}</a></li>
+            {/if}
+            {/foreach}
+        {/foreach}
+            </ul>
+   </div>
+ </div>
+ </div>
+
+
+
 <footer>
 
 
@@ -39,7 +62,7 @@
 <p>- Sản phẩm trên 100k tối thiểu 3c</p>
 <p>- Gửi đơn hàng sỉ khách chịu phí ship</p>
 <p>- Thời gian nhận hàng có thể từ 3-5 ngày tuỳ địa điểm của khách</p>
-<p>- Giao hàng toàn quốc COD ( Lần đầu tiên giao dịch yêu cầu khách chuyển cọc 500k Áp dụng cho đơn trên 5 triệu )</p>
+<p>- Giao hàng toàn quốc </p>
 
     </div>
     <div class="buycall">
@@ -48,24 +71,18 @@
            <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_fanpage}"><img src="{$cdn_path}/upload/files/social/facebook.svg" alt="facebook"></a>
                <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_message}"><img src="{$cdn_path}/upload/files/social/messenger.svg" alt="messager"></a>
                <a target="_blank" rel="nofollow noreferrer noopener" href="{$link_zalo}"><img src="{$cdn_path}/upload/files/social/zalo.svg" alt="zalo"></a>
-               <a target="_blank" rel="nofollow noreferrer noopener" href="{$skype}"><img src="{$cdn_path}/upload/files/social/signal-icon.svg" alt="Signal"></a>
 
-        </li>
+        <p>  <a id="switchDevices" data-client='desktop'  href="javascript:window.location.href='?client=desktop'" rel="nofollow">Phiên bản Desktop</a>
+</p>
+
     </div>
-    <div class="infoother" id="_infoother">Các thông tin khác <span></span></div>
-    <div class="subother" id="_subother">
-        {foreach from=$helps item=help_cat name=helps}
-        <ul class="colfoot">
-             {foreach from=$help_cat.article item=item name=help_list}
-            {if $smarty.foreach.help_list.index < 6}
-            <li><a href="{$item.url}">{$item.title}</a></li>
-            {/if}
-            {/foreach}
-            <li><a id="switchDevices" data-client='desktop'  href="javascript:window.location.href='?client=desktop'" rel="nofollow">Phiên bản Desktop</a></li>
-        </ul>
-        {/foreach}
+
+   <!-- <div class="infoother" id="_infoother">Các thông tin khác <span></span></div>
+
         <div class="clr"></div>
-    </div>
+    <div class="subother" id="_subother">
+
+    </div> -->
     <div class="clr"></div>
     <div class="copyright">©2025 phukiengiaxuong.com.vn Copyright, All Rights Reserved. </div>
     <a href="#top" rel="nofollow" title="Về Đầu Trang" id="back-top">↑</a>
@@ -87,4 +104,3 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- <script type="text/javascript" src="https://phukiengiaxuong.com.vn/cdn/scripts/tet.js"></script> -->

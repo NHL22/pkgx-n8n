@@ -1,0 +1,80 @@
+<div class="img_filter" id="filter_sub">
+    {foreach from=$brand_cat_list item=cat}
+        {if $cat.cat_id > 0}
+            <a href="{$cat.url}" {if $cat.cat_id eq $category}class="selected"{/if}>
+                {if $cat.icon}
+                    <img width="55px" height="55px" src="{$cat.icon}" alt="{$cat.cat_name|escape:html}">
+                {/if}
+                <span>{$cat.cat_name|escape:html}</span>
+            </a>
+        {/if}
+    {/foreach}
+    {if $category > 0}
+             <a href="{$brand_url_no_cat}" class="view-all-button">
+                 <span>Xem tất cả sản phẩm {$brand.brand_name|escape:html}</span>
+             </a>
+    {/if}
+
+</div>
+<div class="brand-header" style="text-align: center; margin-bottom: 10px;">
+    <h1><strong>PHỤ KIỆN ĐIỆN THOẠI {$brand.brand_name|escape:html}</strong></h1>
+    {if $brand.brand_desc}
+        <p style="font-size: 14px; color: #666;">{$brand.brand_desc}</p>
+    {/if}
+</div>
+<ul class="filter">
+    <li class="hd">
+        <h2 class="box_title_brand">{$brand.title}</h2>
+    </li>
+    <li>
+        {if $recommend eq 'moi-ve'}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}?rc=moi-ve" class="new2018"><span class="checkbox">✓</span> Mới</a>
+        {else}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=moi-ve}?rc=moi-ve" class="new2018"><span class="checkbox"></span> Mới</a>
+        {/if}
+    </li>
+    <li>
+        {if $recommend eq 'noi-bat'}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}?rc=noi-bat" class="new2018"><span class="checkbox">✓</span> Nổi Bật</a>
+        {else}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=noi-bat}?rc=noi-bat" class="new2018"><span class="checkbox"></span> Nổi Bật</a>
+        {/if}
+    </li>
+    <li>
+        {if $recommend eq 'ban-chay'}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}?rc=ban-chay" class="new2018"><span class="checkbox">✓</span> Xem Nhiều</a>
+        {else}
+        <a href="{siy:build_uri app='brand' bid=$brand_id cid=$category price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=ban-chay}?rc=ban-chay" class="new2018"><span class="checkbox"></span> Xem Nhiều</a>
+        {/if}
+    </li>
+
+    {if $filter_attr_list}
+        {foreach from=$filter_attr_list item=filter_attr}
+        <li class="frange">
+            <span class="criteria">{$filter_attr.filter_attr_name|escape:html}</span>
+            <div class="fsub">
+                <i class="closefilter">x</i>
+                {foreach from=$filter_attr.attr_list item=attr}
+                <label><span {if $attr.selected}class="check"{/if}>{if $attr.selected}✓{/if}</span> <a rel="nofollow" href="{$attr.url}">{$attr.attr_value}</a></label>
+                {/foreach}
+            </div>
+        </li>
+        {/foreach}
+    {/if}
+    
+    <li class="frange sort-last fr">
+        <div class="extra">
+            <span class="order">
+                {$lang.order_by}{$lang.colon}
+                <a {if $pager.sort eq 'shop_price' and $pager.order eq 'DESC'}class="price_active"{/if} href="{siy:build_uri app='brand' cid=$category bid=$brand_id page=$pager.page sort='shop_price' order='DESC'}">
+                 <span class="fcheck">&darr;</span>Giá giảm dần
+                </a> |
+                <a {if $pager.sort eq 'shop_price' and $pager.order eq 'ASC'}class="price_active"{/if} href="{siy:build_uri app='brand' cid=$category bid=$brand_id  page=$pager.page sort='shop_price' order='ASC'}">
+                    <span class="fcheck">&#8593;</span>Giá tăng dần
+                </a>
+
+            </span>
+        </div>
+    </li>
+</ul>
+

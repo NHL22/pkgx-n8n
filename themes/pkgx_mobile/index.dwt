@@ -51,6 +51,24 @@
       ]
     }
     </script>
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://phukiengiaxuong.com.vn/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://phukiengiaxuong.com.vn/tim-kiem?keywords={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <!--#endregion-->
     <!--Private Stylesheet -->
     {insert_css files="owl-carousel/owl.carousel.2.1.css,css/global.css,css/index.css"}
@@ -144,7 +162,6 @@
             }
 
         .products_cate .products_cate_item{
-            width:  19%;
             padding: 10px;
             display:  inline-block;
             box-sizing: border-box;
@@ -154,6 +171,8 @@
             overflow: hidden;
             background: #fff;
             margin: 0 8px 0 0;
+            width: 100px;
+    height: 107px;
             border-radius: 12px;
         }
         .products_cate .products_cate_item.actived {
@@ -237,6 +256,24 @@
     </div>
   </div>
 </div>
+{* ----- BẮT ĐẦU KHỐI HIỂN THỊ THƯƠNG HIỆU ----- *}
+{if $index_brands}
+<div class="brand-slider-mobile box-cat-list scrollmenu">
+<div>
+{foreach from=$index_brands item=brand}
+<a href="{$brand.url}" class="brand-item">
+{if $brand.brand_logo}
+<img src="{$brand.brand_logo}" alt="{$brand.brand_name|escape:html}" />
+{else}
+<span>{$brand.brand_name|escape:html}</span>
+{/if}
+</a>
+{/foreach}
+</div>
+</div>
+
+{/if}
+{* ----- KẾT THÚC KHỐI HIỂN THỊ THƯƠNG HIỆU ----- *}
 <!-- TemplateBeginEditable name="Recommend" -->
 <!-- #BeginLibraryItem "/library/recommend_new.lbi" -->
 {if $new_goods}
@@ -254,7 +291,6 @@
                 {else}
                 <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
                 {/if}
-                {if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
                 {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
                 {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
                 <h3>{$goods.name|escape:html}</h3>
@@ -266,7 +302,12 @@
                     {/if}
                 </div>
                 <p class="cprice">Giá CK: {$goods.partner_price}</p>
-                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+               <!-- <p class="price">Giá Lẻ: {$goods.deal_price}</p> -->
+                               <div class="labelw">
+            {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+            {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+            {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+            </div>
                 <div class="promotion clr">{$goods.seller_note}</div>
             </a>
              <div class="form_add form_add{$goods.id}">
@@ -338,6 +379,55 @@
 </div>
 
  <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/brands.lbi" -->
+{if $brand_list}
+<div class="box-catalog box-brands">
+    <div class="box-cat-title">
+        <h2 class="h3">Thương hiệu nổi bật</h2>
+    </div>
+    <ul class="brands_list clearfix">
+        {foreach from=$brand_list item=brand name=brand}
+        <li>
+            <h3><a href="{$brand.url}">
+            {if $brand.brand_logo}
+            <img src="{$cdn_path}/data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name|escape:html}"/>
+            {else}
+            {$brand.brand_name}
+            {/if}
+            </a></h3>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+{/if}
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" -->
+<div class="box-cat cat_goods {if $goods_cat.id eq 382}show{/if}" id="catalog-{$goods_cat.id}" data-name="{$goods_cat.name|escape:html}" data-url="{$goods_cat.url}" data-id="{$goods_cat.id}" data-icon="{$goods_cat.icon}">
+<ul class="homeproduct"></ul>
+<div class="view_more">
+<a rel="nofflow" href="javascript:loadMore('{$goods_cat.url}',2,{$goods_cat.id})">Xem thêm</a>
+</div>
+</div>
+
+ <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
  </div>
     <!-- TemplateBeginEditable name="Bottom" -->
@@ -351,11 +441,11 @@
             <a href="{$article.url}" title="{$article.title|escape:html}">
                 {if $article.sthumb_webp}
                 <picture>
-                    <source width="100" height="70" srcset="{$cdn_path}/{$article.sthumb_webp}" type="image/webp" />
-                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                    <source width="100" height="70" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
                 </picture>
                 {else}
-                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.sthumb}">
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
                 {/if}
                 <h3>{$article.title|escape:html}</h3>
                 <div><span>{$article.add_time}</span></div>
@@ -386,8 +476,8 @@
 
         // Tạo danh mục recomend
         let cate_rec = '';
-        let current_id = 302;
-    let current_url = 'hang-theo-loai-ban.html';
+        let current_id = 37;
+    let current_url = 'si-tai-nghe.html';
         $("#products_today .cat_goods").each(function(){
             let cat_name = $(this).data('name');
             let url = $(this).data('url');

@@ -6,49 +6,16 @@
   <script src="{$option.static_path}/js/respond.min.js"></script>
 <![endif]-->
 <head>
-    <meta charset="utf-8">
     {include file='library/html_header.lbi'}
     {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
-    <meta content="{$meta_robots}" name="robots" />
     <title>{$page_title}</title>
     <link rel="canonical" href="{$base_path}/{$goods.url}"/>
     <link rel="alternate" href="{$base_path}/{$goods.url}" hreflang="vi-vn" />
     <meta property="og:url" itemprop="url" content="{$base_path}/{$goods.url}" />
     <meta itemprop="image" content="{$cdn_path}/{$goods.goods_img}" />
-    <meta property="og:title" content="{$page_title}" />
-
     <meta property="og:image" content="{$cdn_path}/{$goods.goods_img}" />
     <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$cdn_path}/{$goods.goods_img}" />
     <meta property="og:image:alt" content="{$goods.goods_name}" />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Trang chủ",
-          "item": "https://phukiengiaxuong.com.vn/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "{$cat_info.cat_name}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$cat_info.url}" // URL của danh mục hiện tại
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "{$goods.goods_name}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$goods.url}" // URL của danh mục hiện tại
-        }
-        
-      
-        // Nếu có danh mục cha, bạn có thể chèn thêm vào giữa
-      ]
-    }
-    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
@@ -65,20 +32,20 @@
         "@type": "Brand",
         "name": "{$goods.goods_brand}"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        // TODO: Thay biến này bằng biến chứa điểm đánh giá trung bình thực tế (ví dụ: 4.5)
-        "ratingValue": "", 
-        // TODO: Thay biến này bằng biến chứa tổng số lượng đánh giá thực tế
-        "reviewCount": "" 
-      },
       "offers": {
         "@type": "Offer",
         "url": "{$base_path}/{$goods.url}",
         "priceCurrency": "VND",
-        "price": "{$goods.shop_price}",
+        "price": "{$goods.shop_price_raw}",
         "itemCondition": "https://schema.org/NewCondition",
         "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{$avg_rating}",
+        "reviewCount": "{$review_count}",
+        "bestRating": "5",
+        "worstRating": "1"
       }
     }
     </script>
@@ -127,11 +94,10 @@
         <!-- TemplateBeginEditable name="Comment" -->
 <!-- #BeginLibraryItem "/library/comments.lbi" -->
 <div class="comment_box" id="comment">
-	<div class="hd"><h2>Có <em>{siy:comment_count id=$id type=$type}</em> Đánh giá</h2></div>
+	<div class="hd"><div>Có <em>{siy:comment_count id=$id type=$type}</em> Đánh giá</div></div>
 	<div id="comment_wrapper">{insert name='comments' type=$type id=$id}</div>
 </div>
  <!-- #EndLibraryItem -->
-
 <!-- TemplateEndEditable -->
         {$render.after_goods_info}
  </div>
@@ -166,7 +132,14 @@
 		{foreach from=$goods_article_list item=article name=goods_article_list}
 		<li>
             <a href="{$article.url}">
-                <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}{$article.sthumb}">
+            	{if $article.thumb}
+                <picture>
+                    <source width="100" height="70" srcset="{$cdn_path}/{$article.thumb}" type="image/webp" />
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                </picture>
+                {else}
+                    <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
+                {/if}
                 <h3>{$article.title|escape:html}</h3>
                 <span>{$article.viewed} lượt xem</span>
             </a>
@@ -182,13 +155,25 @@
 <!-- #BeginLibraryItem "/library/recommend_best.lbi" -->
 {if $best_goods}
  <div class="box recommend_best">
-    <h2 class="box_title">Top sản phẩm {$lang.best_goods}</h2>
-	<ul class="box homeproduct {if $pname eq 'index'}_nextpre owl-carousel owl-theme{/if}" id="best_goods">
+  <div class="hd">
+        <div class="box_title">Top sản phẩm {$lang.best_goods}</div>
+        <div class="extra"><a href="tim-kiem?intro=best">Xem tất cả</a></div>
+    </div>
+	<ul class="homeproduct {if $pname eq 'index'}_nextpre owl-carousel owl-theme{/if}" id="best_goods">
 		{foreach from=$best_goods item=goods name=best_goods}
 		<li data-id="{$goods.id}">
             {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
 			<a href="{$goods.url}" title="{$goods.name|escape:html}">
-                <img class="photo" src="{$cdn_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.is_hot} <span class="icon_hot"></span> {/if}
+                {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
                 <h3>{$goods.name|escape:html}</h3>
                 <div class="price">
                     Giá Sỉ
@@ -198,19 +183,28 @@
                      <strong>{$goods.shop_price}</strong>
                     {/if}
                 </div>
-              <p class="cprice">Giá CK: {$goods.partner_price}</p>
-                    <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
-                 <!--  <div class="ratingresult">
+           <p class="cprice">Giá CK: {$goods.partner_price}</p> 
+                 <!--    <p class="cprice">Giá Bán Lẻ: {$goods.deal_price}</p> -->
+              <!--    <div class="ratingresult">
                     <span class="rank rank_{$goods.comment_rank}"></span>
                     <span>{$goods.comment_count} đánh giá</span>
                 </div> -->
-                <div class="promotion">{$goods.seller_note}</div>
+                <div class="promotion clr">{$goods.seller_note}</div>
             </a>
+             <div class="form_add form_add{$goods.id}">
+            <div class="button-container">
+                <button onclick="qtyMinus(this)" class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                <input type="text" min="1" max="10" class="qty qty{$goods.id}" step="1" name="goods_number" value="1">
+                <button onclick="qtyPlus(this)"  class="qty_button cart-qty-plus" type="button" value="+">+</button>
+            </div>
+            <button class="quick_add" type="button" onclick="quickBuy({$goods.id})"><i class="icontgdd-cart"></i></button>
+        </div>
 		</li>
 		{/foreach}
 	</ul>
 </div>
 {/if}
+
  <!-- #EndLibraryItem -->
 <!-- #BeginLibraryItem "/library/goods_related.lbi" -->
 {if $related_goods}
@@ -222,18 +216,31 @@
 		{foreach from=$related_goods item=releated_goods_data name=related_goods}
 		<li>
 			<a href="{$releated_goods_data.url}">
-                <img src="{$cdn_path}{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+                {if $releated_goods_data.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$releated_goods_data.thumb_webp}" type="image/webp" />
+                    <img src="{$cdn_path}/{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+                </picture>
+                {else}
+                <img src="{$cdn_path}/{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/>
+                {/if}
+                {if $releated_goods_data.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+
 				<h3>{$releated_goods_data.goods_name}</h3>
                 <div class="price">
                 Giá sỉ <strong>{if $releated_goods_data.promote_price neq 0}{$releated_goods_data.formated_promote_price}<del>{$releated_goods_data.shop_price}</del>{else}{$releated_goods_data.shop_price}{/if}</strong>
                 </div>
-                <p class="cprice">Giá CK: {$releated_goods_data.partner_price}</p>
-                <p class="cprice">Giá Lẻ: {$releated_goods_data.deal_price}</p>
-
-              <!--  <div class="ratingresult">
-                   <span class="rank rank_{$goods.comment_rank}"></span>
-                   <span>{$releated_goods_data.comment_count} đánh giá</span>
-               </div> -->
+            <p class="cprice">Giá CK: {$releated_goods_data.partner_price}</p> 
+             <!--   <p class="cprice">Giá Lẻ: {$releated_goods_data.deal_price}</p> -->
+                          <div class="labelw">
+                {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+                {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+                {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+                </div>
+            <!--      <div class="ratingresult">
+                    <span class="rank rank_{$goods.comment_rank}"></span>
+                    <span>{$releated_goods_data.comment_count} đánh giá</span>
+                </div> -->
             </a>
 
 		</li>
@@ -241,6 +248,7 @@
 	</ul>
 </div>
 {/if}
+
  <!-- #EndLibraryItem -->
 <!-- #BeginLibraryItem "/library/goods_fittings.lbi" -->
 {if $fittings}
@@ -250,16 +258,23 @@
 		{foreach from=$fittings item=goods name=fittings}
 		<li>
 			<a href="{$goods.url}">
-                <img width="150px" height="150px" src="{$cdn_path}{$goods.goods_thumb}" alt="{$goods.short_name|escape:html}"/>
+                {if $goods.thumb_webp}
+                <picture>
+                    <source width="180" height="180" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="180" height="180" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.short_name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="180" height="180" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.short_name|escape:html}"/>
+                {/if}
 				<h3>{$goods.short_name}</h3>
 				<strong>{if $goods.promote_price neq 0}{$goods.formated_promote_price}<del>{$goods.shop_price}</del>{else}{$goods.shop_price}{/if}</strong>
-               <p class="cprice">Giá CK: {$goods.partner_price}</p>
-                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
-
-                <!--  <div class="ratingresult">
-                   <span class="rank rank_{$goods.comment_rank}"></span>
-                   <span>{$goods.comment_count} đánh giá</span>
-               </div> -->
+              <p class="cprice">Giá CTV: {$goods.partner_price}</p>
+           <!--     <p class="cprice">Giá Lẻ: {$goods.deal_price}</p> -->
+          <div class="labelw">
+                {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+                {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+                {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+                </div>
             </a>
             <p class="actions">
                 <a href="javascript:fittings_to_flow({$goods.goods_id},{$goods.parent_id})" class="btn_fittings">Mua kèm</a>
@@ -269,6 +284,7 @@
 	</ul>
 </div>
 {/if}
+
  <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
     {$render.after_col_sub}

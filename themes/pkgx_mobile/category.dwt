@@ -6,47 +6,23 @@
   <script src="{$option.static_path}/js/respond.min.js"></script>
 <![endif]-->
 <head>
-    <meta charset="utf-8">
     {include file='library/html_header.lbi'}
     {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
-    <meta content="{$meta_robots}" name="robots" />
     <title>{$page_title}</title>
     <link rel="canonical" href="{$base_path}/{$cat_url}"/>
     <link rel="alternate" href="{$base_path}/{$cat_url}" hreflang="vi-vn" />
     <meta property="og:url" itemprop="url" content="{$base_path}/{$cat_url}" />
-    <meta property="og:title" content="{$page_title}" />
     <meta itemprop="image" content="{$cat_thumb}" />
     <meta property="og:image" content="{$cat_thumb}" />
     <meta property="og:image:alt" content="{$page_title}" />
     <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$cat_thumb}" />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Trang chủ",
-          "item": "https://phukiengiaxuong.com.vn/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "{$cat_name}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$cat_url}" // URL của danh mục hiện tại
-        }
-        // Nếu có danh mục cha, bạn có thể chèn thêm vào giữa
-      ]
-    }
-    </script>
     {* --- Bắt đầu Schema ItemList cho trang danh mục --- *}
     <script type="application/ld+json">
-        {
+    {
       "@type": "ItemList",
       "name": "{$cat_name|escape:'json'}",
       "description": "{$description|escape:'json'}",
-      "numberOfItems": "{$total_products_in_cat}",
+      "numberOfItems": "{$count}",
       "itemListElement": [
         {* Vòng lặp `foreach` cho từng sản phẩm *}
         {foreach from=$goods_list item=goods name=goods_list}
@@ -66,7 +42,7 @@
             "offers": {
               "@type": "Offer",
               "priceCurrency": "VND",
-              "price": "{if $goods.promote_price}{$goods.promote_price|replace:','|replace:'.''}{else}{$goods.shop_price|replace:','|replace:'.''}{/if}",
+              "price": "{$goods.shop_price_raw}",
               "itemCondition": "https://schema.org/NewCondition",
               "availability": "https://schema.org/InStock"
             },
@@ -93,10 +69,6 @@
     </div>
     <div class="slidehome">
     <!-- TemplateBeginEditable name="BannerHome" -->
-<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
-
-
- <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
 </div>
 
@@ -109,6 +81,14 @@
             <span class="box_total">({$count} sản phẩm)</span>
         </div>
     </div>
+    {if $cat_desc}
+<div class="clr"></div>
+<article>
+        <div class="article_content">
+        {$cat_desc}
+        </div>
+</article>
+{/if}
     {if $catsubs}
     <div class="box-cat-list scrollmenu" id="filter_sub">
         <div >
@@ -121,37 +101,63 @@
 {include file='library/cat_filter.lbi'}
     <!-- TemplateBeginEditable name="Main" -->
 <!-- #BeginLibraryItem "/library/goods_list.lbi" -->
+
 {if $goods_list}
-<ul class="homeproduct">
+{if $is_ajax neq 1}
+<ul class="homeproduct" id="_loadList">
+{/if}
 	{foreach from=$goods_list item=goods name=goods_list}
 	{if $goods.goods_id}
 	<li>
+               <div class="labelw">
+            {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+            {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+            {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+            </div>
         <a href="{$goods.url}" title="{$goods.name|escape:html}">
-            <img class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
-            {if $goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
-            {if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+			{if $goods.thumb_webp}
+            <picture>
+                <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
+            </picture>
+            {else}
+            <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.goods_thumb}" alt="{$goods.name|escape:html}"/>
+            {/if}
+{if $goods.goods_number eq 0} <p class="preorder">Hàng đang về</p>{/if}
+            {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+
             <h3>{$goods.name|escape:html}</h3>
             <div class="price">
-                 {if $goods.promote_price}
+                 Giá sỉ {if $goods.promote_price}
                 <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
                  {else}
                  <strong>{$goods.shop_price}</strong>
                 {/if}
+
             </div>
-        <!--    <div class="ratingresult">
-                <span class="rank rank_{$goods.comment_rank}"></span>
-                <span>{$goods.comment_count} đánh giá</span>
-            </div> -->
+         <p class="cprice">Giá CK: {$goods.partner_price}</p>
+                 <!--   <p class="cprice">Giá Lẻ: {$goods.deal_price}</p> -->
             <div class="promotion clr">{$goods.seller_note}</div>
         </a>
+         <div class="form_add form_add{$goods.goods_id}">
+            <div class="button-container">
+                <button onclick="qtyMinus(this)" class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                <input type="text" min="1" max="10" class="qty qty{$goods.goods_id}" step="1" name="goods_number" value="1">
+                <button onclick="qtyPlus(this)" class="qty_button cart-qty-plus" type="button" value="+">+</button>
+            </div>
+            <button class="quick_add" type="button" onclick="quickBuy({$goods.goods_id})"><i class="iconmobile-cart"></i></button>
+        </div>
     </li>
 	{/if}
 	{/foreach}
+{if $is_ajax neq 1}
 </ul>
-{include file='library/pages_simple.lbi'}
+{include file='library/pages_ajax.lbi'}
+{/if}
 {else}
 <p class="empty">{$lang.goods_empty}</p>
 {/if}
+
 
  <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
@@ -163,20 +169,112 @@
     </form>
 </div>
     <!-- TemplateBeginEditable name="Bottom" -->
+<!-- #BeginLibraryItem "/library/recommend_best.lbi" -->
+{if $best_goods}
+<div class="best-good">
+    <div class="hometitle best_goods">Sản phẩm {$lang.best_goods}</div>
+    <div class="overpromo">
+    <ul class="homeproduct listpromo" id="show_best">
+        {foreach from=$best_goods item=goods name=best_goods}
+        <li data-id="{$goods.id}">
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+            {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+                <h3>{$goods.name|escape:html}</h3>
+                <div class="price">
+                     {if $goods.promote_price}
+                    <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                     {else}
+                    Giá sỉ: <strong>{$goods.shop_price}</strong>
+                    {/if}
+                </div>
+                 <p class="cprice">Giá CK: {$goods.partner_price}</p>
+
+              <!--  <p class="cprice">Giá Lẻ: {$goods.deal_price}</p> -->
+               <div class="labelw">
+            {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+            {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+            {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+            </div>
+            </a>
+            <div class="form_add form_add{$goods.id}">
+            <div class="button-container">
+                <button onclick="qtyMinus(this)" class="qty_button cart-qty-minus" type="button" value="-">-</button>
+                <input type="text" min="1" max="10" class="qty qty{$goods.id}" step="1" name="goods_number" value="1">
+                <button onclick="qtyPlus(this)" class="qty_button cart-qty-plus" type="button" value="+">+</button>
+            </div>
+            <button class="quick_add" type="button" onclick="quickBuy({$goods.id})"><i class="iconmobile-cart"></i></button>
+        </div>
+        </li>
+        {/foreach}
+    </ul>
+    </div>
+    </div>
+{/if}
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/recommend_hot.lbi" -->
+{if $hot_goods}
+<div class="hot_goods recommend_goods box">
+    <div class="hd">
+        <div class="box_title">Sản phẩm {$lang.hot_goods}</div>
+        <div class="extra"><a href="tim-kiem?intro=hot">Xem tất cả</a></div>
+    </div>
+    <div class="overpromo">
+    <ul class="homeproduct listpromo" id="show_hot">
+        {foreach from=$hot_goods item=goods name=hot_goods}
+        <li data-id="{$goods.id}">
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+                                {if $goods.thumb_webp}
+                <picture>
+                    <source width="150" height="150" srcset="{$cdn_path}/{$goods.thumb_webp}" type="image/webp" />
+                    <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                </picture>
+                {else}
+                <img width="150" height="150" class="photo" src="{$cdn_path}/{$goods.thumb}" alt="{$goods.name|escape:html}"/>
+                {/if}
+                {if $goods.discount}<span class="rate">Giảm {$goods.discount}</span>{/if}
+                {if $hot_goods.is_hot eq 1} <span class="icon_hot"></span> {/if}
+
+                <h3>{$goods.name|escape:html}</h3>
+                <div class="price">
+                     {if $goods.promote_price}
+                    <strong>{$goods.promote_price}</strong><span>{$goods.shop_price}</span>
+                     {else}
+                    Giá sỉ: <strong>{$goods.shop_price}</strong>
+                    {/if}
+                </div>
+               <p class="cprice">Giá CK: {$goods.partner_price}</p> 
+
+           <!--     <p class="cprice">Giá Lẻ: {$goods.deal_price}</p> -->
+               <div class="labelw">
+            {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
+            {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
+            {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+            </div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    </div>
+</div>
+{/if}
+
+ <!-- #EndLibraryItem -->
 <!-- #BeginLibraryItem "/library/history.lbi" -->
 {siy:history}
  <!-- #EndLibraryItem -->
 <!-- TemplateEndEditable -->
-{if $cat_desc}
-<div class="clr"></div>
-<article style="margin-bottom: 10px">
-        <div class="article_content">
-        {$cat_desc}
-        </div>
-</article>
-{/if}
-<div class="catesearch">
+{include file='library/article_category.lbi'} 
 
+<div class="catesearch">
 </div>
     {if $long_desc}
     <div class="clr"></div>

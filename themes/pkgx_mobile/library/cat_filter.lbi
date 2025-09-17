@@ -44,21 +44,27 @@
 <div class="sort-bar-container">
     <ul class="sort-bar">
         
-        <li class="{if $recommend eq 'noi-bat'}active{/if}">
-            <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc='noi-bat'}">Nổi bật</a>
-        </li>
-
-        <li class="{if $recommend eq 'ban-chay'}active{/if}">
-            <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc='ban-chay'}">Bán chạy</a>
-        </li>
-
-        <li class="{if $recommend eq 'giam-gia'}active{/if}">
-            <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc='giam-gia'}">Giảm giá</a>
-        </li>
-
-        <li class="{if $recommend eq 'moi-ve'}active{/if}">
-            <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc='moi-ve'}">Mới</a>
-        </li>
+<li>
+    {if $recommend eq 'moi-ve'}
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}" class="new2018"><span class="checkbox">✓</span> Mới</a>
+    {else}
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=moi-ve}" class="new2018"><span class="checkbox"></span> Mới</a>
+    {/if}
+</li>
+<li>
+    {if $recommend eq 'noi-bat'}
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}" class="new2018"><span class="checkbox">✓</span> Nổi Bật</a>
+    {else}
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=noi-bat}" class="new2018"><span class="checkbox"></span> Nổi Bật</a>
+    {/if}
+</li>
+<li>
+    {if $recommend eq 'ban-chay'}
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page}" class="new2018"><span class="checkbox">✓</span> Xem Nhiều</a>
+    {else}
+    <a href="{siy:build_uri app='category' cid=$category bid=$brand_id price_slug=$price_custom  price_min=$price_min price_max=$price_max filter_attr=$filter_attr page=$pager.page rc=ban-chay}" class="new2018"><span class="checkbox"></span> Xem Nhiều</a>
+    {/if}
+</li>
 
         <li class="sort-price-dropdown {if $pager.sort eq 'shop_price'}active{/if}">
             <a href="javascript:void(0);" class="dropdown-toggle">

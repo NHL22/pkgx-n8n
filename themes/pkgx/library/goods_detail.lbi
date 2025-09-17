@@ -5,10 +5,10 @@
 <div class="ratingresult">
         <ul>
         <li>{$lang.goods_sn}&nbsp;</li>
-        <li> <h2 class="skuu"> {$goods.goods_sn}</h2></li><li>&nbsp;| &nbsp;</li>
-        <li><span class="rank rank_{$goods.comment_rank}"></span> <a href="{$goods.url}#comment">({$goods.click_count} đánh giá)</a>&nbsp;| &nbsp;</li>
+        <li> <div class="skuu"> {$goods.goods_sn}</div></li><li>&nbsp;| &nbsp;</li>
+        <li><span class="rank rank_{$goods.comment_rank}"></span> <a href="{$goods.url}#comment">{siy:comment_count id=$id type=$type} Đánh Giá </a>&nbsp;| &nbsp; {$goods.click_count} lượt xem | &nbsp;</li>
         <li>{$lang.goods_brand}&nbsp;</li>
-        <li><h2 class="brand"> {$goods.goods_brand}</h2></li><li>&nbsp;| &nbsp;</li>
+        <li><div class="brand"> {$goods.goods_brand}</div></li><li>&nbsp;| &nbsp;</li>
         <li>Danh mục:&nbsp;</li>
         <li><h3><a href="{$cat_info.url}">{$cat_info.cat_name}</a></h3></li>
         <li>
@@ -41,12 +41,13 @@
             <li>Giá sỉ:<strong> {$goods.shop_price_formated}</strong></li>
             {/if}
       <li >Giá CK: {$goods.partner_price}</li> 
-            <li>Giá Lẻ: {$goods.deal_price}</li>
+           <!-- <li>Giá Lẻ: {$goods.deal_price}</li> -->
             <li>Tình trạng: Còn sẵn hàng</li>
-            {if $goods.seller_note neq ""}<li>Ghi chú: {$goods.seller_note}</li>{/if}
-          {if $goods.goods_brief}  <li>{$goods.goods_brief}</li>{/if}
+            {if $goods.seller_note neq ""}<li class="note">Ghi chú: {$goods.seller_note}</li>{/if}
+
 
         </ul>
+          {if $goods.goods_brief}  <div class="brief">{$goods.goods_brief}</div>{/if}
 
         {if $volume_price_list}
         <div class="price_list wholesale_price">
@@ -131,23 +132,12 @@
                     <div class="area_action">
                         <a rel="nofollow" href="javascript:buy({$goods.goods_id})" class="buy_now">
                             <b>{$lang.btn_buy}</b>
-                            <span>Giao hàng COD toàn quốc</span>
+                            <span>Giao hàng toàn quốc</span>
                         </a>
                     </div>
                     <div class="vnpay-text">
-									<p><b>Thời gian làm việc:</b> Thứ 2 - Thứ 7: <span>8h - 12h &amp; 12h30 - 17h50h</span>, <b>Chủ nhật: <span>9h00 - 16h00</span></b></p>
-							</div>
-              <div class="vnpay-text">
-            <p><b>Mua số lượng call:</b> <a href="tel:0981239686">098.1239.686</a>  để được giá tốt nhất</p>
-        </div>
-        <div class="vnpay-text">
-        <ul>
-      <li>Tham khảo 99+ <a href="https://phukiengiaxuong.com.vn/tin-tuc/mau-cua-hang-trang-tri/47">cách trang trí cửa hàng</a></li>
-      <li>Tham khảo <a href="https://phukiengiaxuong.com.vn/tin-tuc/kinh-nghiem-mo-cua-hang-tu-a-den-z/15">kinh nghiệm mở cửa hàng</a></li>
-      <li>Tham khảo cách <a href="https://phukiengiaxuong.com.vn/tin-tuc/marketing-online/44">marketting online</a></li>
-      <li>Tham khảo <a href="https://phukiengiaxuong.com.vn/tin-tuc/thuong-mai-dien-tu/45">cách bán hàng trên sàn TMĐT</a></li>
-      </li>
-  </div>
+                                    <p><b>Thời gian làm việc:</b> Thứ 2 - Thứ 7: <span>8h30 - 12h &amp; 13h30 - 18h00h</span>, </p>
+                            </div>
         </div>
     </div>
     <div class="rightInfo">
@@ -159,14 +149,12 @@
         </ul>
         {/if}
         <ul class="box_help">
-            <li><h3>CHÚ Ý: ĐƠN SỈ TỐI THIỂU 1 TRIỆU ĐỒNG</h3>
 <li style="font-weight: bold; color: #e10c00;">» Hàng Hoco, Remax, Baseus, Borofone bảo hành 1 năm</li>
 <li>» Giao hàng toàn quốc 6,2k/kg - Xem thêm <a href="https://phukiengiaxuong.com.vn/tin-tuc/giao-hang-thanh-toan-14.html">Chính sách giao hàng.</a></li>
-<li>» <a href="https://phukiengiaxuong.com.vn/tin-tuc/chinh-sach-doi-tra-1.html">Chính sách bảo hành.</a> </li>
-<li>» Thanh toán COD kiểm tra tại nhà </li>
-<li>» Hỗ trợ cước tối đa 100k cho đơn TRÊN 5TR TRÊN TOÀN QUỐC ( ÁP DỤNG THANH TOÁN TRƯỚC )</li>
+<li>» Hỗ trợ 50k cước giao hàng cho đơn 5tr trở lên</li>
 <li>» <a href="https://phukiengiaxuong.com.vn/san-pham-moi.html">HÀNG MỚI VỀ / MẪU MỚI GIÁ CỰC TỐT</a></li>
-
+<li>» Mua số lượng call:</b> <a href="tel:{ $service_phone}">{ $service_phone}</a>  để được giá tốt nhất</li>
         </ul>
+
     </div>
 </div>

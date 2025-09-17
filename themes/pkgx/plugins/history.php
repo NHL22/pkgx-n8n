@@ -16,7 +16,7 @@ form      模板模块 默认是library/siy_history.lbi
 function siy_history($atts) {
 	$str = '';
 	if (!empty($_COOKIE['ECS']['history'])) {
-		$number = ($atts['number'] > 0) ? $atts['number'] : '5';
+		$number = ($atts['number'] > 0) ? $atts['number'] : '6';
 		$where = db_create_in($_COOKIE['ECS']['history'], 'goods_id');
 		$sql   = 'SELECT goods_id, goods_name, goods_thumb,is_hot,goods_number, deal_price, partner_price, shop_price, promote_price, promote_start_date, promote_end_date FROM ' . $GLOBALS['ecs']->table('goods') .
 				" WHERE $where AND is_on_sale = 1 AND is_alone_sale = 1 AND is_delete = 0";

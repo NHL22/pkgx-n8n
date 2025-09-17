@@ -1747,6 +1747,7 @@ li.social_links_footer img {
     width: 30px;
 }
 .cat_articles ul {
+    display: inline-grid;
     grid-template-columns: repeat(5, 1fr); /* Chia thành 4 cột có chiều rộng bằng nhau */
     gap: 20px; /* Tạo khoảng cách giữa các cột và hàng */
     list-style: none; /* Bỏ dấu chấm mặc định của ul */
@@ -1780,4 +1781,86 @@ li.social_links_footer img {
 }
 .note{
     font-style: italic;
+}
+/* --- CSS cho ô tìm kiếm địa chỉ --- */
+.region-search-input {
+    width: 98%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.region-select {
+    margin-bottom: 10px; /* Tạo khoảng cách giữa các ô chọn */
+}
+/* --- CSS cho Dropdown tùy chỉnh có tìm kiếm --- */
+.custom-select-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+.select-selected {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    position: relative; /* Thêm để mũi tên định vị đúng */
+}
+.select-selected::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #333 transparent transparent transparent;
+}
+.select-selected.select-arrow-active::after {
+    border-color: transparent transparent #333 transparent;
+    top: 40%;
+}
+.select-items {
+    position: absolute;
+    background-color: #fff;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    display: flex; /* SỬA LỖI: Dùng flexbox để chia bố cục */
+    flex-direction: column; /* Sắp xếp theo chiều dọc */
+    max-height: 250px; /* Chiều cao tối đa của cả hộp */
+}
+.select-hide {
+    display: none;
+}
+.select-items .region-search-input {
+    width: calc(100% - 34px); /* Sửa lại chiều rộng */
+    padding: 8px;
+    margin: 8px; /* Căn lề cho đẹp */
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex-shrink: 0; /* SỬA LỖI: Đảm bảo ô search không bị ẩn khi cuộn */
+}
+/* SỬA LỖI: Thêm một lớp bọc cho danh sách để cuộn */
+.options-list {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+.options-list .option-item {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+.options-list .option-item:hover, .same-as-selected {
+    background-color: #f1f1f1;
+}
+/* Thêm CSS này để làm nổi bật mục được chọn bằng bàn phím */
+.option-item.option-active {
+    background-color: #f0f0f0; /* Hoặc bất kỳ màu nào bạn muốn */
 }

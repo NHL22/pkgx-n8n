@@ -6,13 +6,13 @@
     <ul class="brands_list clearfix">
         {foreach from=$brand_list item=brand name=brand}
         <li>
-            <a href="{$brand.url}">
+            <h3><a href="{$brand.url}">
             {if $brand.brand_logo}
             <img src="{$cdn_path}/data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name|escape:html}"/>
             {else}
             {$brand.brand_name}
             {/if}
-            </a>
+            </a></h3>
         </li>
         {/foreach}
     </ul>

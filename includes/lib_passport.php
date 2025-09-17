@@ -287,7 +287,7 @@ function send_pwd_email($uid, $user_name, $email, $code)
     $content = $GLOBALS['smarty']->fetch('str:' . $template['template_content']);
 
     /* 发送确认重置密码的确认邮件 */
-    if (send_mail($user_name, $email, $template['template_subject'], $content, $template['is_html']))
+    if (send_mail($user_name, $email, $template['template_subject'], $content, 1))
     {
         return true;
     }

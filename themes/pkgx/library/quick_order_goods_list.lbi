@@ -36,8 +36,8 @@
                  {else}
                  <strong id="shop_price" data-price="{$goods.final_price}">{$goods.shop_price}</strong>
                 {/if}
-                <p class="cprice">Giá CTV: {$goods.partner_price}</p>
-                <p class="cprice">Giá Lẻ: {$goods.deal_price}</p>
+                <p class="cprice">Giá CK: {$goods.partner_price}</p>
+               <!-- <p class="cprice">Giá Lẻ: {$goods.deal_price}</p> -->
             </div>
            
            

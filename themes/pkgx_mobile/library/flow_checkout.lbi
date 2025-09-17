@@ -16,7 +16,7 @@ var flow_no_shipping = "{$lang.flow_no_shipping}";
                                 <span class="name">{$shipping.shipping_name}</span>
                                 <span class="intro">
                                     <span class="info">
-                                        {if $shipping.shipping_fee neq 0}<p><em class="price">{$lang.shipping_fee}: {$shipping.format_shipping_fee}</em></p>{else}<p><em class="price">{$lang.free}</em></p>{/if}
+                                        {if $shipping.shipping_fee neq 0}<p></em></p>{else}<p><em class="price">{$lang.free}</em></p>{/if}
                                     {if $shipping.free_money neq $option.price_zero_format}<span class="free">{$lang.free_pre}{$shipping.free_money}{$lang.free_suf}</span>{/if}
                                     </span>
                                     <p>{$shipping.shipping_desc}</p>
@@ -247,6 +247,13 @@ var flow_no_shipping = "{$lang.flow_no_shipping}";
 </form>
 
 <div class="clearfix"></div>
-<p class="notice">Chú ý đơn hàng tối thiểu 1 triệu, đối với đơn hàng 5 triệu trở lên thanh toán trước 100% đơn hàng shop sẽ hỗ trợ tối đa 100k ship</p>
-<p class="notice">Khách hàng đặt hàng lần đầu tối thiểu 1 triệu, các đơn hàng sau tối thiểu 500k, Các đơn hàng không đạt yêu cầu shop sẽ không liên lạc</p>
-<p class="notice">Nếu bạn muốn chọn mã máy ốp hoặc mã máy cường lực vui lòng nhắn tin Zalo số <a href="https://zalo.me/0981239686">0981239686</a></p>
+    <ul class="notice"> 
+    <li>SHOP KHÔNG BÁN LẺ</li>
+    <li>Đơn hàng tối thiểu 1 triệu</li>
+    <li>Đối với đơn hàng 5 triệu trở lên thanh toán trước 100% đơn hàng shop sẽ hỗ trợ tối đa 100k ship</li>
+  <li>Khách hàng đặt hàng lần đầu tối thiểu 1 triệu, các đơn hàng sau tối thiểu 500k</li>
+    <li>Nếu bạn muốn chọn mã máy ốp hoặc mã máy cường lực vui lòng nhắn tin Zalo số <a href="https://zalo.me/{$service_phone}">{$service_phone}</a> hoặc ghi chú vào đơn hàng.</li>
+    </ul>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer_menu.lbi'}
+{include file='library/html_footer.lbi'}

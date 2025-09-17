@@ -34,9 +34,7 @@
 								 <span>{$goods.comment_count} đánh giá</span>
 						 </div> -->
                                         <div class="labelw">
-            {if $goods.is_hot}<span class="label is_hot">Nổi bật</span>{/if}
-            {if $goods.is_best}<span class="label is_best">Bán chạy</span>{/if}
-            {if $goods.is_new}<span class="label is_new">Mới</span>{/if}
+            {if $goods.is_hot}<span class="label is_hot">Hot</span>{/if}
             </div>
         </a>
         <div class="form_add form_add{$goods.goods_id}">

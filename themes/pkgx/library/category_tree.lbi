@@ -1,12 +1,12 @@
 <ul class="categories">
     {foreach from=get_categories_tree() item='cat' name='categories'}
     <li {if $cat.cat_id}class="hassub"{/if}>
-        <span>{if $cat.icon}<img width="20px" height="20px"  src="{$cat.icon}" alt="{$cat.name|escape}">{/if} <h3><a href="{$cat.url}">{$cat.name}</a></h3></span>
+        <span>{if $cat.icon}<img width="20px" height="20px"  src="{$cat.icon}" alt="{$cat.name|escape}">{/if} <a href="{$cat.url}">{$cat.name}</a></span>
         {if $cat.cat_id}
         <ul class="sub_cat subcat_{$cat.id}">
             {foreach from=$cat.cat_id item='child' name='child_cat'}
             <li>
-                <h3><a href="{$child.url}">{$child.name}</a></h3>
+                <a href="{$child.url}">{$child.name}</a>
             </li>
             {/foreach}
         </ul>

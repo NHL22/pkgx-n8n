@@ -13,7 +13,7 @@ var flow_no_shipping = "{$lang.flow_no_shipping}";
                         <div class="option_item">
                              <label for="shipping_method_{$shipping.shipping_id}">
                                 <input type="radio" name="shipping" value="{$shipping.shipping_id}"{if $order.shipping_id eq $shipping.shipping_id} checked="checked"{/if} id="shipping_method_{$shipping.shipping_id}" supportCod="{$shipping.support_cod}" insure="{$shipping.insure}" />
-                                <span class="name">{$shipping.shipping_name} ({if $shipping.shipping_fee neq 0}<em class="price">{$lang.shipping_fee}: {$shipping.format_shipping_fee}</em>{else}<em class="price">{$lang.free}</em>{/if})</span>
+                                <span class="name">{$shipping.shipping_name} ({if $shipping.shipping_fee neq 0}<em class="price"></em>{else}<em class="price"></em>{/if})</span>
                                 <span class="intro">
                                     <span class="info">
                                     {if $shipping.free_money neq $option.price_zero_format}<span class="free">{$lang.free_pre}{$shipping.free_money}{$lang.free_suf}</span>{/if}

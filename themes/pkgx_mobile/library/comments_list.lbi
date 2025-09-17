@@ -37,11 +37,11 @@
             <span class="iconcom-user">{$comment.username|truncate:1:"":true}</span><span class="name">{if $comment.username}{$comment.username|escape:html}{else}{$lang.anonymous}{/if}</span>
         <div class="talk">
             <p class="text"><i class="rank rank_{$comment.rank}"></i> {$comment.content}</p>
-            <div class="cmextra"><span class="btnreply" onclick="cmtaddreplyclick({$comment.id},{$comment_type},{$comment.id_value},{$comment.id})">Thảo luận</span><span class="time">{$comment.add_time}</span></div>
+            <div class="cmextra"><span class="btnreply" onclick="cmtaddreplyclick({$comment.id},{$comment_type},{$comment.id_value},{$comment.id})">Thảo luận</span></div>
             {foreach from=$comment.reply item=cm name=replys}
             <blockquote class="reply"><span class="iconcom-user">{$cm.re_username|truncate:1:"":true}</span> <span class="name">{$cm.re_username} {if $cm.isadmin > 0}<font>{$lang.re_name}</font>{/if}</span>
             <p>{$cm.re_content}</p>
-            <span class="btnreply" onclick="cmtaddreplyclick({$comment.id},{$comment_type},{$comment.id_value},{$comment.id})">Thảo luận</span><span class="time">{$cm.re_add_time}</span>
+            <span class="btnreply" onclick="cmtaddreplyclick({$comment.id},{$comment_type},{$comment.id_value},{$comment.id})">Thảo luận</span>
             </blockquote>
             {/foreach}
         </div>

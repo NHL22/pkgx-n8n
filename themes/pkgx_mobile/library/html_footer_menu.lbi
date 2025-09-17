@@ -20,7 +20,7 @@
 
     <ul class="menu_footer">
         <li><a href="https://phukiengiaxuong.com.vn/"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/home.svg" alt="Trang chủ"><span>Trang chủ</span></a></li>
-        <li><a href="https://phukiengiaxuong.com.vn/gio-hang"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/icons8-cart-64.webp" alt="Order"><span>Giỏ Hàng</span></a></li>
+        <li><a href="https://phukiengiaxuong.com.vn/thanh-vien"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/user.svg" alt="Order"><span>Thành Viên</span></a></li>
         <li><a href="tel:{ $service_phone}"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/telephone.svg" alt="Hotline"><span>Hotline</span></a></li>
         <li><a href="{$link_message}" rel="nofollow noreferrer noopener"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/messenger.svg" alt="Messenger"><span>Messenger</span></a></li>
         <li><a href="{$link_zalo}" rel="nofollow noreferrer noopener"><img width="25" height="25" src="https://phukiengiaxuong.com.vn/cdn/upload/files/social/zalo.svg" alt="Zalo"><span>Zalo</span></a></li>

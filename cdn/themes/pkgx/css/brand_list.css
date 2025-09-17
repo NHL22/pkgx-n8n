@@ -1,0 +1,738 @@
+body {
+    background: #f0f0f0;
+}
+
+.col_sub {
+
+}
+.col_main  {
+
+}
+.box>.hd {padding: 5px 0}
+.price_active {font-weight: bold}
+/* brand_detail */
+.brand_info {
+    padding: 10px;
+}
+
+.cat_list li{
+    padding: 5px 0;
+}
+.brand-desc p{
+  padding: 0 10px;
+}
+article a, article a:hover, article a:active {
+    color: #3740ff;
+}
+.cat_list li a.current {font-weight: bold}
+article {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    padding: 0 20px;
+    border-radius: 5px;
+}
+article p, article div, article h2, article h3, article h4 {
+    margin: 10px auto;
+    font-size: 14px;
+    color: #333;
+    line-height: 28px;
+}
+.homeproduct {
+    clear: both;
+    display: block;
+    background: #fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    flex: 1 100%;
+    padding: 0 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px 0;
+    position: relative;
+}
+
+
+.homeproduct li a {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    padding: 10px 0
+}
+.homeproduct li a:hover h3 {
+    color: #288ad6
+}
+.homeproduct li img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    margin: 15px auto
+}
+.homeproduct a>img {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+.homeproduct a:hover>img {
+    margin: 5px auto 25px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+
+.homeproduct li h3 {
+    display: block;
+    line-height: 21px;
+    min-height: 36px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #111;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+.homeproduct li .price {
+    display: block;
+    overflow: hidden;
+    padding: 5px 10px 10px 10px
+}
+.homeproduct li .price strong {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    font-size: 14px;
+    color: #e10c00;
+    line-height: 15px
+}
+.homeproduct li .price span, .homeproduct li del {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: line-through;
+    margin-left: 5px;
+    color: #222
+}
+.homeproduct li label {
+    display: inline-block;
+    position: absolute;
+    top: 187px;
+    left: 10px;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    background: #3fb846;
+    border-radius: 2px;
+    padding: 0 5px;
+    height: 18px
+}
+
+.homeproduct li .promotion {
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding-top: 5px;
+}
+.homeproduct li .promotion p {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.4;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: auto;
+}
+
+.homeproduct li label.discount {
+    background-image: linear-gradient(-90deg, #ec1f1f 0%, #ff9c00 100%);
+    border-radius: 10px;
+    padding: 1px 7px;
+    padding-left: 0;
+    padding-right: 10px
+}
+.homeproduct li label.discount:before {
+    content: ' ';
+    display: inline-block;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAYAAAC+aNwHAAAABGdBTUEAALGPC/xhBQAAAVpJREFUOBGVki1LBFEUhueuH0FQTAuimxVE2KZBgxj8AxaLglj8AYLJZLOYtFpFwWQ2iMUkiyBqNCloEFEQYXzuzl7mzP0Y7z3w7j0f73PuDDtZFhl5njfRI5qJREobUB+6RL9otJxEZkD7SMd1JFLagFa6aPGzW04iMpgp9CEWzEZghQVoGN0L+I28kbLgVMA6PUmBty1YlxtRCzAuIv132THx7wKIcfRik9R3IbjfDDANkp+hpumJ8535pqhN+mySDMMhSo1OdwHUWiqJ/wu19c3tXsGRFOvm9k4SVpiPzLsr6mWKlmmIc568uEU0SW/QglLqp9q2KhYfe57slZ7vsiqNqYHs70F/XEtVZ6DCOIfs2AnY3TbknkWfUyvXGehgvhULHshHAla3jbkl4E/yaddV0wHYEgtWa6z+EfBFb8GB31HTBRxC3+gKDdRY/SOgSfSExvwOt/sHwv9i4NYIgYYAAAAASUVORK5CYII=');
+    background-size: 50% 50%;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #f13500;
+    border-radius: 50%;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    margin-right: 5px
+}
+.homeproduct .ratingresult {
+    padding: 5px 10px
+}
+
+.homeproduct .ratingresult span {
+    color: #777;
+    text-decoration: none;
+    position: relative;
+    top: 1px
+}
+
+.rank{display:inline-block;height:12px;width:70px;text-indent:-999em;background:url('../img/stars.gif') no-repeat left top;vertical-align: middle;background-size: 65px 67px}
+
+.rank_2{background-position:0 -14px}
+.rank_3{background-position:0 -27px}
+.rank_4{background-position:0 -40px}
+.rank_5{background-position:0 -52px}
+
+
+.pagination{padding:15px 0 10px;font-size:14px;font-weight:bold;text-align:center;clear:both}
+.pagination a{color:#999;margin-left:3px;padding:4px 9px;background-color:#eee;border:1px solid #bbb;border-radius:3px}
+.pagination a:hover{color:#666;text-decoration:none;background-color:#ddd;border-color:#999}
+.pagination a.current{color:#ff8c22;background-color:#ffe8ce;border-color:#ff8c22}
+.pagination span{padding:5px 10px}
+.pagination .total{color:#ccc}
+.empty {
+    padding: 30px 0;
+    min-height: 300px;
+    text-align: center
+}
+
+
+/* brand list */
+.brands_list {
+    display: block;
+    clear: both;
+    padding: 10px 5px;
+    background: #fff;
+}
+.brands_list  li{
+    width: 160px;
+    height: 40px;
+    display: inline-block;
+    float: left;
+    margin: 0 5px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 40px;
+
+}
+.brands_list li img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 35px;
+    vertical-align: middle;
+}
+.img_filter, .filter_tim_kiem_nhieu {
+    overflow: hidden;
+    background: #fff;
+    border-radius: 5px;
+
+}
+.manuwrap {
+    margin-top: 10px;
+    background: #fff;
+    padding:0 5px;
+    border-radius: 5px;
+}
+.img_filter a {
+    display: inline-block;
+    border-right: 1px solid #f3f3f3;
+    border-bottom: 1px solid #f3f3f3;
+    position: relative;
+    width: 10%;
+    padding: 5px 0px;
+    margin: 0;
+    vertical-align: top;
+    color:#333;
+    margin-bottom: 3px;
+    background-color: #fff;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+    position: relative;
+}
+
+.img_filter span {
+    display: block;
+    color: #000;
+    line-height: 18px;
+    text-align: center;
+    margin-top: 10px;
+    max-height: 40px;
+    overflow: hidden;
+    text-transform: capitalize;
+}
+
+.img_filter a.selected {
+    border: 1px solid #f89406;
+    padding: 5px 0px;
+
+}
+.img_filter a.selected:before{
+    content: " ";
+    height: 12px;
+    width: 12px;
+    background: #f89406;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+
+}
+.img_filter a.selected:after {
+    content: "✓";
+    font-size: 12px;
+    line-height: 12px;
+    display: inline-block;
+    position: absolute;
+    right: 2px;
+    top: 1px;
+    color: #fff;
+    z-index: 2;
+}
+
+
+.img_filter a.morecate span {
+    color: #333;
+    display: block;
+    text-align: center;
+}
+.img_filter a.collapsecate {
+    height: auto;
+    margin-top: 10px;
+    color: #333;
+    border: none;
+    background-color: transparent;
+    display: block;
+    width: auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.img_filter a.collapsecate:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-bottom: 6px solid #333;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 2px 3px;
+}
+.img_filter a img{
+    margin: auto;
+    height: 20px;
+    width: auto;
+    display: block;
+}
+
+
+#filter_sub a{
+    height: 110px;
+}
+
+#filter_sub a>img {
+    position: relative;
+    display: block;
+    width: auto;
+    height: 55px;
+    margin: 0 auto;
+}
+
+#filter_brand a{
+  width: auto;
+      border-radius: 5px;
+      margin: 5px;
+      border: 1px solid #d0d0d0;
+      padding: 5px 5px;
+}
+div#filter_brand h2 {
+    font-size: 14px;
+}
+
+#filter_brand a img{
+  height: 30px;
+      width: 30px;
+      margin-bottom: 5px;
+      display: none;
+}
+
+.manunew {
+    clear: both;
+}
+
+.manunew a {
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    color: #333;
+    font-size: 14px;
+    padding: 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.manunew a.selected {
+    border: 1px solid #3740ff;
+    position: relative;
+}
+.manunew a.selected:before{
+    content: " ";
+    height: 12px;
+    width: 12px;
+    background: #3740ff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+
+}
+.manunew a.selected:after {
+    content: "✓";
+    font-size: 12px;
+    line-height: 12px;
+    display: inline-block;
+    position: absolute;
+    left: 2px;
+    top: 1px;
+    color: #fff;
+    z-index: 2;
+}
+
+.manunew a.hidden {
+    display: none
+}
+
+.manunew a img {
+    display: inline-block;
+    max-height: 25px;
+    vertical-align: middle
+}
+
+/* Filter sidebar */
+.filter, .filter_tim_kiem_nhieu {
+  display: block;
+  width: 100%;
+  background: #fff;
+  padding-left: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.filter li {
+    display: inline-block;
+    width: auto;
+    font-size: 14px;
+    position: relative;
+    white-space: nowrap
+}
+.filter li>a {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 10px;
+}
+.filter li a:hover{
+    color: #333
+}
+.filter li>a.check {font-weight: 700}
+.filter li div.fsub a{color: #333;text-align: right;}
+.filter li label.all a{color: #3740ff}
+
+
+.filter li .criteria,
+.filter li .selected {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+}
+
+div#filter_sub {
+    margin-bottom: 10px;
+}
+
+.filter li .criteria:hover {
+    color: #333
+}
+
+.filter li .criteria:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 4px solid #3740ff;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px
+}
+
+.filter li div.fsub {
+    display: none;
+    overflow: visible;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .1);
+    padding: 5px 10px;
+    position: absolute;
+    left: -46%;
+    top: 40px;
+    z-index: 11
+}
+/* .filter li:hover div.fsub {display: block} */
+.filter li div.fsub.show {display: block}
+.filter li div:before,
+.filter li div:after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    left: 45%;
+    border-bottom: 10px solid #d9d9d9;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent
+}
+
+.filter li div:after {
+    border-width: 9px;
+    border-bottom-color: #fff;
+    margin-left: 1px
+}
+
+.filter li div .all {
+    display: block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    padding: 10px 0
+}
+
+.filter li .feature i {
+    margin-left: -20px
+}
+
+.filter li label {
+    display: block;
+    padding: 5px 0 6px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.filter li label:hover {
+    color: #3740ff
+}
+
+.filter li label span {
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    margin-right: 5px;
+    border: 1px solid #ececec;
+    line-height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.filter li label span.check{
+    background: #4a90e2;
+    color: #fff;
+    border: 1px solid #4a90e2!important;
+}
+
+.filter li .closefilter {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    background: #fff;
+    border:1px solid #dfdfdf;padding: 2px 7px;line-height: 16px;text-align: center;font-size: 12px;
+    z-index: 92;
+    border-radius: 10px;
+    font-style: normal;
+    display: block;
+    cursor: pointer
+}
+.filter li .sortprice {
+    text-align: left;
+    left: -66px!important;
+}
+
+.filter li .sortprice:before, .filter li .sortprice:after {
+    left: auto;
+    right: 37px;
+}
+.filter li .sortprice:before {
+    right: 36px;
+}
+
+.filter li>a span{display: inline-block;width: 15px;height: 15px;border-radius: 3px;text-align: center;line-height: 15px;border: 1px solid #c1c1c1;vertical-align: middle}
+.filter li>a.new2018 {
+    font-weight: 600;
+    display: inline-block;
+}
+
+.choosedfilter {
+    display: block;
+    overflow: hidden;
+    margin: 10px 0
+}
+
+.choosedfilter a {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding: 6px;
+    background: #3740ff;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 5px
+}
+
+.choosedfilter a:after {
+    content: "x";
+    display: inline-block;
+    color: #fff;
+    margin-left: 8px;
+}
+.choosedfilter a.reset {
+    background: #c10017
+}
+.watching {
+    float: left;
+    white-space: nowrap;
+    line-height: 30px;
+    margin-right:30px;
+}
+
+.watching h1, .filter li h1 {
+    display: inline;
+    font-weight: bold;
+    text-transform: uppercase
+}
+.filter li h1 {
+  margin-right: 50px;
+      font-size: 16px;
+}
+.brand-header {
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+.brand-header h1 {
+    text-transform: uppercase;
+}
+/* --- CSS cho danh sách tin tức thương hiệu --- */
+.article-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các bài viết */
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.article-item {
+    width: 100%;
+    max-width: 18%; /* Giới hạn chiều rộng mỗi bài */
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+
+.article-item a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.article-item .article-image img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+}
+
+.article-item .article-content {
+    padding: 15px;
+}
+
+.article-item h3 {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+    line-height: 21px;
+    /* Giới hạn 2 dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    min-height: 45px; /* Chiều cao tối thiểu cho 2 dòng */
+}
+
+.article-item p {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+    /* Giới hạn 3 dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    min-height: 63px; /* Chiều cao tối thiểu cho 3 dòng */
+}
+
+.article-item .date {
+    font-size: 12px;
+    color: #999;
+}
+.brand-articles-wrapper {
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.brand-articles-wrapper h2 {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-left: 15px;
+    margin-bottom: 19px;
+}
+.homeproduct li .promotion p::before, .homepromo .item .promotion p::before {
+    color: #666;
+    content: "•";
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.homeproduct li .promotion p, .homepromo .item .promotion p {
+    color: #666;
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

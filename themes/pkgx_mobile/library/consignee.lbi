@@ -1,31 +1,36 @@
 {if $real_goods_count gt 0}
-    <div class="odd">
-    <select class="hidden" name="country" id="selCountries_{$sn}" onchange="regionChanged(this, 1, 'selProvinces_{$sn}')">
-        <option value="0">{$name_of_region[0]} *</option>
-        {foreach from=$country_list item=country}
-        <option value="{$country.region_id}"{if $consignee.country eq $country.region_id} selected="selected"{/if}>{$country.region_name}</option>
-        {/foreach}
-    </select>
-    <select name="province" id="selProvinces_{$sn}" onchange="regionChanged(this, 2, 'selCities_{$sn}')">
-        <option value="0">{$name_of_region[1]} *</option>
-        {foreach from=$province_list.$sn item=province}
-        <option value="{$province.region_id}"{if $consignee.province eq $province.region_id} selected="selected"{/if}>{$province.region_name}</option>
-        {/foreach}
-    </select>
-    <select name="city" id="selCities_{$sn}" onchange="regionChanged(this, 3, 'selDistricts_{$sn}')">
-        <option value="0">{$name_of_region[2]} *</option>
-        {foreach from=$city_list.$sn item=city}
-        <option value="{$city.region_id}"{if $consignee.city eq $city.region_id} selected="selected"{/if}>{$city.region_name}</option>
-        {/foreach}
-    </select>
-    <select name="district" id="selDistricts_{$sn}" {if !$district_list.$sn}style="display:none" class="twoselect"{/if}>
-        <option value="0">{$name_of_region[3]} *</option>
-        {foreach from=$district_list.$sn item=district}
-        <option value="{$district.region_id}"{if $consignee.district eq $district.region_id} selected="selected"{/if}>{$district.region_name}</option>
-        {/foreach}
-    </select>
+<div class="odd">
+    <input type="hidden" name="country" id="selCountries_{$sn}" value="1">
+
+    {* ----- Dropdown Tỉnh/Thành Phố ----- *}
+    <div class="custom-select-wrapper" id="custom_province_wrapper_{$sn}">
+        <div class="select-selected" id="selected_province_{$sn}">{if $consignee.province_name}{$consignee.province_name}{else}{$name_of_region[1]} *{/if}</div>
+        <div class="select-items select-hide">
+            <input type="text" placeholder="Tìm Tỉnh/Thành..." class="region-search-input">
+            <div class="options-list" id="options_province_{$sn}">
+                {* Nội dung sẽ được AJAX tải vào *}
+            </div>
+        </div>
+        <input type="hidden" name="province" id="selProvinces_{$sn}" value="{$consignee.province|default:0}">
     </div>
+
+    {* ----- Dropdown Quận/Huyện ----- *}
+    <div class="custom-select-wrapper" id="custom_city_wrapper_{$sn}">
+        <div class="select-selected" id="selected_city_{$sn}">{if $consignee.city_name}{$consignee.city_name}{else}{$name_of_region[2]} *{/if}</div>
+        <div class="select-items select-hide">
+            <input type="text" placeholder="Tìm Quận/Huyện..." class="region-search-input">
+            <div class="options-list" id="options_city_{$sn}">
+                {* Nội dung sẽ được AJAX tải vào *}
+            </div>
+        </div>
+        <input type="hidden" name="city" id="selCities_{$sn}" value="{$consignee.city|default:0}">
+    </div>
+
+    {* ----- Dropdown Phường/Xã ĐÃ BỊ LOẠI BỎ ----- *}
+</div>
 {/if}
+
+{* ----- Các trường thông tin khác giữ nguyên ----- *}
 <div class="inline_input">
     <input type="text" name="consignee" placeholder="{$lang.consignee_name} *" maxlength="120" required value="{$consignee.consignee|escape}" id="consignee_{$sn}"/>
     <input type="text" name="tel" placeholder="Số điện thoại *" minlength="10" maxlength="10" value="{$consignee.tel|escape}" id="tel_{$sn}"/>
@@ -35,19 +40,181 @@
     <input type="text" name="address" placeholder="{$lang.detailed_address} *" maxlength="255" value="{$consignee.address|escape}" id="address_{$sn}"/>
 </div>
 {/if}
-
-{if $real_goods_count gt 0}
 <div class="inline_input last">
-    <input name="email" type="email" placeholder="{$lang.email_address} *" required maxlength="120" value="{$consignee.email|escape}" id="email_{$sn}"/>
+    <input name="email" type="email" placeholder="{$lang.email_address} *" maxlength="120" value="{$consignee.email|escape}" id="email_{$sn}"/>
     <input type="text" name="best_time" placeholder="{$lang.deliver_goods_time}" maxlength="120" value="{$consignee.best_time|escape}" id="best_time_{$sn}"/>
 </div>
-{/if}
 <div class="actions">
     {if $smarty.session.user_id gt 0 and $consignee.address_id gt 0}
     <input type="submit" name="submit" value="{$lang.shipping_address}" class="btn_submit"/>
     <a href="#" onclick="if (confirm('{$lang.confirm_drop_address}'))location.href='thanh-vien?act=drop_consignee&id={$consignee.address_id}'" class="button text_button"/>{$lang.drop}</a>
-    {else}<input type="submit" name="submit" value="{$lang.shipping_address}" class="btn_submit"/>{/if}
+    {else}<input type="submit" name="submit" value="{$lang.add_address}" class="btn_submit"/>{/if}
     <input type="hidden" name="step" value="consignee"/>
     <input type="hidden" name="act" value="checkout"/>
     <input type="hidden" name="address_id" value="{$consignee.address_id}"/>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    loadCustomRegions(1, 1, 'province');
+    initAllCustomSelects();
+});
+
+// Hàm loadCustomRegions giữ nguyên, không thay đổi
+function loadCustomRegions(parentId, type, targetType) {
+    const sn = '{$sn}';
+    const targetOptionsContainer = document.getElementById(`options_${targetType}_${sn}`);
+    const targetSelected = document.getElementById(`selected_${targetType}_${sn}`);
+    targetSelected.innerHTML = 'Đang tải...';
+    const ajaxUrl = 'modules/region.php';
+    $.ajax({
+        url: ajaxUrl, type: 'GET', data: { parent: parentId, type: type }, dataType: 'text',
+        success: function(responseText) {
+            try {
+                const data = JSON.parse(responseText);
+                targetOptionsContainer.innerHTML = '';
+                const clearNextLevels = (currentType) => {
+                    if (currentType === 'province') {
+                        document.getElementById(`options_city_${sn}`).innerHTML = '';
+                        document.getElementById(`selected_city_${sn}`).innerHTML = '{$name_of_region[2]} *';
+                        document.getElementById(`selCities_${sn}`).value = 0;
+                    }
+                };
+                clearNextLevels(targetType);
+                if (data.regions && data.regions.length > 0) {
+                    data.regions.forEach(function(region) {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'option-item';
+                        optionDiv.setAttribute('data-value', region.region_id);
+                        optionDiv.innerHTML = region.region_name;
+                        targetOptionsContainer.appendChild(optionDiv);
+                    });
+                }
+                const defaultTexts = { province: '{$name_of_region[1]} *', city: '{$name_of_region[2]} *' };
+                targetSelected.innerHTML = defaultTexts[targetType];
+            } catch (e) {
+                console.error("Lỗi JSON:", e, responseText);
+                targetSelected.innerHTML = 'Lỗi dữ liệu!';
+            }
+        },
+        error: function(xhr, status, error) {
+            targetSelected.innerHTML = 'Lỗi! Tải lại trang';
+            console.error("Lỗi AJAX:", status, error);
+        }
+    });
+}
+
+function initAllCustomSelects() {
+    document.querySelectorAll('.custom-select-wrapper').forEach(wrapper => {
+        const selected = wrapper.querySelector(".select-selected");
+        const itemsPanel = wrapper.querySelector(".select-items");
+        const optionsContainer = wrapper.querySelector(".options-list");
+        const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+        const searchInput = wrapper.querySelector('.region-search-input');
+
+        // KIỂM TRA ĐỂ ĐẢM BẢO TẤT CẢ CÁC PHẦN TỬ CẦN THIẾT TỒN TẠI
+        if (!selected || !itemsPanel || !optionsContainer || !hiddenInput || !searchInput) {
+            console.error('Lỗi cấu trúc HTML cho custom select:', wrapper);
+            return; // Bỏ qua dropdown này nếu cấu trúc bị lỗi
+        }
+
+        function selectOption(optionElement) {
+            if (!optionElement) return;
+            const value = optionElement.getAttribute("data-value");
+            const text = optionElement.innerHTML;
+            selected.innerHTML = text;
+            hiddenInput.value = value;
+            hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+            const type = wrapper.id.split('_')[1];
+            const nextTypeMap = { province: 2 };
+            const nextTargetMap = { province: 'city' };
+            if (nextTypeMap[type]) {
+                loadCustomRegions(value, nextTypeMap[type], nextTargetMap[type]);
+            }
+            closeAllSelect();
+        }
+
+        selected.addEventListener("click", function(e) {
+            e.stopPropagation();
+            closeAllSelect(this);
+            itemsPanel.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+            if (!itemsPanel.classList.contains("select-hide")) {
+                setTimeout(() => searchInput.focus(), 0);
+            }
+        });
+
+        itemsPanel.addEventListener("click", (e) => e.stopPropagation());
+        optionsContainer.addEventListener("click", function(e) {
+            if (e.target && e.target.classList.contains('option-item')) {
+                selectOption(e.target);
+            }
+        });
+        
+        searchInput.addEventListener('keydown', function(e) {
+            if (['ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) {
+                e.preventDefault(); 
+
+                const visibleOptions = Array.from(optionsContainer.querySelectorAll('.option-item:not([style*="display: none"])'));
+                if (visibleOptions.length === 0) return;
+
+                let activeOption = optionsContainer.querySelector('.option-item.option-active');
+                let activeIndex = activeOption ? visibleOptions.indexOf(activeOption) : -1;
+
+                if (e.key === 'Enter') {
+                    if (activeOption) {
+                        selectOption(activeOption);
+                    } else {
+                        selectOption(visibleOptions[0]);
+                    }
+                    return;
+                }
+
+                if (activeOption) {
+                    activeOption.classList.remove('option-active');
+                }
+
+                if (e.key === 'ArrowDown') {
+                    activeIndex = activeIndex + 1;
+                    if (activeIndex >= visibleOptions.length) {
+                        activeIndex = 0;
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    activeIndex = activeIndex - 1;
+                    if (activeIndex < 0) {
+                        activeIndex = visibleOptions.length - 1;
+                    }
+                }
+                visibleOptions[activeIndex].classList.add('option-active');
+                visibleOptions[activeIndex].scrollIntoView({ block: 'nearest' });
+            }
+        });
+
+        searchInput.addEventListener('keyup', function(e) {
+            if (['ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) {
+               return; 
+            }
+
+            const filterValue = e.target.value.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/Đ/g, "D");
+            const allOptions = optionsContainer.getElementsByClassName('option-item');
+            
+            const currentActive = optionsContainer.querySelector('.option-item.option-active');
+            if (currentActive) {
+                currentActive.classList.remove('option-active');
+            }
+
+            for (let i = 0; i < allOptions.length; i++) {
+                const txtValue = allOptions[i].textContent || allOptions[i].innerText;
+                const normalizedTxtValue = txtValue.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/Đ/g, "D");
+                allOptions[i].style.display = (normalizedTxtValue.indexOf(filterValue) > -1) ? "" : "none";
+            }
+        });
+    });
+}
+function closeAllSelect(elmnt) {
+    document.querySelectorAll('.select-items').forEach(item => { if (!elmnt || item !== elmnt.nextElementSibling) { item.classList.add('select-hide'); } });
+    document.querySelectorAll('.select-selected').forEach(sel => { if (!elmnt || sel !== elmnt) { sel.classList.remove('select-arrow-active'); } });
+}
+
+document.addEventListener("click", () => closeAllSelect(null));
+</script>

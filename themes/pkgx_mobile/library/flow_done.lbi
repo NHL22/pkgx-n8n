@@ -29,3 +29,6 @@
 	{/if}
 	<div class="actions"><p>{$order_submit_back}</p></div>
 </div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer_menu.lbi'}
+{include file='library/html_footer.lbi'}

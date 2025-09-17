@@ -1,6 +1,7 @@
 <?php
+
 /**
- * ECSHOP 字符集转换类
+ * ECSHOP 编码转换类
  * ============================================================================
  * * 版权所有 2005-2018 上海商派网络科技有限公司，并保留所有权利。
  * 网站地址: http://www.ecshop.com；
@@ -8,11 +9,9 @@
  * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
  * 使用；不允许对程序代码以任何形式任何目的的再发布。
  * ============================================================================
- * @author:     未知
- * @version:    v2.2
- * ---------------------------------------------
+ * $Author: liubo $
  * $Id: cls_iconv.php 17217 2011-01-19 06:29:08Z liubo $
-*/
+ */
 
 if (!defined('IN_ECS'))
 {
@@ -21,448 +20,159 @@ if (!defined('IN_ECS'))
 
 class Chinese
 {
-    /**
-     * 存放 GB <-> UNICODE 对照表的内容
-     * @变量类型
-     * @访问      内部
-     */
+    var $table = '';
+    var $iconv_enabled = false;
     var $unicode_table = array();
 
-    /**
-     * 访问中文繁简互换表的文件指针
-     *
-     * @变量类型  对象
-     * @访问      内部
-     */
-    var $ctf;
-
-    /**
-     * 等待转换的字符串
-     * @变量类型
-     * @访问      内部
-     */
-    var $SourceText = '';
-
-    /**
-     * Chinese 的运行配置
-     *
-     * @变量类型  数组
-     * @访问      公开
-     */
-    var $config = array(
-        'codetable_dir'    => '',                // 存放各种语言互换表的目录
-        'source_lang'      => '',                // 字符的原编码
-        'target_lang'      => '',                // 转换后的编码
-        'GBtoBIG5_table'   => 'gb-big5.table',   // 简体中文转换为繁体中文的对照表
-        'BIG5toGB_table'   => 'big5-gb.table',   // 繁体中文转换为简体中文的对照表
-        'GBtoUTF8_table'   => 'gb_utf8.php',     // 简体中文转换为UTF-8的对照表
-        'BIG5toUTF8_table' => 'big5_utf8.php'    // 繁体中文转换为UTF-8的对照表
-    );
-
-    var $iconv_enabled    = false; // 是否存在 ICONV 模块，默认为否
-    var $mbstring_enabled = false; // 是否存在 MBSTRING 模块，默认为否
-
-
-    /**
-     * Chinese 的悉构函数
-     *
-     * 详细说明
-     * @形参      字符串 $source_lang 为需要转换的字符串的原编码
-     *            字符串 $target_lang 为转换的目标编码
-     *            字符串 $SourceText 为等待转换的字符串
-     * @访问      公开
-     * @返回值    无
-     * @throws
-     */
-    function __construct($dir = './')
+    function __construct($in_charset, $out_charset)
     {
-        $this->config['codetable_dir'] = $dir . "includes/codetable/";
+        $this->iconv_enabled = function_exists('iconv');
 
-        if (function_exists('iconv'))
+        if (!$this->iconv_enabled)
         {
-            $this->iconv_enabled = true;
-        }
-
-        if (PHP_VERSION >= '5.0' && function_exists('mb_convert_encoding') && function_exists('mb_list_encodings'))
-        {
-            $encodings = mb_list_encodings();
-
-            if (in_array('UTF-8', $encodings) == true && in_array('BIG-5', $encodings) == true && in_array('CP936', $encodings) == true) // CP936 就是 GBK 字符集的别名
-            {
-                $this->mbstring_enabled = true;
-            }
-        }
-    }
-
-    function Convert($source_lang, $target_lang, $source_string = '')
-    {
-        /* 如果字符串为空或者字符串不需要转换，直接返回 */
-        if ($source_string == '' || preg_match("/[\x80-\xFF]+/", $source_string) == 0)
-        {
-            return $source_string;
-        }
-
-        if ($source_lang)
-        {
-            $this->config['source_lang'] = $this->_lang($source_lang);
-        }
-
-        if ($target_lang)
-        {
-            $this->config['target_lang'] = $this->_lang($target_lang);
-        }
-
-        /* 如果编码相同，直接返回 */
-        if ($this->config['source_lang'] == $this->config['target_lang'])
-        {
-            return $source_string;
-        }
-
-        $this->SourceText = $source_string;
-
-        if (($this->iconv_enabled || $this->mbstring_enabled) && !($this->config['source_lang'] == 'GBK' && $this->config['target_lang'] == 'BIG-5'))
-        {
-            if ($this->config['target_lang'] != 'UNICODE')
-            {
-                $string = $this->_convert_iconv_mbstring($this->SourceText, $this->config['target_lang'], $this->config['source_lang']);
-
-                /* 如果正确转换 */
-                if ($string)
-                {
-                    return $string;
-                }
-            }
-            else
-            {
-                $string = '';
-                $text = $SourceText;
-                while ($text)
-                {
-                    if (ord(substr($text, 0, 1)) > 127)
-                    {
-                        if ($this->config['source_lang'] != 'UTF-8')
-                        {
-                            $char = $this->_convert_iconv_mbstring(substr($text, 0, 2), 'UTF-8', $this->config['source_lang']);
-                        }
-                        else
-                        {
-                            $char = substr($text, 0, 3);
-                        }
-                        /* 如果转换出错 */
-                        if ($char == '')
-                        {
-                            $string = '';
-
-                            break;
-                        }
-
-                        switch (strlen($char))
-                        {
-                            case 1:
-                                $uchar  = ord($char);
-                                break;
-
-                            case 2:
-                                $uchar  = (ord($char[0]) & 0x3f) << 6;
-                                $uchar += ord($char[1])  & 0x3f;
-                                break;
-
-                            case 3:
-                                $uchar  = (ord($char[0]) & 0x1f) << 12;
-                                $uchar += (ord($char[1]) & 0x3f) << 6;
-                                $uchar += ord($char[2])  & 0x3f;
-                                break;
-
-                            case 4:
-                                $uchar  = (ord($char[0]) & 0x0f) << 18;
-                                $uchar += (ord($char[1]) & 0x3f) << 12;
-                                $uchar += (ord($char[2]) & 0x3f) << 6;
-                                $uchar += ord($char[3])  & 0x3f;
-                                break;
-                        }
-                        $string .= '&#x' . dechex($uchar) . ';';
-
-                        if ($this->config['source_lang'] != 'UTF-8')
-                        {
-                            $text = substr($text, 2);
-                        }
-                        else
-                        {
-                            $text = substr($text, 3);
-                        }
-                    }
-                    else
-                    {
-                        $string .= substr($text, 0, 1);
-                        $text    = substr($text, 1);
-                    }
-                }
-
-                /* 如果正确转换 */
-                if ($string)
-                {
-                    return $string;
-                }
-            }
-        }
-
-        $this->OpenTable();
-        // 判断是否为中文繁、简转换
-        if (($this->config['source_lang'] == 'GBK' || $this->config['source_lang'] == 'BIG-5') && ($this->config['target_lang'] == 'GBK' || $this->config['target_lang'] == 'BIG-5'))
-        {
-            return $this->GBtoBIG5();
-        }
-
-        // 判断是否为简体、繁体中文与UTF8转换
-        if (($this->config['source_lang'] == 'GBK' || $this->config['source_lang'] == 'BIG-5' || $this->config['source_lang'] == 'UTF-8') && ($this->config['target_lang'] == 'UTF-8' || $this->config['target_lang'] == 'GBK' || $this->config['target_lang'] == 'BIG-5'))
-        {
-            return $this->CHStoUTF8();
-        }
-
-        // 判断是否为简体、繁体中文与UNICODE转换
-        if (($this->config['source_lang'] == 'GBK' || $this->config['source_lang'] == 'BIG-5') && $this->config['target_lang'] == 'UNICODE')
-        {
-            return $this->CHStoUNICODE();
-        }
-    }
-
-    function _lang($lang)
-    {
-        $lang = strtoupper($lang);
-
-        if (substr($lang, 0, 2) == 'GB')
-        {
-            return 'GBK';
+            $this->Openthetable();
         }
         else
         {
-            switch(substr($lang, 0, 3))
+            if (strtoupper($in_charset) == 'UTF8')
             {
-                case 'BIG':
-                    return 'BIG-5';
-
-                case 'UTF':
-                    return 'UTF-8';
-
-                case 'UNI':
-                    return 'UNICODE';
-
-                default:
-                    return '';
+                $in_charset = 'UTF-8';
             }
+            if (strtoupper($out_charset) == 'UTF8')
+            {
+                $out_charset = 'UTF-8';
+            }
+
+            $this->in_charset = $in_charset;
+            $this->out_charset = $out_charset;
         }
     }
 
-    function _convert_iconv_mbstring($string, $target_lang, $source_lang)
+    function Convert($str)
     {
         if ($this->iconv_enabled)
         {
-            $return_string = @iconv($source_lang, $target_lang, $string);
-            if ($return_string !== false)
+            return iconv($this->in_charset, $this->out_charset, $str);
+        }
+        else
+        {
+            return $this->CHSUbStr($str, 0, -1);
+        }
+    }
+
+    /*
+    *@description:
+    *@param string $str
+    *@return binary
+    */
+    function OpenTheTable()
+    {
+        if (empty($this->unicode_table))
+        {
+            $filename = ROOT_PATH . 'includes/codetable/gb-unicode.table';
+
+            $this->table = file($filename);
+
+            $temp = '';
+
+            for ($i = 0, $n = count($this->table); $i < $n; $i++)
             {
-                return $return_string;
+                $this->unicode_table[hexdec(substr($this->table[$i], 0, 4))] = substr($this->table[$i], 5, 4);
             }
         }
+    }
 
-        if ($this->mbstring_enabled)
+    /*
+    *@description:
+    *@param string $str
+    *@return string
+    */
+    function CHSUbStr($str, $start, $len)
+    {
+        $tmpstr = '';
+        $i = 0;
+        $n = 0;
+        $str_length = strlen($str);
+        while ($i < $str_length)
         {
-            if ($source_lang == 'GBK')
+            if (ord($str[$i]) >= 128)
             {
-                $source_lang = 'CP936';
-            }
-            if ($target_lang == 'GBK')
-            {
-                $target_lang = 'CP936';
-            }
-
-            $return_string = @mb_convert_encoding($string, $target_lang, $source_lang);
-            if ($return_string !== false)
-            {
-                return $return_string;
+                $tmpstr .= $str[$i] . $str[$i+1];
+                $i += 2;
+                $n++;
             }
             else
             {
-                return false;
+                $tmpstr .= $str[$i];
+                $i++;
+                $n++;
             }
         }
+        if ($len < 0)
+        {
+            $len = $n;
+        }
+        if ($start < 0)
+        {
+            $start = $n + $start;
+        }
+        $tmpstr = '';
+        $i = 0;
+        $j = 0;
+        $n = 0;
+        $str_length = strlen($str);
+        while ($i < $str_length)
+        {
+            if ($j >= $start)
+            {
+                break;
+            }
+            if (ord($str[$i]) >= 128)
+            {
+                $tmpstr .= $str[$i] . $str[$i+1];
+                $i += 2;
+                $j++;
+            }
+            else
+            {
+                $tmpstr .= $str[$i];
+                $i++;
+                $j++;
+            }
+        }
+
+        $tmpstr = '';
+        while ($i < $str_length)
+        {
+            if ($n >= $len)
+            {
+                break;
+            }
+            if (ord($str[$i]) >= 128)
+            {
+                $tmpstr .= $str[$i] . $str[$i+1];
+                $i += 2;
+                $n++;
+            }
+            else
+            {
+                $tmpstr .= $str[$i];
+                $i++;
+                $n++;
+            }
+        }
+
+        return $tmpstr;
     }
 
-    /**
-     * 将 16 进制转换为 2 进制字符
-     *
-     * 详细说明
-     * @形参      $hexdata 为16进制的编码
-     * @访问      内部
-     * @返回      字符串
-     * @throws
-     */
-    function _hex2bin($hexdata)
+    /*
+    *@description:
+    *@param string $c
+    *@return string
+    */
+    function Utf8_To_Gb($c)
     {
-        $bindata = '';
-
-        for ($i = 0, $count = strlen($hexdata); $i < $count; $i += 2)
-        {
-            $bindata .= chr(hexdec($hexdata{$i} . $hexdata{$i + 1}));
-        }
-
-        return $bindata;
-    }
-
-    /**
-     * 打开对照表
-     *
-     * 详细说明
-     * @形参
-     * @访问      内部
-     * @返回      无
-     * @throws
-     */
-    function OpenTable()
-    {
-        static $gb_utf8_table      = NULL;
-        static $gb_unicode_table   = NULL;
-        static $utf8_gb_table      = NULL;
-
-        static $big5_utf8_table    = NULL;
-        static $big5_unicode_table = NULL;
-        static $utf8_big5_table    = NULL;
-
-        // 假如原编码为简体中文的话
-        if ($this->config['source_lang'] == 'GBK')
-        {
-            // 假如转换目标编码为繁体中文的话
-            if ($this->config['target_lang'] == 'BIG-5')
-            {
-                $this->ctf = @fopen($this->config['codetable_dir'] . $this->config['GBtoBIG5_table'], 'rb');
-                if (is_null($this->ctf))
-                {
-                    echo '打开打开转换表文件失败！';
-
-                    exit;
-                }
-            }
-
-            // 假如转换目标编码为 UTF8 的话
-            if ($this->config['target_lang'] == 'UTF-8')
-            {
-                if ($gb_utf8_table === NULL)
-                {
-                    require_once($this->config['codetable_dir'] . $this->config['GBtoUTF8_table']);
-                }
-                $this->unicode_table = $gb_utf8_table;
-            }
-
-            // 假如转换目标编码为 UNICODE 的话
-            if ($this->config['target_lang'] == 'UNICODE')
-            {
-                if ($gb_unicode_table === NULL)
-                {
-                    if (isset($gb_utf8_table) === false)
-                    {
-                        require_once($this->config['codetable_dir'] . $this->config['GBtoUTF8_table']);
-                    }
-                    foreach ($gb_utf8_table AS $key => $value)
-                    {
-                        $gb_unicode_table[$key] = substr($value, 2);
-                    }
-                }
-                $this->unicode_table = $gb_unicode_table;
-            }
-        }
-
-        // 假如原编码为繁体中文的话
-        if ($this->config['source_lang'] == 'BIG-5')
-        {
-            // 假如转换目标编码为简体中文的话
-            if ($this->config['target_lang'] == 'GBK')
-            {
-                $this->ctf = @fopen($this->config['codetable_dir'] . $this->config['BIG5toGB_table'], 'rb');
-                if (is_null($this->ctf))
-                {
-                    echo '打开打开转换表文件失败！';
-
-                    exit;
-                }
-            }
-            // 假如转换目标编码为 UTF8 的话
-            if ($this->config['target_lang'] == 'UTF-8')
-            {
-                if ($big5_utf8_table === NULL)
-                {
-                    require_once($this->config['codetable_dir'] . $this->config['BIG5toUTF8_table']);
-                }
-                $this->unicode_table = $big5_utf8_table;
-            }
-
-            // 假如转换目标编码为 UNICODE 的话
-            if ($this->config['target_lang'] == 'UNICODE')
-            {
-                if ($big5_unicode_table === NULL)
-                {
-                    if (isset($big5_utf8_table) === false)
-                    {
-                        require_once($this->config['codetable_dir'] . $this->config['BIG5toUTF8_table']);
-                    }
-                    foreach ($big5_utf8_table AS $key => $value)
-                    {
-                        $big5_unicode_table[$key] = substr($value, 2);
-                    }
-                }
-                $this->unicode_table = $big5_unicode_table;
-            }
-        }
-
-        // 假如原编码为 UTF8 的话
-        if ($this->config['source_lang'] == 'UTF-8')
-        {
-            // 假如转换目标编码为 GBK 的话
-            if ($this->config['target_lang'] == 'GBK')
-            {
-                if ($utf8_gb_table === NULL)
-                {
-                    if (isset($gb_utf8_table) === false)
-                    {
-                        require_once($this->config['codetable_dir'] . $this->config['GBtoUTF8_table']);
-                    }
-                    foreach ($gb_utf8_table AS $key => $value)
-                    {
-                        $utf8_gb_table[hexdec($value)] = '0x' . dechex($key);
-                    }
-                }
-                $this->unicode_table = $utf8_gb_table;
-            }
-
-            // 假如转换目标编码为 BIG5 的话
-            if ($this->config['target_lang'] == 'BIG-5')
-            {
-                if ($utf8_big5_table === NULL)
-                {
-                    if (isset($big5_utf8_table) === false)
-                    {
-                        require_once($this->config['codetable_dir'] . $this->config['BIG5toUTF8_table']);
-                    }
-                    foreach ($big5_utf8_table AS $key => $value)
-                    {
-                        $utf8_big5_table[hexdec($value)] = '0x' . dechex($key);
-                    }
-                }
-                $this->unicode_table = $utf8_big5_table;
-            }
-        }
-    }
-
-    /**
-     * 将简体、繁体中文的 UNICODE 编码转换为 UTF8 字符
-     *
-     * 详细说明
-     * @形参      数字 $c 简体中文汉字的UNICODE编码的10进制
-     * @访问      内部
-     * @返回      字符串
-     * @throws
-     */
-    function CHSUtoUTF8($c)
-    {
-        $str='';
+        $str = '';
 
         if ($c < 0x80)
         {
@@ -470,208 +180,523 @@ class Chinese
         }
         elseif ($c < 0x800)
         {
-            $str .= (0xC0 | $c >> 6);
-            $str .= (0x80 | $c & 0x3F);
+            $str .= (chr(0xC0 | $c >> 6));
+            $str .= (chr(0x80 | $c & 0x3F));
         }
         elseif ($c < 0x10000)
         {
-            $str .= (0xE0 | $c >> 12);
-            $str .= (0x80 | $c >> 6 & 0x3F);
-            $str .= (0x80 | $c & 0x3F);
+            $str .= (chr(0xE0 | $c >> 12));
+            $str .= (chr(0x80 | $c >> 6 & 0x3F));
+            $str .= (chr(0x80 | $c & 0x3F));
         }
         elseif ($c < 0x200000)
         {
-            $str .= (0xF0 | $c >> 18);
-            $str .= (0x80 | $c >> 12 & 0x3F);
-            $str .= (0x80 | $c >> 6  & 0x3F);
-            $str .= (0x80 | $c & 0x3F);
+            $str .= (chr(0xF0 | $c >> 18));
+            $str .= (chr(0x80 | $c >> 12 & 0x3F));
+            $str .= (chr(0x80 | $c >> 6 & 0x3F));
+            $str .= (chr(0x80 | $c & 0x3F));
         }
 
         return $str;
     }
 
-    /**
-     * 简体、繁体中文 <-> UTF8 互相转换的函数
-     *
-     * 详细说明
-     * @形参
-     * @访问      内部
-     * @返回      字符串
-     * @throws
-     */
-    function CHStoUTF8()
+    /*
+    *@description:
+    *@param string $str
+    *@return string
+    */
+    function Gb_To_Utf8($str)
     {
-        if ($this->config['source_lang'] == 'BIG-5' || $this->config['source_lang'] == 'GBK')
+        $str = $this->CHSUbStr($str, 0, -1);
+        $result = '';
+        for ($i = 0, $n = strlen($str); $i < $n; $i++)
         {
-            $ret = '';
-
-            while ($this->SourceText)
+            if (ord($str[$i]) >= 128)
             {
-                if (ord($this->SourceText{0}) > 127)
+                $p = ord($str[$i]) * 256 + ord($str[$i+1]);
+                if (isset($this->unicode_table[$p]))
                 {
-                    if ($this->config['source_lang'] == 'BIG-5')
-                    {
-                        $utf8 = $this->CHSUtoUTF8(hexdec(@$this->unicode_table[hexdec(bin2hex($this->SourceText{0} . $this->SourceText{1}))]));
-                    }
-                    if ($this->config['source_lang'] == 'GBK')
-                    {
-                        $utf8 = $this->CHSUtoUTF8(hexdec(@$this->unicode_table[hexdec(bin2hex($this->SourceText{0} . $this->SourceText{1})) - 0x8080]));
-                    }
-                    for ($i = 0, $count = strlen($utf8); $i < $count; $i += 3)
-                    {
-                        $ret .= chr(substr($utf8, $i, 3));
-                    }
-
-                    $this->SourceText = substr($this->SourceText, 2, strlen($this->SourceText));
+                    $result .= $this->Utf8_To_Gb(hexdec($this->unicode_table[$p]));
                 }
-                else
-                {
-                    $ret .= $this->SourceText{0};
-                    $this->SourceText = substr($this->SourceText, 1, strlen($this->SourceText));
-                }
-            }
-            $this->unicode_table = array();
-            $this->SourceText = '';
-
-            return $ret;
-        }
-
-        if ($this->config['source_lang'] == 'UTF-8')
-        {
-            $i   = 0;
-            $out = '';
-            $len = strlen($this->SourceText);
-            while ($i < $len)
-            {
-                $c = ord($this->SourceText{$i++});
-                switch($c >> 4)
-                {
-                    case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
-                        // 0xxxxxxx
-                        $out .= $this->SourceText{$i - 1};
-                        break;
-                    case 12: case 13:
-                        // 110x xxxx   10xx xxxx
-                        $char2 = ord($this->SourceText{$i++});
-                        $char3 = @$this->unicode_table[(($c & 0x1F) << 6) | ($char2 & 0x3F)];
-
-                        if ($this->config['target_lang'] == 'GBK')
-                        {
-                            $out .= $this->_hex2bin(dechex($char3 + 0x8080));
-                        }
-                        elseif ($this->config['target_lang'] == 'BIG-5')
-                        {
-                            $out .= $this->_hex2bin(dechex($char3 + 0x0000));
-                        }
-                        break;
-                    case 14:
-                        // 1110 xxxx  10xx xxxx  10xx xxxx
-                        $char2 = ord($this->SourceText{$i++});
-                        $char3 = ord($this->SourceText{$i++});
-                        $char4 = @$this->unicode_table[(($c & 0x0F) << 12) | (($char2 & 0x3F) << 6) | (($char3 & 0x3F) << 0)];
-
-                        if ($this->config['target_lang'] == 'GBK')
-                        {
-                            $out .= $this->_hex2bin(dechex($char4 + 0x8080));
-                        } elseif ($this->config['target_lang'] == 'BIG-5')
-                        {
-                            $out .= $this->_hex2bin(dechex($char4 + 0x0000));
-                        }
-
-                        break;
-                }
-            }
-
-            // 返回结果
-            return $out;
-        }
-    }
-
-    /**
-     * 简体、繁体中文转换为 UNICODE编码
-     *
-     * 详细说明
-     * @形参
-     * @访问      内部
-     * @返回      字符串
-     * @throws
-     */
-    function CHStoUNICODE()
-    {
-        $utf = '';
-
-        while ($this->SourceText)
-        {
-            if (ord($this->SourceText{0}) > 127)
-            {
-                if ($this->config['source_lang'] == 'GBK')
-                {
-                    $utf .= '&#x' . $this->unicode_table[hexdec(bin2hex($this->SourceText{0} . $this->SourceText{1})) - 0x8080] . ';';
-                }
-                elseif ($this->config['source_lang'] == 'BIG-5')
-                {
-                    $utf .= '&#x' . $this->unicode_table[hexdec(bin2hex($this->SourceText{0} . $this->SourceText{1}))] . ';';
-                }
-
-                $this->SourceText = substr($this->SourceText, 2, strlen($this->SourceText));
+                $i++;
             }
             else
             {
-                $utf .= $this->SourceText{0};
-                $this->SourceText = substr($this->SourceText, 1, strlen($this->SourceText));
+                $result .= $str[$i];
             }
         }
 
-        return $utf;
+        return $result;
     }
 
-    /**
-     * 简体中文 <-> 繁体中文 互相转换的函数
-     *
-     * 详细说明
-     * @访问      内部
-     * @返回值    经过编码的utf8字符
-     * @throws
-     */
-    function GBtoBIG5()
+    /*
+    *@description:
+    *@param string $str
+    *@return integer
+    */
+    function strlen_utf8($str)
     {
-        // 获取等待转换的字符串的总长度
-        $max = strlen($this->SourceText) - 1;
-
-        for ($i = 0; $i < $max; $i++)
+        $i = 0;
+        $count = 0;
+        $len = strlen($str);
+        while ($i < $len)
         {
-            $h = ord($this->SourceText{$i});
-            if ($h >= 160)
+            $chr = ord($str[$i]);
+            $count++;
+            $i++;
+            if ($i >= $len)
             {
-                $l = ord($this->SourceText{$i + 1});
+                break;
+            }
 
-                if ($h == 161 && $l == 64)
+            if ($chr & 0x80)
+            {
+                $chr <<= 1;
+                while ($chr & 0x80)
                 {
-                    $gb = '  ';
+                    $i++;
+                    $chr <<= 1;
                 }
-                else
-                {
-                    fseek($this->ctf, ($h - 160) * 510 + ($l - 1) * 2);
-                    $gb = fread($this->ctf, 2);
-                }
-
-                $this->SourceText{$i}     = $gb{0};
-                $this->SourceText{$i + 1} = $gb{1};
-
-                $i++;
             }
         }
-        fclose($this->ctf);
 
-        // 将转换后的结果赋予 $result;
-        $result = $this->SourceText;
+        return $count;
+    }
+}
+if (!function_exists('ecs_iconv'))
+{
+    function ecs_iconv($source_lang, $target_lang, $source_string = '')
+    {
+        if ($source_string === '' || $source_lang === $target_lang)
+        {
+            return $source_string;
+        }
 
-        // 清空 $thisSourceText
-        $this->SourceText = '';
+        if (function_exists('iconv') && M_CHARSET != 'zh_cn')
+        {
+            $return_string = iconv($source_lang, $target_lang, $source_string);
+        }
+        elseif (substr(M_CHARSET, 0, 2) == 'zh')
+        {
+            if ($source_lang == 'UTF8')
+            {
+                $source_lang = 'UTF-8';
+            }
 
-        // 返回转换结果
-        return $result;
+            if ($target_lang == 'UTF8')
+            {
+                $target_lang = 'UTF-8';
+            }
+
+            if ($source_lang == 'GB2312')
+            {
+                $source_lang = 'GBK';
+            }
+
+            if ($target_lang == 'GB2312')
+            {
+                $target_lang = 'GBK';
+            }
+            
+            // Đảm bảo file cls_iconv.php được nạp để có class Chinese
+            if (!class_exists('Chinese')) {
+                include_once(ROOT_PATH . 'includes/cls_iconv.php');
+            }
+
+            // DÒNG ĐÃ SỬA: Truyền đủ 2 tham số vào hàm khởi tạo
+            $chinese = new Chinese($source_lang, $target_lang);
+            $return_string = $chinese->Convert($source_string);
+        }
+        else
+        {
+            $return_string = $source_string;
+        }
+
+        return $return_string;
     }
 }
 
+if (!function_exists('json_str_iconv'))
+{
+function json_str_iconv($str)
+{
+    if (EC_CHARSET != 'UTF-8')
+    {
+        if (is_string($str))
+        {
+            return ecs_iconv('UTF-8', 'GBK', $str);
+        }
+        elseif (is_array($str))
+        {
+            foreach ($str AS $key => $value)
+            {
+                $str[$key] = json_str_iconv($value);
+            }
+            return $str;
+        }
+        elseif (is_object($str))
+        {
+            foreach ($str AS $key => $value)
+            {
+                $str->$key = json_str_iconv($value);
+            }
+            return $str;
+        }
+        else
+        {
+            return $str;
+        }
+    }
+    return $str;
+}
+}
+function file_name_str_iconv($str)
+{
+    if (EC_CHARSET != 'UTF-8')
+    {
+        if (is_string($str))
+        {
+            return ecs_iconv('UTF-8', 'GBK', $str);
+        }
+        elseif (is_array($str))
+        {
+            foreach ($str AS $key => $value)
+            {
+                $str[$key] = json_str_iconv($value);
+            }
+            return $str;
+        }
+        elseif (is_object($str))
+        {
+            foreach ($str AS $key => $value)
+            {
+                $str->$key = json_str_iconv($value);
+            }
+            return $str;
+        }
+        else
+        {
+            return $str;
+        }
+    }
+    return $str;
+}
+
+if (!function_exists('json_encode'))
+{
+    include_once('../includes/cls_json.php');
+    function json_encode($value)
+    {
+        $json = new JSON;
+        return $json->encode($value);
+    }
+}
+
+if (!function_exists('json_decode'))
+{
+    include_once('../includes/cls_json.php');
+    function json_decode($json, $assoc = false)
+    {
+        $json = new JSON;
+        return $json->decode($json, $assoc);
+    }
+}
+
+if (!function_exists('file_put_contents'))
+{
+    define('FILE_APPEND', '1');
+    function file_put_contents($file, $data, $flags = '')
+    {
+        $contents = (is_array($data)) ? implode('', $data) : $data;
+
+        if ($flags == '1')
+        {
+            $mode = 'ab+';
+        }
+        else
+        {
+            $mode = 'wb';
+        }
+        $fp = @fopen($file, $mode);
+        if ($fp)
+        {
+            flock($fp, LOCK_EX);
+            fwrite($fp, $contents);
+            flock($fp, LOCK_UN);
+            fclose($fp);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+// From file: D:\wwwroot\working\utf8\upload\includes\cls_json.php
+/**
+ * Convert a string to UTF-8.
+ *
+ * @param   string  $str
+ * @return  string
+ */
+function utf8_encode_deep($str)
+{
+    if (is_array($str))
+    {
+        foreach ($str AS $key => $value)
+        {
+            $str[$key] = utf8_encode_deep($value);
+        }
+
+        return $str;
+    }
+    else
+    {
+        return ecs_iconv(EC_CHARSET, 'utf-8', $str);
+    }
+}
+
+function get_binary($str, $order)
+{
+    $bin = '';
+    $arr = explode(' ', $str);
+    foreach ($arr as $val)
+    {
+        $bin .= decbin(hexdec($val));
+    }
+
+    return bindec(substr($bin, $order, 1));
+}
+
+function u2char($c)
+{
+    if ($c < 0x80)
+    {
+        return chr($c);
+    }
+    elseif ($c < 0x800)
+    {
+        return chr(0xC0 | $c >> 6)
+             . chr(0x80 | $c & 0x3F);
+    }
+    elseif ($c < 0x10000)
+    {
+        return chr(0xE0 | $c >> 12)
+             . chr(0x80 | $c >> 6 & 0x3F)
+             . chr(0x80 | $c & 0x3F);
+    }
+    elseif ($c < 0x200000)
+    {
+        return chr(0xF0 | $c >> 18)
+             . chr(0x80 | $c >> 12 & 0x3F)
+             . chr(0x80 | $c >> 6 & 0x3F)
+             . chr(0x80 | $c & 0x3F);
+    }
+
+    return false;
+}
+if (!function_exists('make_semiangle'))
+{
+function make_semiangle($str)
+{
+    $arr = array('０' => '0', '１' => '1', '２' => '2', '３' => '3', '４' => '4',
+                 '５' => '5', '６' => '6', '７' => '7', '８' => '8', '９' => '9',
+                 'Ａ' => 'A', 'Ｂ' => 'B', 'Ｃ' => 'C', 'Ｄ' => 'D', 'Ｅ' => 'E',
+                 'Ｆ' => 'F', 'Ｇ' => 'G', 'Ｈ' => 'H', 'Ｉ' => 'I', 'Ｊ' => 'J',
+                 'Ｋ' => 'K', 'Ｌ' => 'L', 'Ｍ' => 'M', 'Ｎ' => 'N', 'Ｏ' => 'O',
+                 'Ｐ' => 'P', 'Ｑ' => 'Q', 'Ｒ' => 'R', 'Ｓ' => 'S', 'Ｔ' => 'T',
+                 'Ｕ' => 'U', 'Ｖ' => 'V', 'Ｗ' => 'W', 'Ｘ' => 'X', 'Ｙ' => 'Y',
+                 'Ｚ' => 'Z', 'ａ' => 'a', 'ｂ' => 'b', 'ｃ' => 'c', 'ｄ' => 'd',
+                 'ｅ' => 'e', 'ｆ' => 'f', 'ｇ' => 'g', 'ｈ' => 'h', 'ｉ' => 'i',
+                 'ｊ' => 'j', 'ｋ' => 'k', 'ｌ' => 'l', 'ｍ' => 'm', 'ｎ' => 'n',
+                 'ｏ' => 'o', 'ｐ' => 'p', 'ｑ' => 'q', 'ｒ' => 'r', 'ｓ' => 's',
+                 'ｔ' => 't', 'ｕ' => 'u', 'ｖ' => 'v', 'ｗ' => 'w', 'ｘ' => 'x',
+                 'ｙ' => 'y', 'ｚ' => 'z',
+                 '（' => '(', '）' => ')', '〔' => '[', '〕' => ']', '【' => '[',
+                 '】' => ']', '〖' => '[', '〗' => ']', '“' => '[', '”' => ']',
+                 '‘' => '[', '’' => ']', '｛' => '{', '｝' => '}', '《' => '<',
+                 '》' => '>',
+                 '％' => '%', '＋' => '+', '—' => '-', '－' => '-', '～' => '-',
+                 '·' => '.', '、' => ',', '。' => '.', '，' => ',', '；' => ';',
+                 '：' => ':', '？' => '?', '！' => '!', '…' => '-', '—' => '-',
+                 '′' => '`', '″' => '`', '〃' => '`',
+                 '　' => ' ');
+
+    return strtr($str, $arr);
+}
+}
+function sc_to_tc($str)
+{
+    if (EC_CHARSET == 'utf-8')
+    {
+        $sc_to_tc_table = array();
+        if (file_exists(ROOT_PATH . 'includes/codetable/sc-tc.php'))
+        {
+            require_once(ROOT_PATH . 'includes/codetable/sc-tc.php');
+            return strtr($str, $sc_to_tc_table);
+        }
+    }
+    return $str;
+}
+
+function tc_to_sc($str)
+{
+    if (EC_CHARSET == 'utf-8')
+    {
+        $tc_to_sc_table = array();
+        if (file_exists(ROOT_PATH . 'includes/codetable/tc-sc.php'))
+        {
+            require_once(ROOT_PATH . 'includes/codetable/tc-sc.php');
+            return strtr($str, $tc_to_sc_table);
+        }
+    }
+    return $str;
+}
+
+function string_character_iconv($str)
+{
+    $str_cha_arr = array();
+    $str_cha_arr[0] = $str;
+    if(EC_CHARSET == 'utf-8')
+    {
+        $str_cha_arr[1] = sc_to_tc($str);
+        $str_cha_arr[2] = tc_to_sc($str);
+    }
+    elseif(EC_CHARSET == 'gbk')
+    {
+        $str_cha_arr[1] = ecs_iconv('GBK', 'BIG5', $str);
+        $str_cha_arr[2] = ecs_iconv('BIG5', 'GBK', $str);
+    }
+    else
+    {
+        // gbk to big5
+        $str_cha_arr[1] = $str_cha_arr[2] = $str;
+    }
+
+    return $str_cha_arr;
+}
+
+
+// From file: D:\wwwroot\working\utf8\upload\includes\cls_pinyin.php
+define('PINYIN_TONE', false);
+define('PINYIN_SPACE', ' ');
+
+class Pinyin
+{
+    //var
+    var $pinyins = NULL;
+    // pinyin table
+    var $_pinyins = array();
+    //construct
+    function __construct()
+    {
+    }
+    // 获取单个字符的拼音
+    function get($char, $is_str = false)
+    {
+        if (is_null($this->pinyins))
+        {
+            $this->_pinyins = $this->pinyins = include(ROOT_PATH . 'includes/codetable/pinyin.php');
+        }
+        $this->pinyins = $this->_pinyins;
+        if (isset($this->pinyins[$char]))
+        {
+            if (PINYIN_TONE)
+            {
+                if (is_array($this->pinyins[$char]))
+                {
+                    $pinyin = $this->pinyins[$char][0];
+                }
+                else
+                {
+                    $pinyin = $this->pinyins[$char];
+                }
+            }
+            else
+            {
+                if (is_array($this->pinyins[$char]))
+                {
+                    $this->pinyins[$char] = $this->pinyins[$char][0];
+                }
+                $pinyin = preg_replace("/(à|á|ǎ|ā)/", 'a', $this->pinyins[$char]);
+                $pinyin = preg_replace("/(ò|ó|ǒ|ō)/", 'o', $pinyin);
+                $pinyin = preg_replace("/(è|é|ě|ē)/", 'e', $pinyin);
+                $pinyin = preg_replace("/(ì|í|ǐ|ī)/", 'i', $pinyin);
+                $pinyin = preg_replace("/(ù|ú|ǔ|ū)/", 'u', $pinyin);
+                $pinyin = preg_replace("/(ü|ǘ|ǚ|ǜ)/", 'v', $pinyin);
+            }
+            return $pinyin;
+        }
+        elseif ($is_str === true)
+        {
+            return $char;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+
+    /**
+     * 将utf8的字符串转换为拼音
+     *
+     * @param string $str
+     * @return string
+     */
+    function str2py($str)
+    {
+        $ret = array();
+        $str_len = mb_strlen($str, EC_CHARSET);
+        for ($i = 0; $i < $str_len; $i++)
+        {
+            $char = mb_substr($str, $i, 1, EC_CHARSET);
+            if(ord($char) > 127)
+            {
+                $ret[] = $this->get(ecs_iconv(EC_CHARSET, 'gb2312', $char), true);
+            }
+            else
+            {
+                $ret[] = $char;
+            }
+        }
+        return implode(PINYIN_SPACE, $ret);
+    }
+
+    /**
+     * 获取汉字的首字母
+     *
+     * @param string $str
+     * @return string
+     */
+    function get_f($str)
+    {
+        $py_str = $this->str2py($str);
+        if ($py_str)
+        {
+            $f_str = '';
+            $py_arr = explode(PINYIN_SPACE, $py_str);
+            if (!empty($py_arr))
+            {
+                foreach ($py_arr AS $py)
+                {
+                    if (preg_match("/^[a-zA-Z]$/", $py))
+                    {
+                        $f_str .= $py;
+                    }
+                    else
+                    {
+                        $f_str .= substr($py, 0, 1);
+                    }
+                }
+            }
+
+            return strtoupper($f_str);
+        }
+        else
+        {
+            return $str;
+        }
+    }
+}
 ?>

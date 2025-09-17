@@ -10,6 +10,7 @@
 ul.detaigoood{
   display: flex;
     flex-wrap: wrap;
+    padding: 10px 10px 10px 20px;
 }
 ul.detaigoood li {
     width: 50%;
@@ -81,7 +82,7 @@ section {
     overflow: hidden;
     display: block;
     line-height: 20px;
-    padding: 10px 10px 10px 20px;
+    margin: 10px;
 }
 .good_v {
     display: block;
@@ -587,7 +588,9 @@ a.buy_now1 {
 .area_order {
     display: block;
     overflow: hidden;
-    margin: 10px
+}
+.price_sale {
+    margin: 10px;
 }
 .area_order .buy_now {
     display: block;
@@ -899,16 +902,18 @@ article div {margin-top: 0}
 article div em, article p em{font-style: italic}
 article h2, article h3, article h4, article h5{font-weight: 700;margin: 10px auto;}
 article ul{list-style: disc;margin-left: 10px}
-article ol{margin-left: 30px}
+article ol{margin-left: 30px;list-style: disc;}
 
 article table {
     margin: 10px auto;
     border-collapse: collapse;
     max-width: 100%;
-    font-weight: 300;
+    font-weight: 450;
     width: 100%
 }
-
+.brief ul li {
+    list-style: circle;
+}
 article table+table {
     margin-top: 15px
 }

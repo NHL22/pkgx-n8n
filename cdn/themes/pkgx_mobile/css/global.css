@@ -2004,3 +2004,76 @@ input[type="email"] {
 .inline_input input.email {
     font-size: 16px;
 }
+
+
+/* --- CSS cho Dropdown tùy chỉnh có tìm kiếm --- */
+.custom-select-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+.select-selected {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    position: relative; /* Thêm để mũi tên định vị đúng */
+}
+.select-selected::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #333 transparent transparent transparent;
+}
+.select-selected.select-arrow-active::after {
+    border-color: transparent transparent #333 transparent;
+    top: 40%;
+}
+.select-items {
+    position: absolute;
+    background-color: #fff;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    display: flex; /* SỬA LỖI: Dùng flexbox để chia bố cục */
+    flex-direction: column; /* Sắp xếp theo chiều dọc */
+    max-height: 250px; /* Chiều cao tối đa của cả hộp */
+}
+.select-hide {
+    display: none;
+}
+.select-items .region-search-input {
+    width: calc(100% - 34px); /* Sửa lại chiều rộng */
+    padding: 8px;
+    margin: 8px; /* Căn lề cho đẹp */
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex-shrink: 0; /* SỬA LỖI: Đảm bảo ô search không bị ẩn khi cuộn */
+}
+/* SỬA LỖI: Thêm một lớp bọc cho danh sách để cuộn */
+.options-list {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+.options-list .option-item {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+.options-list .option-item:hover, .same-as-selected {
+    background-color: #f1f1f1;
+}
+
+.option-item.option-active {
+    background-color: #f0f0f0;
+}

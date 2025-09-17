@@ -25,14 +25,9 @@
             <span class="htop-r">
                 <i class="icontgdd-hotline-white"></i>
                 <span><strong>{$service_phone}</strong><p>Hotline bán hàng</p></span>
-                {if !$smarty.session.user_id}
-                <i class="icontgdd-ship-white"></i>
-                <span><strong>Giao hàng Toàn Quốc</strong><p>Từ 2 đến 5 ngày</p></span>
-                {/if}
+
             </span>
-             {if $smarty.session.user_id and $smarty.session.user_id neq 0}
              <div class="user_area" id="user_area"><i class="icontgdd-user-white"></i> {insert name='member_info'}</div>
-             {/if}
 
             <div class="cart" id="cart">
                 <p class="cart_info">

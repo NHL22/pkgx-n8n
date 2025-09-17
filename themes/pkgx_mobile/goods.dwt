@@ -6,49 +6,16 @@
   <script src="{$option.static_path}/js/respond.min.js"></script>
 <![endif]-->
 <head>
-    <meta charset="utf-8">
     {include file='library/html_header.lbi'}
     {if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
-    <meta content="{$meta_robots}" name="robots" />
     <title>{$page_title}</title>
     <link rel="canonical" href="{$base_path}/{$goods.url}"/>
     <link rel="alternate" href="{$base_path}/{$goods.url}" hreflang="vi-vn" />
     <meta property="og:url" itemprop="url" content="{$base_path}/{$goods.url}" />
     <meta itemprop="image" content="{$cdn_path}/{$goods.goods_img}" />
-    <meta property="og:title" content="{$page_title}" />
-
     <meta property="og:image" content="{$cdn_path}/{$goods.goods_img}" />
     <meta property="og:image:secure_url" itemprop="thumbnailUrl" content="{$cdn_path}/{$goods.goods_img}" />
     <meta property="og:image:alt" content="{$goods.goods_name}" />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Trang chủ",
-          "item": "https://phukiengiaxuong.com.vn/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "{$cat_info.cat_name}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$cat_info.url}" // URL của danh mục hiện tại
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "{$goods.goods_name}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$goods.url}" // URL của danh mục hiện tại
-        }
-        
-      
-        // Nếu có danh mục cha, bạn có thể chèn thêm vào giữa
-      ]
-    }
-    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
@@ -65,20 +32,20 @@
         "@type": "Brand",
         "name": "{$goods.goods_brand}"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        // TODO: Thay biến này bằng biến chứa điểm đánh giá trung bình thực tế (ví dụ: 4.5)
-        "ratingValue": "", 
-        // TODO: Thay biến này bằng biến chứa tổng số lượng đánh giá thực tế
-        "reviewCount": "" 
-      },
       "offers": {
         "@type": "Offer",
         "url": "{$base_path}/{$goods.url}",
         "priceCurrency": "VND",
-        "price": "{$goods.shop_price}",
+        "price": "{$goods.shop_price_raw}",
         "itemCondition": "https://schema.org/NewCondition",
         "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{$avg_rating}",
+        "reviewCount": "{$review_count}",
+        "bestRating": "5",
+        "worstRating": "1"
       }
     }
     </script>

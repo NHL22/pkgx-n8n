@@ -11,8 +11,8 @@
             <li>Giá Sỉ  <strong>{$goods.shop_price_formated}</strong></li>
             {/if}
           <li class="cprice">Giá CK: {$goods.partner_price}</li> 
-          <li class="cprice">Giá Lẻ: {$goods.deal_price}</li>
-            {if $goods.seller_note neq ""}<li>Ghi chú: {$goods.seller_note}</li>{/if}
+        <!--  <li class="cprice">Giá Lẻ: {$goods.deal_price}</li> -->
+            {if $goods.seller_note neq ""}<li class="note">Ghi chú: {$goods.seller_note}</li>{/if}
             </ul>
         </div>
         {if $volume_price_list}
@@ -27,7 +27,6 @@
         </div>
         {/if}
         {if $goods.is_shipping}<p class="slogan">{$lang.goods_free_shipping}</p>{/if}
-        {if $goods.goods_brief}<p class="intro">{$goods.goods_brief}</p>{/if}
         {if $goods.goods_gifts}
         <div class="area_promotion zero">
             <strong>Khuyến mãi</strong>
@@ -109,6 +108,8 @@
 
                     </div>
                     <div class="clr"></div>
+                            {if $goods.goods_brief}<div class="intro">{$goods.goods_brief}</div>{/if}
+
                     <div class="callorder">
                         <p> Hoặc gọi ngay: <a href="tel:{$service_phone}">{$service_phone}</a> ({$open_time})</p>
                     </div>

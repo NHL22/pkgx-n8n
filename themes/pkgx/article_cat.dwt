@@ -1,74 +1,53 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    {include file='library/html_header.lbi'}
     <meta property="og:url" content="{$base_path}/{$cat_url}">
-    <meta property="og:image" content="{if $article.thumb}{$cdn_path}/{$article.thumb}{/if}">
-    <meta property="og:image:secure_url" content="{if $article.thumb}{$cdn_path}/{$article.thumb}{/if}">
+    <meta property="og:image" content="{$cdn_path}/data/images/phukiengiaxuong.jpg">
+    <meta property="og:image:secure_url" content="{$cdn_path}/data/images/phukiengiaxuong.jpg">
+    <meta name="twitter:image" content="{$cdn_path}/data/images/phukiengiaxuong.jpg">
     {if $keywords}<meta name="keywords" content="{$keywords}">{/if}
     <meta name="robots" content="{$meta_robots}">
     <title>{$page_title}</title>
     <link rel="canonical" href="{$base_path}/{$cat_url}">
     <link rel="alternate" href="{$base_path}/{$cat_url}" hreflang="vi-vn" />
-        <script type="application/ld+json">
+    {include file='library/html_header.lbi'}
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Trang chủ",
-          "item": "https://phukiengiaxuong.com.vn/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "{$cat_name}", // Tên danh mục hiện tại
-          "item": "{$base_path}/{$cat_url}" // URL của danh mục hiện tại
+      "@type": "CollectionPage",
+      "name": "{$page_title}",
+      "url": "{$base_path}/{$cat_url}",
+      "description": "{$description}",
+      "inLanguage": "vi-VN",
+      "datePublished": "2020-11-17T09:42:03+07:00",
+      "dateModified": "2025-08-27T16:09:45+07:00",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Phụ Kiện Giá Xưởng",
+        "url": "https://phukiengiaxuong.com.vn/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.webp"
         }
-        
-        // Nếu có danh mục cha, bạn có thể chèn thêm vào giữa
-      ]
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {foreach from=$artciles_list item=article name=artciles_list}
+          {
+            "@type": "ListItem",
+            "position": {$smarty.foreach.artciles_list.iteration},
+            "item": {
+              "@type": "BlogPosting",
+              "headline": "{$article.title|escape:'json'}",
+              "url": "https://phukiengiaxuong.com.vn/{$article.url|escape:'html'}"
+            }
+          }{if !$smarty.foreach.artciles_list.last},{/if}
+          {/foreach}
+        ]
+      }
     }
     </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "{$page_title}",
-  "url": "{$base_path}/{$cat_url}",
-  "description": "{$description}",
-  "inLanguage": "vi-VN",
-  "datePublished": "2020-11-17T09:42:03+07:00",
-  "dateModified": "2025-08-27T16:09:45+07:00",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Phụ Kiện Giá Xưởng",
-    "url": "https://phukiengiaxuong.com.vn/",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://phukiengiaxuong.com.vn/cdn/upload/files/profile/logo.webp"
-    }
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": [
-      {foreach from=$artciles_list item=article name=artciles_list}
-      {
-        "@type": "ListItem",
-        "position": {$smarty.foreach.artciles_list.iteration},
-        "item": {
-          "@type": "BlogPosting",
-          "headline": "{$article.title|escape:'json'}",
-          "url": "https://phukiengiaxuong.com.vn/{$article.url|escape:'html'}"
-        }
-      }{if !$smarty.foreach.artciles_list.last},{/if}
-      {/foreach}
-    ]
-  }
-}
-</script>
 
 
     {insert_css files="css/global.css,css/article_cat.css"}
@@ -82,38 +61,26 @@
 <div class="clr"></div>
    <div class="col_main">
      <div class="titledetail"><h1>{$page_title}</h1></div>
-        {if $artciles_list}
-        <ul class="newslist">
-         {foreach from=$artciles_list item=article name=artciles_list}
-            <li>
-                <a href="{$article.url|escape:html}">
-                    {if $article.thumb_webp}
-                    <picture class="tempvideo">
-                        <source width="150" height="150" srcset="{$cdn_path}/{$article.thumb_webp}" type="image/webp" />
-                        <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
-                    </picture>
-                    {else}
-                    <div class="tempvideo">
-                        <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
-                    </div>
-                    {/if}
-                    <h3>{$article.title}</h3>
-                    <figure>
-                        {$article.desc|truncate:225:"...":true}
-                    </figure>
-                    <div class="timepost">
-                        <span>{$article.add_time}</span>
-                        <span class="namecate">{$article.author}</span>
-                        <span>• {$article.viewed} lượt xem</span>
-                    </div>
-                </a>
-            </li>
-         {/foreach}
-        </ul>
-         <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
-        {else}
-            <p class="empty">Không tìm thấy dữ liệu cho danh mục {$cat_name}</p>
-        {/if}
+{if $artciles_list}
+    <ul class="newslist" id="article-container">
+        {* Tải danh sách bài viết ban đầu từ file lbi giống như trang brand *}
+        {include file='library/article_list_item.lbi'}
+    </ul>
+
+    {* Phân trang bị ẩn đi để JavaScript sử dụng *}
+    <div id="hidden_pager" style="display: none;">
+        {include file='library/pages.lbi'}
+    </div>
+
+    {* Container cho nút "Xem thêm" *}
+    <div id="load_more_container">
+        {* Sử dụng file pages_ajax.lbi giống hệt trang brand *}
+        {include file='library/pages_ajax.lbi'}
+    </div>
+
+{else}
+    <p class="empty">Không tìm thấy dữ liệu cho danh mục {$cat_name}</p>
+{/if}
    </div>
    <div class="col_sub">
      <!-- TemplateBeginEditable name="RightTop" -->
@@ -135,15 +102,15 @@
 <!-- #BeginLibraryItem "/library/new_articles.lbi" -->
 {if $new_articles}
 <ul>
-	{foreach from=$new_articles item=article name=new_articles}
-	<li>
+    {foreach from=$new_articles item=article name=new_articles}
+    <li>
         <a href="{$article.url}" title="{$article.title|escape:html}">
             <img width="100" height="70" alt="{$article.title|escape}"  src="{$cdn_path}/{$article.thumb}">
             <h3>{$article.title|escape:html}</h3>
             <span>{$article.add_time}</span>
         </a>
     </li>
-	{/foreach}
+    {/foreach}
 </ul>
 {/if}
 
@@ -156,5 +123,56 @@
 </section>
 {include file='library/page_footer.lbi'}
 {include file='library/html_footer.lbi'}
+<script type="text/javascript">
+$(document).ready(function() {
+    // Bắt sự kiện click trên container chứa nút "Xem thêm"
+    $(document).on('click', '#load_more_container a', function(e) {
+        e.preventDefault();
+
+        var container = $('#load_more_container');
+        
+        // Tìm link của trang tiếp theo từ khu vực phân trang BỊ ẨN
+        var nextPageLink = $('#hidden_pager').find('a.next, a:contains("Tiếp theo"), a:contains("Trang tiếp")');
+
+        if (nextPageLink.length === 0) {
+            container.hide();
+            return;
+        }
+
+        var url = nextPageLink.attr('href');
+        
+        container.html('<p style="padding:10px;">Đang tải...</p>');
+
+        // Thêm tham số is_ajax=1 vào URL
+        var ajaxUrl = url + (url.indexOf('?') > -1 ? '&' : '?') + 'is_ajax=1';
+
+        $.ajax({
+            url: ajaxUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Đổi 'goods_list' thành 'article_list' và '#brand_goods_list' thành '#article-container'
+                if (response && response.article_list) {
+                    $('#article-container').append(response.article_list);
+                }
+                
+                if (response && response.hidden_pager) {
+                    $('#hidden_pager').html(response.hidden_pager);
+                }
+                
+                if (response && response.load_more_button && response.load_more_button.trim().length > 0) {
+                    container.html(response.load_more_button);
+                } else {
+                    container.hide();
+                }
+            },
+            error: function() {
+                alert("Đã có lỗi xảy ra, vui lòng thử lại.");
+                container.html('<a href="' + url + '">Thử lại</a>');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

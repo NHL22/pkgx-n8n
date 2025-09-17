@@ -20,10 +20,8 @@
                 <span class="cart" id="cart">
             <a href="gio-hang"><i class="iconmobile-cart"></i>{insert name='cart_info'}</a>
         </span>
-        <div class="menu" id="_menu"><i class="iconmobile-menu"></i></div>
     </div>
     <!-- sugguest -->
-    {include file='library/category_tree.lbi'}
 </header>
 
 {$render.after_header}

@@ -103,7 +103,29 @@ $(".cart-qty-minus").click(function() {
     document.getElementById('updatecart').click();
 });
 </script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    // Tìm đến form thanh toán bằng ID chính xác mà bạn đã cung cấp
+    const checkoutForm = document.getElementById('checkout_form');
 
+    if (checkoutForm) {
+      checkoutForm.addEventListener('submit', function() {
+        // Tìm nút submit bên trong form đó
+        const submitButton = checkoutForm.querySelector('input[type="submit"]');
+
+        if (submitButton) {
+          // Vô hiệu hóa nút ngay lập tức khi form được gửi đi
+          submitButton.disabled = true;
+
+          // Thay đổi chữ trên nút để người dùng biết hệ thống đang xử lý
+          submitButton.value = 'Đang xử lý, vui lòng chờ...';
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>
 </body>
 </html>
 {/if}

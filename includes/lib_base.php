@@ -20,6 +20,11 @@ if (!defined('IN_ECS'))
     die('Hacking attempt');
 }
 
+if (!defined('M_CHARSET'))
+{
+    define('M_CHARSET', EC_CHARSET);
+}
+
 /**
  * 截取UTF-8编码下字符串的函数
  *
@@ -747,6 +752,9 @@ function stripslashes_deep($value)
  *
  * @return  string       $str         处理后字串
  */
+
+if (!function_exists('make_semiangle'))
+{
 function make_semiangle($str)
 {
     $arr = array('０' => '0', '１' => '1', '２' => '2', '３' => '3', '４' => '4',
@@ -774,7 +782,7 @@ function make_semiangle($str)
 
     return strtr($str, $arr);
 }
-
+}
 /**
  * 过滤用户输入的基本数据，防止script攻击
  *
@@ -1009,26 +1017,58 @@ function ecs_header($string, $replace = true, $http_response_code = 0)
         @header($string, $replace, $http_response_code);
     }
 }
-
-function ecs_iconv($source_lang, $target_lang, $source_string = '')
+if (!function_exists('ecs_iconv'))
 {
-    static $chs = NULL;
-
-    /* 如果字符串为空或者字符串不需要转换，直接返回 */
-    if ($source_lang == $target_lang || $source_string == '' || preg_match("/[\x80-\xFF]+/", $source_string) == 0)
+    function ecs_iconv($source_lang, $target_lang, $source_string = '')
     {
-        return $source_string;
-    }
+        if ($source_string === '' || $source_lang === $target_lang)
+        {
+            return $source_string;
+        }
 
-    if ($chs === NULL)
-    {
-        require_once(ROOT_PATH . 'includes/cls_iconv.php');
-        $chs = new Chinese(ROOT_PATH);
-    }
+        if (function_exists('iconv') && M_CHARSET != 'zh_cn')
+        {
+            $return_string = iconv($source_lang, $target_lang, $source_string);
+        }
+        elseif (substr(M_CHARSET, 0, 2) == 'zh')
+        {
+            if ($source_lang == 'UTF8')
+            {
+                $source_lang = 'UTF-8';
+            }
 
-    return $chs->Convert($source_lang, $target_lang, $source_string);
+            if ($target_lang == 'UTF8')
+            {
+                $target_lang = 'UTF-8';
+            }
+
+            if ($source_lang == 'GB2312')
+            {
+                $source_lang = 'GBK';
+            }
+
+            if ($target_lang == 'GB2312')
+            {
+                $target_lang = 'GBK';
+            }
+            
+            // Đảm bảo file cls_iconv.php được nạp để có class Chinese
+            if (!class_exists('Chinese')) {
+                include_once(ROOT_PATH . 'includes/cls_iconv.php');
+            }
+
+            // DÒNG ĐÃ SỬA: Truyền đủ 2 tham số vào hàm khởi tạo
+            $chinese = new Chinese($source_lang, $target_lang);
+            $return_string = $chinese->Convert($source_string);
+        }
+        else
+        {
+            $return_string = $source_string;
+        }
+
+        return $return_string;
+    }
 }
-
 function ecs_geoip($ip)
 {
     static $fp = NULL, $offset = array(), $index = NULL;
@@ -1154,6 +1194,8 @@ function move_upload_file($file_name, $target_name = '')
  * @param string $str
  * @return string
  */
+if (!function_exists('json_str_iconv'))
+{
 function json_str_iconv($str)
 {
     if (EC_CHARSET != 'utf-8')
@@ -1185,7 +1227,7 @@ function json_str_iconv($str)
     }
     return $str;
 }
-
+}
 /**
  * 循环转码成utf8内容
  *

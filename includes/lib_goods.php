@@ -346,6 +346,8 @@ function get_recommend_goods($type = '', $cats = '')
             $goods[$idx]['short_style_name']   = add_style($goods[$idx]['short_name'],$row['goods_name_style']);
             $goods[$idx]['market_price'] = price_format($row['market_price']);
             $goods[$idx]['shop_price']   = price_format($row['shop_price']);
+            $goods[$idx]['shop_price_raw']   = $row['shop_price'];
+
             $goods[$idx]['deal_price'] =  price_format($row['deal_price']);
             $goods[$idx]['partner_price'] =  price_format($row['partner_price']);
             $goods[$idx]['thumb']        = get_image_path($row['goods_id'], $row['goods_thumb'], true);
@@ -437,6 +439,7 @@ function get_promote_goods($cats = '')
         $goods[$idx]['short_style_name']   = add_style($goods[$idx]['short_name'],$row['goods_name_style']);
         $goods[$idx]['market_price'] = price_format($row['market_price']);
         $goods[$idx]['shop_price']   = price_format($row['shop_price']);
+        $goods[$idx]['shop_price_raw']   = $row['shop_price'];
         $goods[$idx]['deal_price'] =  price_format($row['deal_price']);
         $goods[$idx]['partner_price'] =  price_format($row['partner_price']);
         $goods[$idx]['thumb']        = get_image_path($row['goods_id'], $row['goods_thumb'], true);
@@ -549,6 +552,7 @@ function get_category_recommend_goods($type = '', $cats = '', $brand = 0, $min =
         $goods[$idx]['shop_price']   = price_format($row['shop_price']);
         $goods[$idx]['deal_price'] =  price_format($row['deal_price']);
         $goods[$idx]['partner_price'] =  price_format($row['partner_price']);
+        $goods[$idx]['shop_price_raw']   = $row['shop_price'];
 
         $goods[$idx]['thumb']        = get_image_path($row['goods_id'], $row['goods_thumb'], true);
 
@@ -605,6 +609,7 @@ function get_goods_info($goods_id)
         /* 获得商品的销售价格 */
         $row['market_price']        = price_format($row['market_price']);
         $row['shop_price_formated'] = price_format($row['shop_price']);
+        $row['shop_price_raw'] = intval($row['shop_price']);
 
         /* 修正促销价格 */
         if ($row['promote_price'] > 0)
@@ -812,6 +817,8 @@ function get_same_attribute_goods($attr)
                 $lnk[$key]['goods'][$row['goods_id']]['goods_thumb']     = (empty($row['goods_thumb'])) ? $GLOBALS['_CFG']['no_picture'] : $row['goods_thumb'];
                 $lnk[$key]['goods'][$row['goods_id']]['market_price']  = price_format($row['market_price']);
                 $lnk[$key]['goods'][$row['goods_id']]['shop_price']    = price_format($row['shop_price']);
+                $lnk[$key]['goods'][$row['goods_id']]['shop_price_raw']    = $row['shop_price'];
+
                 $lnk[$key]['goods'][$row['goods_id']]['promote_price'] = bargain_price($row['promote_price'],
                     $row['promote_start_date'], $row['promote_end_date']);
                 $lnk[$key]['goods'][$row['goods_id']]['url']           = build_uri('goods', array('gid' => $row['goods_id']), $row['goods_name']);
@@ -923,6 +930,7 @@ function assign_cat_goods($cat_id, $num = 0, $from = 'web', $order_rule = '')
         $goods[$idx]['short_name']   = $GLOBALS['_CFG']['goods_name_length'] > 0 ?
                                         sub_str($row['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $row['goods_name'];
         $goods[$idx]['shop_price']   = price_format($row['shop_price']);
+        $goods[$idx]['shop_price_raw']   = price_format($row['shop_price']);
 
         $goods[$idx]['deal_price'] =  price_format($row['deal_price']);
         $goods[$idx]['partner_price'] =  price_format($row['partner_price']);
@@ -1057,6 +1065,7 @@ function assign_brand_goods($brand_id, $num = 0, $cat_id = 0,$order_rule = '')
         $goods[$idx]['shop_price']    = price_format($row['shop_price']);
         $goods[$idx]['deal_price'] =  price_format($row['deal_price']);
         $goods[$idx]['partner_price'] =  price_format($row['partner_price']);
+        $goods[$idx]['shop_price_raw']    = $row['shop_price'];
 
         $goods[$idx]['promote_price'] = $promote_price > 0 ? price_format($promote_price) : '';
         $goods[$idx]['brief']         = $row['goods_brief'];
@@ -1678,6 +1687,7 @@ function get_goods_fittings($goods_list = array())
         $arr[$temp_index]['formated_promote_price'] = price_format($promote_price);
         $arr[$temp_index]['fittings_price']    = price_format($row['goods_price']);//配件价格
         $arr[$temp_index]['shop_price']        = price_format($row['shop_price']);//配件原价格
+        $arr[$temp_index]['shop_price_raw']    = $row['shop_price'];//配件原价格
         $arr[$temp_index]['goods_thumb']       = get_image_path($row['goods_id'], $row['goods_thumb'], true);
         $arr[$temp_index]['goods_img']         = get_image_path($row['goods_id'], $row['goods_img']);
         $arr[$temp_index]['url']               = build_uri('goods', array('gid'=>$row['goods_id']), $row['goods_name']);

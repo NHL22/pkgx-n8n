@@ -70,7 +70,10 @@
 	
 </section>
 {include file='library/page_footer.lbi'}
-{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
 {include file='library/html_footer.lbi'}
+{include file='library/html_footer_menu.lbi'}
+
+{insert_js name='default.Mobile.min.js' no_minify='js/jquery.min.1.8.3.js,js/plugins.js,js/lang.vi_vn.js' minify='js/global.js,js/init.js'}
+
 </body>
 </html>
